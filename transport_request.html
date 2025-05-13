@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Transport - Flog Ride</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <div class="top-bar">
+            <a href="home.html" class="top-bar-icon leading">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+            </a>
+            <h1 class="top-bar-title">Request New Transport</h1>
+            <div class="w-6"></div> </div>
+
+        <div class="page-content page-content-with-top-bar" style="padding-bottom: 20px;">
+            <form id="transportRequestForm" class="w-full" style="max-height: calc(100vh - 80px); overflow-y: auto;">
+                
+                <div class="map-display-placeholder">
+                    Map Area: Select start and end points here.<br>(Interactive map functionality would be here in a real app)
+                </div>
+
+                <div>
+                    <label for="startLocation" class="form-label">Start Location</label>
+                    <input type="text" id="startLocation" class="input-field" placeholder="e.g., NGO Office, Abuja" required>
+                    <p class="text-xs text-ngo-dark-gray -mt-2 mb-2">Ideally, pick from map or type to search.</p>
+                </div>
+                <div>
+                    <label for="endLocation" class="form-label">End Location / Destination</label>
+                    <input type="text" id="endLocation" class="input-field" placeholder="e.g., Kaduna Field Site" required>
+                    <p class="text-xs text-ngo-dark-gray -mt-2 mb-2">Ideally, pick from map or type to search.</p>
+                </div>
+
+                <div>
+                    <label for="tripType" class="form-label">Trip Type</label>
+                    <select id="tripType" class="select-field" required>
+                        <option value="" disabled selected>Select trip type</option>
+                        <option value="intra_short">Intra-State Short Term (up to 3hrs)</option>
+                        <option value="intra_half">Intra-State Half Day (up to 4hrs)</option>
+                        <option value="intra_full">Intra-State Full Day (5-8hrs)</option>
+                        <option value="intra_multi">Intra-State Multiple Days</option>
+                        <option value="inter_dropoff">Inter-State Drop Off</option>
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="startDate" class="form-label">Start Date</label>
+                        <input type="date" id="startDate" class="input-field" required>
+                    </div>
+                    <div>
+                        <label for="startTime" class="form-label">Start Time</label>
+                        <input type="time" id="startTime" class="input-field" required>
+                    </div>
+                </div>
+                <div id="endDateContainer" class="grid grid-cols-2 gap-4" style="display: none;"> <div>
+                        <label for="endDate" class="form-label">End Date</label>
+                        <input type="date" id="endDate" class="input-field">
+                    </div>
+                </div>
+
+
+                <div>
+                    <label for="purpose" class="form-label">Purpose of Travel</label>
+                    <textarea id="purpose" class="input-field" rows="2" placeholder="Briefly describe the reason for this trip" required></textarea>
+                </div>
+
+                <div>
+                    <label for="vehicleType" class="form-label">Vehicle Type</label>
+                    <select id="vehicleType" class="select-field" required>
+                        <option value="" disabled selected>Select vehicle type</option>
+                        <option value="motorbike" data-rate="500">Motorbike</option>
+                        <option value="sedan" data-rate="1000">Car (Sedan)</option>
+                        <option value="bus" data-rate="3000">Minivan (Bus - 16 Seater)</option>
+                        <option value="4x4" data-rate="4000">4x4 Runner (Hilux, Jeep, Pick-up)</option>
+                        <option value="truck" data-rate="5000">Truck</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="passengers" class="form-label">Number of Passengers</label>
+                    <input type="number" id="passengers" class="input-field" min="1" placeholder="e.g., 1" required>
+                </div>
+
+                <div>
+                    <label for="tripApprovalDoc" class="form-label">Optional: Upload Trip Approval</label>
+                    <input type="file" id="tripApprovalDoc" class="file-input-field">
+                </div>
+                
+                <div class="estimate-box">
+                    <h3>Trip Estimates</h3>
+                    <p>Estimated Distance: <span id="distanceEstimateText" class="highlight">-- km</span></p>
+                    <p>Estimated Fare: <span id="fareEstimateText" class="highlight">NGN --</span></p>
+                    <p class="text-xs text-ngo-dark-gray mt-2">Final fare may vary. This is an estimate based on distance and vehicle type.</p>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-full mt-4 mb-2 text-lg">Submit Request</button>
+                <button type="button" class="btn btn-secondary w-full mb-2 text-lg" onclick="window.location.href='home.html'">Cancel</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        // DOM Elements
+        const tripTypeSelect = document.getElementById('tripType');
+        const endDateContainer = document.getElementById('endDateContainer');
+        const endDateInput = document.getElementById('endDate');
+        const startLocationInput = document.getElementById('startLocation');
+        const endLocationInput = document.getElementById('endLocation');
+        const vehicleTypeSelect = document.getElementById('vehicleType');
+        const distanceEstimateText = document.getElementById('distanceEstimateText');
+        const fareEstimateText = document.getElementById('fareEstimateText');
+
+        // Event listener for showing/hiding end date
+        tripTypeSelect.addEventListener('change', function() {
+            if (this.value === 'intra_multi') {
+                endDateContainer.style.display = 'grid';
+                endDateInput.required = true;
+            } else {
+                endDateContainer.style.display = 'none';
+                endDateInput.required = false;
+                endDateInput.value = ''; 
+            }
+            updateEstimates(); // Update estimates when trip type changes
+        });
+
+        // Function to simulate estimate calculation
+        function updateEstimates() {
+            const startLoc = startLocationInput.value.trim();
+            const endLoc = endLocationInput.value.trim();
+            const selectedVehicleOption = vehicleTypeSelect.options[vehicleTypeSelect.selectedIndex];
+            const ratePerKm = parseFloat(selectedVehicleOption.dataset.rate) || 0;
+
+            let estimatedDistance = 0;
+            let baseFare = 500; // A minimum base fare
+
+            // Simulate distance calculation based on input length (very basic)
+            if (startLoc.length > 2 && endLoc.length > 2) {
+                estimatedDistance = (startLoc.length + endLoc.length) * 5; // Arbitrary multiplier
+                // Add more "realistic" random distance for variety
+                estimatedDistance += Math.floor(Math.random() * 100) + 50; 
+            } else {
+                distanceEstimateText.textContent = "-- km";
+                fareEstimateText.textContent = "NGN --";
+                return;
+            }
+            
+            distanceEstimateText.textContent = estimatedDistance.toFixed(0) + " km";
+
+            let estimatedFare = baseFare + (estimatedDistance * ratePerKm);
+
+            // Adjust fare based on trip type (simple multiplier for mockup)
+            switch (tripTypeSelect.value) {
+                case 'intra_half':
+                    estimatedFare *= 1.2;
+                    break;
+                case 'intra_full':
+                    estimatedFare *= 1.5;
+                    break;
+                case 'intra_multi':
+                    estimatedFare *= 2.5; // Assuming per day, very rough estimate
+                    break;
+                case 'inter_dropoff':
+                    estimatedFare *= 2;
+                    break;
+            }
+            
+            if (estimatedFare > 0 && ratePerKm > 0) {
+                 fareEstimateText.textContent = "NGN " + estimatedFare.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+            } else {
+                 fareEstimateText.textContent = "NGN --";
+            }
+        }
+
+        // Add event listeners to inputs that affect estimates
+        startLocationInput.addEventListener('input', updateEstimates);
+        endLocationInput.addEventListener('input', updateEstimates);
+        vehicleTypeSelect.addEventListener('change', updateEstimates);
+        
+        // Initial call to set estimates if values are pre-filled (e.g. on page load if we had defaults)
+        // updateEstimates(); 
+
+        // Form submission
+        document.getElementById('transportRequestForm').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+            console.log('Transport request submitted.');
+            // Pass data to confirmation page via query parameters (simple example)
+            const params = new URLSearchParams({
+                from: startLocationInput.value,
+                to: endLocationInput.value,
+                date: document.getElementById('startDate').value,
+                vehicle: vehicleTypeSelect.options[vehicleTypeSelect.selectedIndex].text,
+                fare: fareEstimateText.textContent
+            });
+            window.location.href = 'request_confirmation.html?' + params.toString(); 
+        });
+    </script>
+</body>
+</html>

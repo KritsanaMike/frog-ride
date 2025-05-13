@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ride Details - Flog Ride</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap)" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <div class="top-bar">
+            <a href="history.html" class="top-bar-icon leading">
+                <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+            </a>
+            <h1 class="top-bar-title">Ride Details</h1>
+            <div class="w-6"></div> </div>
+
+        <div class="page-content page-content-with-top-bar" style="padding-bottom: 20px;">
+            <div class="mb-4">
+                <div class="flex justify-between items-center mb-3">
+                    <h2 class="text-xl font-semibold text-ngo-blueblack">Airport Pickup - Lagos</h2>
+                    <span class="history-item-status status-completed">Completed</span> 
+                    </div>
+            </div>
+
+            <div class="mb-6">
+                <div class="details-info-item">
+                    <p class="details-info-label">Date & Time</p>
+                    <p class="details-info-value">May 01, 2025 - 02:30 PM</p>
+                </div>
+                <div class="details-info-item">
+                    <p class="details-info-label">From</p>
+                    <p class="details-info-value">Murtala Muhammed International Airport, Lagos</p>
+                </div>
+                <div class="details-info-item">
+                    <p class="details-info-label">To</p>
+                    <p class="details-info-value">NGO Guest House, Ikeja</p>
+                </div>
+                <div class="details-info-item">
+                    <p class="details-info-label">Purpose</p>
+                    <p class="details-info-value">Staff pickup from airport</p>
+                </div>
+                <div class="details-info-item">
+                    <p class="details-info-label">Vehicle Type</p>
+                    <p class="details-info-value">Toyota Corolla</p>
+                </div>
+                <div class="details-info-item">
+                    <p class="details-info-label">Driver</p>
+                    <p class="details-info-value">Funke Adebayo (+234 80X XXX XXXX)</p>
+                </div>
+                 <div class="details-info-item">
+                    <p class="details-info-label">Number of Passengers</p>
+                    <p class="details-info-value">1</p>
+                </div>
+                <div class="details-info-item">
+                    <p class="details-info-label">Final Fare</p>
+                    <p class="details-info-value text-ngo-orange font-bold">NGN 8,000</p>
+                </div>
+                <div class="details-info-item">
+                    <p class="details-info-label">Payment Status</p>
+                    <p class="details-info-value">Paid (via Organization Account)</p>
+                </div>
+                <div class="details-info-item">
+                    <p class="details-info-label">Rating Given</p>
+                    <p class="details-info-value">4 Stars (Sample)</p> </div>
+                 <div class="details-info-item">
+                    <p class="details-info-label">Trip Approval Document</p>
+                    <p class="details-info-value"><a href="#" class="link">approval_letter.pdf</a> (If uploaded)</p>
+                    </div>
+            </div>
+            
+            <div id="actionsContainer">
+                <button class="btn btn-secondary w-full max-w-sm mb-2 text-lg" onclick="alert('Report issue functionality to be implemented.')">Report an Issue</button>
+            </div>
+            <button class="btn btn-primary w-full max-w-sm mb-2 text-lg" onclick="window.location.href='history.html'">Back to History</button>
+        </div>
+    </div>
+    <script>
+        // Placeholder: You would use JS to get tripId from URL and fetch/display actual data
+        // For example: const urlParams = new URLSearchParams(window.location.search);
+        // const tripId = urlParams.get('id');
+        // console.log("Displaying details for trip ID:", tripId);
+    </script>
+</body>
+</html>

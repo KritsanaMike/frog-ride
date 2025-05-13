@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile - Flog Ride</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap)" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <div class="top-bar">
+            <a href="profile.html" class="text-ngo-orange">
+                <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+            </a>
+            <h1 class="top-bar-title">Edit Profile</h1>
+            <div class="w-6"></div> </div>
+
+        <div class="page-content" style="padding-bottom: 20px;">
+            <form id="editProfileForm" class="w-full" style="max-height: calc(100vh - 80px); overflow-y: auto;">
+                <div>
+                    <label for="editFullName" class="form-label">Staff Full Name</label>
+                    <input type="text" id="editFullName" class="input-field" value="Aisha Bello (Sample)" required>
+                </div>
+                <div>
+                    <label for="editOrgEmail" class="form-label">Organizational Email</label>
+                    <input type="email" id="editOrgEmail" class="input-field" value="aisha.bello@ngo.org" readonly>
+                    <p class="text-xs text-ngo-dark-gray mt-1 mb-2">Organizational email cannot be changed.</p>
+                </div>
+                <div>
+                    <label for="editOrgName" class="form-label">Organization Name</label>
+                    <input type="text" id="editOrgName" class="input-field" value="Hope Foundation Nigeria" required>
+                </div>
+                <div>
+                    <label for="editLocation" class="form-label">Location (State)</label>
+                    <input type="text" id="editLocation" class="input-field" value="Abuja FCT" required>
+                </div>
+                <div>
+                    <label for="editDepartment" class="form-label">Department / Unit</label>
+                    <input type="text" id="editDepartment" class="input-field" value="Field Operations" required>
+                </div>
+                <div>
+                    <label for="editContactNumber" class="form-label">Contact Number</label>
+                    <input type="tel" id="editContactNumber" class="input-field" value="+234 801 234 5678" required>
+                </div>
+                <div>
+                    <label for="editOfficeAddress" class="form-label">Office Address</label>
+                    <textarea id="editOfficeAddress" class="input-field" rows="2" required>123 Freedom Way, Garki, Abuja</textarea>
+                </div>
+
+                <p class="form-label mt-4">Required Service Types:</p>
+                <div class="space-y-2 mb-4">
+                    <label class="flex items-center">
+                        <input type="checkbox" name="editServiceType" value="transport" class="form-checkbox h-5 w-5 text-ngo-orange mr-2 border-ngo-border-gray focus-ring-ngo-orange" checked>
+                        Transport
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" name="editServiceType" value="hotel" class="form-checkbox h-5 w-5 text-ngo-orange mr-2 border-ngo-border-gray focus-ring-ngo-orange" checked>
+                        Hotel
+                    </label>
+                </div>
+
+                <div class="mt-6 mb-4">
+                     <a href="#" class="link" onclick="alert('Change Password functionality to be implemented.')">Change Password?</a>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-full mt-4 mb-2">Save Changes</button>
+                <a href="profile.html" class="btn btn-secondary w-full">Cancel</a>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.getElementById('editProfileForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent actual submission for mockup
+            // Add any client-side validation or mock save logic
+            console.log('Profile update attempt for:', document.getElementById('editFullName').value);
+            alert('Profile updated successfully (mock)!');
+            window.location.href = 'profile.html'; // Navigate back to profile page
+        });
+    </script>
+</body>
+</html>

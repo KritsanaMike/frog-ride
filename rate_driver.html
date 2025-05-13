@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate Driver - Flog Ride</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap)" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <div class="top-bar">
+            <a href="history.html" class="top-bar-icon leading">
+                <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+            </a>
+            <h1 class="top-bar-title">Rate Your Driver</h1>
+            <div class="w-6"></div> </div>
+
+        <div class="page-content page-content-with-top-bar text-center" style="padding-bottom: 20px;">
+            <form id="rateDriverForm" class="w-full">
+                <p class="text-ngo-dark-gray mb-2">Trip: <span class="font-semibold text-ngo-blueblack">Airport Pickup - Lagos (Sample)</span></p>
+                <p class="text-ngo-dark-gray mb-4">Driver: <span class="font-semibold text-ngo-blueblack">Funke Adebayo (Sample)</span></p>
+
+                <label class="form-label text-left mb-2">Your Rating:</label>
+                <div class="rating-stars mb-6">
+                    <span data-value="1">&#9733;</span>
+                    <span data-value="2">&#9733;</span>
+                    <span data-value="3">&#9733;</span>
+                    <span data-value="4">&#9733;</span>
+                    <span data-value="5">&#9733;</span>
+                </div>
+                <input type="hidden" id="ratingValue" name="ratingValue" required>
+
+                <div>
+                    <label for="feedbackComments" class="form-label text-left">Comments (Optional):</label>
+                    <textarea id="feedbackComments" class="input-field" rows="4" placeholder="Share your experience..."></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-full mt-6 mb-2 text-lg">Submit Rating</button>
+                <button class="btn btn-secondary w-full max-w-sm mb-2 text-lg" onclick="window.location.href='history.html'">Skip for Now</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        const stars = document.querySelectorAll('.rating-stars span');
+        const ratingValueInput = document.getElementById('ratingValue');
+
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                const value = this.dataset.value;
+                ratingValueInput.value = value;
+                stars.forEach(s => {
+                    s.classList.toggle('active', s.dataset.value <= value);
+                });
+            });
+        });
+
+        document.getElementById('rateDriverForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            if (!ratingValueInput.value) {
+                alert('Please select a star rating.');
+                return;
+            }
+            console.log('Rating:', ratingValueInput.value);
+            console.log('Comments:', document.getElementById('feedbackComments').value);
+            alert('Thank you for your feedback (mock)!');
+            window.location.href = 'history.html';
+        });
+    </script>
+</body>
+</html>

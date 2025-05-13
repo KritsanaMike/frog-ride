@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Confirmed - Flog Ride</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap)" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <div class="page-content flex-col items-center justify-center text-center">
+            <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" class="h-24 w-24 text-ngo-orange mb-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+
+            <h1 class="text-2xl font-bold text-ngo-blueblack mb-3">Ride Request Submitted!</h1>
+            <p class="text-ngo-dark-gray mb-2">Your request for transport has been received.</p>
+            <p class="text-ngo-dark-gray mb-6">We are searching for available drivers and will notify you once a driver is assigned. You can track the status in your "Ongoing Activity" on the home screen or in your ride history.</p>
+            
+            <div class="w-full max-w-sm mb-6 p-4 bg-ngo-light-gray-accent rounded-md">
+                <h3 class="font-semibold text-ngo-blueblack mb-2">Summary:</h3>
+                <p class="text-sm text-ngo-dark-gray text-left"><strong>From:</strong> <span id="summaryFrom"></span></p>
+                <p class="text-sm text-ngo-dark-gray text-left"><strong>To:</strong> <span id="summaryTo"></span></p>
+                <p class="text-sm text-ngo-dark-gray text-left"><strong>Date:</strong> <span id="summaryDate"></span></p>
+                <p class="text-sm text-ngo-dark-gray text-left"><strong>Vehicle:</strong> <span id="summaryVehicle"></span></p>
+                <p class="text-sm text-ngo-dark-gray text-left mt-2"><strong>Estimated Fare:</strong> <span id="summaryFare" class="font-bold text-ngo-orange"></span></p>
+            </div>
+
+
+            <button class="btn btn-primary w-full max-w-sm mb-2 text-lg" onclick="window.location.href='home.html'">Back to Home</button>
+            <a href="history.html" class="link w-full max-w-sm">View Ride History</a>
+        </div>
+    </div>
+    <script>
+        // Get data from URL query parameters
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            document.getElementById('summaryFrom').textContent = params.get('from') || 'N/A';
+            document.getElementById('summaryTo').textContent = params.get('to') || 'N/A';
+            document.getElementById('summaryDate').textContent = params.get('date') || 'N/A';
+            document.getElementById('summaryVehicle').textContent = params.get('vehicle') || 'N/A';
+            document.getElementById('summaryFare').textContent = params.get('fare') || 'N/A';
+        });
+    </script>
+</body>
+</html>

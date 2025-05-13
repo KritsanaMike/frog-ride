@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Flog Ride</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"></head>
+<body>
+    <div class="app-container">
+        <div class="page-content" style="padding-bottom: 20px;"> <h1 class="page-header-title">Create NGO Staff Account</h1>
+            <form id="registrationForm" class="w-full" style="max-height: calc(100vh - 100px); overflow-y: auto;">
+                <div>
+                    <label for="regFullName" class="form-label">Staff Full Name</label>
+                    <input type="text" id="regFullName" class="input-field" placeholder="John Doe" required>
+                </div>
+                <div>
+                    <label for="regOrgEmail" class="form-label">Organizational Email</label>
+                    <input type="email" id="regOrgEmail" class="input-field" placeholder="your.email@ngo.org" required>
+                </div>
+                <div>
+                    <label for="regOrgName" class="form-label">Organization Name</label>
+                    <input type="text" id="regOrgName" class="input-field" placeholder="Your NGO Name" required>
+                </div>
+                <div>
+                    <label for="regLocation" class="form-label">Location (State)</label>
+                    <input type="text" id="regLocation" class="input-field" placeholder="e.g., Lagos" required>
+                </div>
+                <div>
+                    <label for="regDepartment" class="form-label">Department / Unit</label>
+                    <input type="text" id="regDepartment" class="input-field" placeholder="e.g., Programs" required>
+                </div>
+                <div>
+                    <label for="regContactNumber" class="form-label">Contact Number</label>
+                    <input type="tel" id="regContactNumber" class="input-field" placeholder="+234 XXX XXX XXXX" required>
+                </div>
+                <div>
+                    <label for="regOfficeAddress" class="form-label">Office Address</label>
+                    <textarea id="regOfficeAddress" class="input-field" rows="2" placeholder="123 NGO Street, City" required></textarea>
+                </div>
+                 <div>
+                    <label for="regPassword" class="form-label">Password</label>
+                    <input type="password" id="regPassword" class="input-field" placeholder="Create a strong password" required>
+                </div>
+                <div>
+                    <label for="regConfirmPassword" class="form-label">Confirm Password</label>
+                    <input type="password" id="regConfirmPassword" class="input-field" placeholder="Confirm your password" required>
+                </div>
+
+                <p class="form-label mt-4">Required Service Types:</p>
+                <div class="space-y-2 mb-4">
+                    <label class="flex items-center">
+                        <input type="checkbox" name="serviceType" value="transport" class="form-checkbox h-5 w-5 text-ngo-orange mr-2 border-ngo-border-gray focus-ring-ngo-orange">
+                        Transport (short term / half day / full day / multiple days)
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" name="serviceType" value="hotel" class="form-checkbox h-5 w-5 text-ngo-orange mr-2 border-ngo-border-gray focus-ring-ngo-orange">
+                        Hotel (in days)
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-full mt-4 mb-2 text-lg">Register</button>
+                <p class="text-center text-ngo-dark-gray ">
+                    Already have an account? <a href="login.html" class="link">Login</a>
+                </p>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent actual submission for mockup
+            // Add any client-side validation or mock registration logic
+            console.log('Registration attempt with email:', document.getElementById('regOrgEmail').value);
+            alert('Registration successful (mock)! Please login.');
+            window.location.href = 'login.html'; // Navigate to login page
+        });
+    </script>
+</body>
+</html>
