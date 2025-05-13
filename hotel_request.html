@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Hotel - Flog Ride</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <div class="top-bar">
+            <a href="home.html" class="top-bar-icon leading">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+            </a>
+            <h1 class="top-bar-title">Find Hotel Accommodation</h1>
+            <div class="w-6"></div> </div>
+
+        <div class="page-content page-content-with-top-bar" style="padding-bottom: 20px;">
+            <form id="hotelRequestForm" class="w-full" style="max-height: calc(100vh - 80px); overflow-y: auto;">
+                <div>
+                    <label for="hotelLocation" class="form-label">Location / City for Hotel</label>
+                    <input type="text" id="hotelLocation" class="input-field" placeholder="e.g., Abuja, Lagos, Kaduna" required>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="checkInDate" class="form-label">Check-in Date</label>
+                        <input type="date" id="checkInDate" class="input-field" required>
+                    </div>
+                    <div>
+                        <label for="checkOutDate" class="form-label">Check-out Date</label>
+                        <input type="date" id="checkOutDate" class="input-field" required>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="numGuests" class="form-label">Number of Guests</label>
+                        <input type="number" id="numGuests" class="input-field" min="1" placeholder="e.g., 1" required>
+                    </div>
+                    <div>
+                        <label for="numRooms" class="form-label">Number of Rooms</label>
+                        <input type="number" id="numRooms" class="input-field" min="1" placeholder="e.g., 1" required>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="roomTypePreference" class="form-label">Room Type Preference (Optional)</label>
+                    <select id="roomTypePreference" class="select-field">
+                        <option value="">Any</option>
+                        <option value="single">Single Room</option>
+                        <option value="double">Double Room</option>
+                        <option value="suite">Suite</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="additionalRequirements" class="form-label">Additional Requirements (Optional)</label>
+                    <textarea id="additionalRequirements" class="input-field" rows="3" placeholder="e.g., Quiet room, specific amenities..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-primary w-full mt-6 mb-2 text-lg">Search Hotels</button>
+                <button class="btn btn-secondary w-full max-w-sm mt-2 mb-2 text-lg" onclick="window.location.href='home.html'" >Cancel</button>
+               
+            </form>
+        </div>
+    </div>
+    <script>
+        document.getElementById('hotelRequestForm').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+            // Add validation and actual submission logic here
+            console.log('Hotel search submitted for location:', document.getElementById('hotelLocation').value);
+            // For mockup, directly navigate to search results
+            window.location.href = 'hotel_search_results.html'; 
+        });
+    </script>
+</body>
+</html>

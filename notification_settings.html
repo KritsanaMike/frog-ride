@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification Settings - Flog Ride</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap)" rel="stylesheet">
+    <style>
+        .toggle-switch { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid #e9ecef; }
+        .toggle-switch:last-child { border-bottom: none; }
+        .toggle-switch label { font-weight: 500; color: #1C2833; }
+        .switch { position: relative; display: inline-block; width: 50px; height: 28px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 28px; }
+        .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: #ff6b0b; }
+        input:checked + .slider:before { transform: translateX(22px); }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="top-bar">
+            <a href="settings.html" class="top-bar-icon leading">
+                <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+            </a>
+            <h1 class="top-bar-title">Notification Settings</h1>
+            <div class="w-6"></div>
+        </div>
+        <div class="page-content page-content-with-top-bar" style="padding: 0 20px 20px 20px;">
+            <div class="toggle-switch">
+                <label for="rideUpdates">Ride Updates (Confirmed, En Route, Completed)</label>
+                <div class="switch">
+                    <input type="checkbox" id="rideUpdates" checked>
+                    <span class="slider"></span>
+                </div>
+            </div>
+            <div class="toggle-switch">
+                <label for="hotelUpdates">Hotel Booking Updates</label>
+                <div class="switch">
+                    <input type="checkbox" id="hotelUpdates" checked>
+                    <span class="slider"></span>
+                </div>
+            </div>
+            <div class="toggle-switch">
+                <label for="promotions">Promotional Offers</label>
+                <div class="switch">
+                    <input type="checkbox" id="promotions">
+                    <span class="slider"></span>
+                </div>
+            </div>
+            <div class="toggle-switch">
+                <label for="appUpdates">App Updates & Announcements</label>
+                <div class="switch">
+                    <input type="checkbox" id="appUpdates" checked>
+                    <span class="slider"></span>
+                </div>
+            </div>
+             <button class="btn btn-primary w-full mt-8" onclick="alert('Settings saved (mock)!')">Save Preferences</button>
+        </div>
+    </div>
+</body>
+</html>

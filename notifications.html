@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications - Flog Ride</title>
+    <link rel="stylesheet" href="style.css"> <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap)" rel="stylesheet">
+    <style>
+        .notification-item {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+        .notification-item.unread {
+            background-color: #fff9e6; /* Light yellow for unread */
+            font-weight: 500;
+        }
+        .notification-item .timestamp {
+            font-size: 0.75rem;
+            color: #6c757d;
+            display: block;
+            margin-top: 0.25rem;
+        }
+        .notification-item .icon { /* Placeholder for icons */
+            margin-right: 0.75rem;
+            color: #ff6b0b;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="top-bar">
+            <a href="home.html" class="top-bar-icon leading">
+                <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+            </a>
+            <h1 class="top-bar-title">Notifications</h1>
+            <div class="w-6"></div> </div>
+
+        <div class="page-content page-content-with-top-bar page-content-with-bottom-nav">
+            <div class="w-full">
+                <div class="notification-item unread flex items-start p-3 rounded-md">
+                    <span class="icon">&#128276;</span> <div>
+                        Your ride to Kaduna has been confirmed! Driver Bala Ahmed is assigned.
+                        <span class="timestamp">2 mins ago</span>
+                    </div>
+                </div>
+                <div class="notification-item flex items-start p-3">
+                     <span class="icon">&#128176;</span> <div>
+                        Payment of NGN 15,500 for Trip #TRP123 was successful.
+                        <span class="timestamp">1 hour ago</span>
+                    </div>
+                </div>
+                <div class="notification-item unread flex items-start p-3 rounded-md">
+                    <span class="icon">&#127873;</span> <div>
+                        Special Offer: Get 10% off your next inter-state trip this weekend!
+                        <span class="timestamp">3 hours ago</span>
+                    </div>
+                </div>
+                <div class="notification-item flex items-start p-3">
+                    <span class="icon">&#11088;</span> <div>
+                        Your feedback for driver Funke Adebayo has been submitted. Thanks!
+                        <span class="timestamp">1 day ago</span>
+                    </div>
+                </div>
+                 <div class="notification-item flex items-start p-3">
+                    <span class="icon">&#128739;️</span> <div>
+                        Your hotel booking at Transcorp Hilton for May 20-22 is confirmed.
+                        <span class="timestamp">2 days ago</span>
+                    </div>
+                </div>
+
+                </div>
+        </div>
+
+        <nav class="bottom-nav">
+            <a href="home.html" class="flex flex-col items-center">
+                <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+                <span class="text-xs">Home</span>
+            </a>
+            <a href="history.html" class="flex flex-col items-center">
+                <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a1 1 0 00-1 1v1H5a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V6a2 2 0 00-2-2h-4V3a1 1 0 00-1-1zm0 4H5V5h5v1zm0 2H5V7h5v1zm5 2H5v-1h10v1z" clip-rule="evenodd" /></svg>
+                <span class="text-xs">History</span>
+            </a>
+             <a href="notifications.html" class="flex flex-col items-center active"> <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
+                <span class="text-xs">Alerts</span>
+            </a>
+            <a href="profile.html" class="flex flex-col items-center">
+                <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                <span class="text-xs">Profile</span>
+            </a>
+        </nav>
+    </div>
+</body>
+</html>

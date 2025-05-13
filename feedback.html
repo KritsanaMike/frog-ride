@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Feedback - Flog Ride</title>
+    <link rel="stylesheet" href="style.css"> <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap)" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <div class="top-bar">
+            <a href="profile.html" class="top-bar-icon leading"> <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+            </a>
+            <h1 class="top-bar-title">Submit Feedback / Report Issue</h1>
+            <div class="w-6"></div> </div>
+
+        <div class="page-content page-content-with-top-bar" style="padding-bottom: 20px;">
+            <form id="feedbackForm" class="w-full">
+                <div>
+                    <label for="issueType" class="form-label">Subject / Issue Type</label>
+                    <select id="issueType" class="select-field" required>
+                        <option value="" disabled selected>Select a category</option>
+                        <option value="driver_compliment">Driver Compliment</option>
+                        <option value="driver_issue">Driver Issue/Complaint</option>
+                        <option value="vehicle_issue">Vehicle Issue</option>
+                        <option value="app_bug">App Bug/Technical Issue</option>
+                        <option value="payment_problem">Payment Problem</option>
+                        <option value="suggestion">Suggestion</option>
+                        <option value="general_feedback">General Feedback</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="feedbackDescription" class="form-label">Description</label>
+                    <textarea id="feedbackDescription" class="input-field" rows="6" placeholder="Please provide as much detail as possible..." required></textarea>
+                </div>
+
+                <div>
+                    <label for="feedbackAttachment" class="form-label">Attach Screenshot (Optional)</label>
+                    <input type="file" id="feedbackAttachment" class="file-input-field">
+                </div>
+                
+                <button type="submit" class="btn btn-primary w-full mt-6">Submit Feedback</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            // Add actual submission logic here
+            console.log('Feedback submitted:', {
+                type: document.getElementById('issueType').value,
+                description: document.getElementById('feedbackDescription').value
+            });
+            alert('Thank you for your feedback! We will review it shortly. (Mock submission)');
+            // Optionally redirect or clear form
+            // window.location.href = 'profile.html'; 
+            this.reset();
+        });
+    </script>
+</body>
+</html>

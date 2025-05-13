@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Details - Flog Ride</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <div class="top-bar">
+            <a href="hotel_search_results.html" class="top-bar-icon leading">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+            </a>
+            <h1 class="top-bar-title" id="hotelNameTitle">Transcorp Hilton Abuja</h1> <div class="w-6"></div> </div>
+
+        <div class="page-content page-content-with-top-bar" style="padding-bottom: 20px; overflow-y: auto; max-height: calc(100vh - 57px);">
+            <div class="hotel-image-placeholder">Hotel Main Image Placeholder</div>
+            
+            <div class="mb-4">
+                <h2 class="text-2xl font-bold text-ngo-blueblack mb-1" id="hotelName">Transcorp Hilton Abuja</h2>
+                <p class="text-sm text-ngo-dark-gray mb-1" id="hotelAddress">1 Aguiyi Ironsi St, Maitama, Abuja</p>
+                <span class="hotel-rating-stars text-lg">&#9733;&#9733;&#9733;&#9733;&#9734; (4.2 stars - 1,234 reviews)</span>
+            </div>
+
+            <div class="mb-4">
+                <h3 class="text-lg font-semibold text-ngo-blueblack mb-2">Description</h3>
+                <p class="text-sm text-ngo-dark-gray" id="hotelDescription">
+                    A landmark hotel in the heart of Nigeria's capital city, Transcorp Hilton Abuja offers 5-star comfort and service. 
+                    Enjoy spacious rooms, multiple dining options, extensive recreational facilities including a pool and fitness center, 
+                    and state-of-the-art meeting venues. Ideal for both business and leisure travelers.
+                </p>
+            </div>
+
+            <div class="mb-4">
+                <h3 class="text-lg font-semibold text-ngo-blueblack mb-2">Image Gallery</h3>
+                <div class="whitespace-nowrap overflow-x-auto pb-2">
+                    <div class="hotel-gallery-image"></div>
+                    <div class="hotel-gallery-image"></div>
+                    <div class="hotel-gallery-image"></div>
+                    <div class="hotel-gallery-image"></div>
+                    <div class="hotel-gallery-image"></div>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <h3 class="text-lg font-semibold text-ngo-blueblack mb-2">Amenities</h3>
+                <ul class="list-disc list-inside text-sm text-ngo-dark-gray space-y-1" id="hotelAmenities">
+                    <li>Outdoor Swimming Pool</li>
+                    <li>Fitness Center & Spa</li>
+                    <li>Multiple Restaurants & Bars</li>
+                    <li>Free WiFi</li>
+                    <li>Air Conditioning</li>
+                    <li>Conference Facilities</li>
+                    <li>Room Service</li>
+                </ul>
+            </div>
+            
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-ngo-blueblack mb-2">Room Options & Prices</h3>
+                <div class="list-item-card mb-3">
+                    <h4 class="font-semibold text-ngo-blueblack">Standard King Room</h4>
+                    <p class="text-sm text-ngo-dark-gray">Sleeps 2 | King Bed | City View</p>
+                    <p class="hotel-price">NGN 75,000 / night</p>
+                    <button class="btn btn-primary btn-sm w-full mt-2" onclick="confirmBooking('Standard King Room', 'NGN 75,000')">Book This Room</button>
+                </div>
+                <div class="list-item-card">
+                    <h4 class="font-semibold text-ngo-blueblack">Deluxe Twin Room</h4>
+                    <p class="text-sm text-ngo-dark-gray">Sleeps 2 | Two Twin Beds | Pool View</p>
+                    <p class="hotel-price">NGN 85,000 / night</p>
+                    <button class="btn btn-primary btn-sm w-full mt-2" onclick="confirmBooking('Deluxe Twin Room', 'NGN 85,000')">Book This Room</button>
+                </div>
+            </div>
+
+            <!-- <a href="hotel_search_results.html" class="btn btn-secondary w-full">Back to Search Results</a> -->
+            <button class="btn btn-secondary w-full mt-4 mb-2 text-lg" onclick="window.location.href='hotel_search_results.html'" >Back to Search Results</button>
+        </div>
+    </div>
+    <script>
+        // Placeholder: Dynamically update hotel details based on hotelId from URL
+        const params = new URLSearchParams(window.location.search);
+        const hotelId = params.get('hotelId');
+        if (hotelId === 'sheraton') { 
+           document.getElementById('hotelNameTitle').textContent = "Sheraton Abuja Hotel"; 
+           document.getElementById('hotelName').textContent = "Sheraton Abuja Hotel"; 
+           /* ... update other fields ... */ 
+        }
+        
+        function confirmBooking(roomType, price) {
+            // In a real app, you'd collect more details (dates, guests from previous page or here)
+            // and pass them to the confirmation page.
+            const hotelName = document.getElementById('hotelNameTitle').textContent;
+            const params = new URLSearchParams({
+                hotel: hotelName,
+                room: roomType,
+                price: price,
+                // Add checkIn, checkOut, guests from previous state or a global state
+                checkIn: '2025-06-10 (Sample)', 
+                checkOut: '2025-06-12 (Sample)'
+            });
+            window.location.href = 'hotel_booking_confirmation.html?' + params.toString();
+        }
+    </script>
+</body>
+</html>

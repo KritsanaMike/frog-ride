@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Results - Flog Ride</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap)" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <div class="top-bar">
+            <a href="hotel_request.html" class="top-bar-icon leading">
+                <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+            </a>
+            <h1 class="top-bar-title">Available Hotels in [Location]</h1> <div class="w-6"></div> </div>
+
+        <div class="page-content page-content-with-top-bar" style="padding-bottom: 20px;">
+            <p class="text-sm text-ngo-dark-gray mb-4">Showing results for: Check-in: [Date] - Check-out: [Date], [Guests] Guests, [Rooms] Rooms</p>
+
+            <div class="mb-4 flex gap-2">
+                <button class="btn btn-secondary btn-sm flex-grow" style="margin-right: 0.5rem;">Filter by Price</button>
+                <button class="btn btn-secondary btn-sm flex-grow">Sort by Rating</button>
+            </div>
+
+            <div class="list-item-card">
+                <div class="list-item-header">
+                    <h3 class="list-item-title">Transcorp Hilton Abuja</h3>
+                    <span class="hotel-rating-stars">&#9733;&#9733;&#9733;&#9733;&#9734; (4.2)</span>
+                </div>
+                <div class="list-item-details">
+                    <p>1 Aguiyi Ironsi St, Maitama, Abuja</p>
+                    <p>Amenities: Pool, Gym, Free WiFi, Restaurant</p>
+                    <p class="hotel-price">NGN 75,000 / night</p>
+                </div>
+                <div class="mt-3">
+                    <button class="btn btn-primary w-full max-w-sm mt-2 mb-2 text-lg" onclick="window.location.href='hotel_details.html?hotelId=transcorp'" >View Details & Book</button>
+
+                </div>
+            </div>
+
+            <div class="list-item-card">
+                <div class="list-item-header">
+                    <h3 class="list-item-title">Sheraton Abuja Hotel</h3>
+                     <span class="hotel-rating-stars">&#9733;&#9733;&#9733;&#9733;&#9733; (4.5)</span>
+                </div>
+                <div class="list-item-details">
+                    <p>Ladi Kwali Way, Wuse Zone 4, Abuja</p>
+                    <p>Amenities: Conference Center, Spa, Airport Shuttle</p>
+                    <p class="hotel-price">NGN 68,000 / night</p>
+                </div>
+                <div class="mt-3">
+                    <button class="btn btn-primary w-full max-w-sm mt-2 mb-2 text-lg" onclick="window.location.href='hotel_details.html?hotelId=sheraton'" >View Details & Book</button>
+                </div>
+            </div>
+            
+            <div class="list-item-card">
+                <div class="list-item-header">
+                    <h3 class="list-item-title">Nordic Hotel Abuja</h3>
+                     <span class="hotel-rating-stars">&#9733;&#9733;&#9733;&#9733;&#9734; (4.0)</span>
+                </div>
+                <div class="list-item-details">
+                    <p>Plot 133, Jabi, Abuja</p>
+                    <p>Amenities: Boutique Style, Free Breakfast, Business Services</p>
+                    <p class="hotel-price">NGN 55,000 / night</p>
+                </div>
+                <div class="mt-3">
+                    <button class="btn btn-primary w-full max-w-sm mt-2 mb-2 text-lg" onclick="window.location.href='hotel_details.html?hotelId=nordic'" >View Details & Book</button>
+                    
+                </div>
+            </div>
+
+            </div>
+    </div>
+     <script>
+        // Placeholder: Dynamically update title and search criteria summary
+        const params = new URLSearchParams(window.location.search);
+        const location = params.get('location') || "Selected City";
+        document.querySelector('.top-bar-title').textContent = `Available Hotels in ${location}`;
+        // Update other summary details similarly
+    </script>
+</body>
+</html>

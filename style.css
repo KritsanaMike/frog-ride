@@ -161,7 +161,7 @@ body {
 }
 .file-input-field { /* For file inputs */
     display: block;
-    width: 100%;
+    /* width: 100%; */
     padding: 0.5rem; /* Adjust padding as needed */
     border: 1px solid #D3D3D3;
     border-radius: 0.375rem;
@@ -252,6 +252,34 @@ body {
     border-radius: 0.25rem;
     color: white;
 }
+
+/* History Item & Hotel Card Styles */
+.list-item-card { /* Generic card for history items and hotel results */
+    background-color: white;
+    padding: 1rem; /* p-4 */
+    border-radius: 0.5rem; /* rounded-lg */
+    margin-bottom: 1rem; /* mb-4 */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* shadow */
+    border: 1px solid #D3D3D3; /* border border-ngo-border-gray */
+}
+.list-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem; /* mb-2 */
+}
+.list-item-title {
+    font-weight: 600; /* font-semibold */
+    color: #1C2833; /* text-ngo-blueblack */
+    font-size: 1.125rem; /* text-lg for hotel names */
+}
+.list-item-status { /* For ride history status */
+    font-size: 0.875rem; /* text-sm */
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    color: white;
+}
+
 .status-completed { background-color: #28a745; /* Green */ }
 .status-upcoming { background-color: #17a2b8; /* Info Blue */ }
 .status-cancelled { background-color: #dc3545; /* Red */ }
@@ -261,6 +289,17 @@ body {
     font-size: 0.875rem; /* text-sm */
     color: #6c757d; /* text-ngo-dark-gray */
     margin-bottom: 0.25rem; /* mb-1 */
+}
+
+.hotel-price {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #ff6b0b; /* text-ngo-orange */
+    margin-top: 0.5rem;
+}
+.hotel-rating-stars {
+    color: #ffc107; /* Using a standard yellow for stars for now */
+    font-size: 0.875rem;
 }
 
 /* Map Placeholder (General) */
@@ -338,6 +377,26 @@ body {
     color: #ff6b0b; /* UPDATED Orange for active/hover */
 }
 
+/* Hotel Image Placeholder */
+.hotel-image-placeholder {
+    width: 100%;
+    height: 180px;
+    background-color: #e0e0e0;
+    border-radius: 0.375rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+    margin-bottom: 1rem;
+}
+.hotel-gallery-image {
+    width: 80px;
+    height: 60px;
+    background-color: #e9ecef;
+    border-radius: 0.25rem;
+    margin-right: 0.5rem;
+    display: inline-block;
+}
 
 /* Tailwind utility classes (replicated for non-Tailwind setup) */
 .w-full { width: 100%; }

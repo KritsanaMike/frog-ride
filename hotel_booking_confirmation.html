@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmed - Flog Ride</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap)" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <div class="page-content flex-col items-center justify-center text-center">
+            <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" class="h-24 w-24 text-ngo-orange mb-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+
+            <h1 class="text-2xl font-bold text-ngo-blueblack mb-3">Hotel Booking Confirmed!</h1>
+            <p class="text-ngo-dark-gray mb-2">Your accommodation has been successfully booked.</p>
+            <p class="text-ngo-dark-gray mb-6">A confirmation email with your booking details has been sent to your organizational email. You can also view this booking in your history.</p>
+            
+            <div class="w-full max-w-sm mb-6 p-4 bg-ngo-light-gray-accent rounded-md">
+                <h3 class="font-semibold text-ngo-blueblack mb-2">Booking Summary:</h3>
+                <p class="text-sm text-ngo-dark-gray text-left"><strong>Hotel:</strong> <span id="summaryHotelName"></span></p>
+                <p class="text-sm text-ngo-dark-gray text-left"><strong>Room Type:</strong> <span id="summaryRoomType"></span></p>
+                <p class="text-sm text-ngo-dark-gray text-left"><strong>Check-in:</strong> <span id="summaryCheckIn"></span></p>
+                <p class="text-sm text-ngo-dark-gray text-left"><strong>Check-out:</strong> <span id="summaryCheckOut"></span></p>
+                <p class="text-sm text-ngo-dark-gray text-left mt-2"><strong>Total Price:</strong> <span id="summaryPrice" class="font-bold text-ngo-orange"></span></p>
+            </div>
+
+         
+            <button class="btn btn-primary w-full max-w-sm mb-2 text-lg" onclick="window.location.href='home.html'" >Back to Home</button>
+            <a href="history.html" class="link w-full max-w-sm">View Booking History</a>
+        </div>
+    </div>
+     <script>
+        // Get data from URL query parameters
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            document.getElementById('summaryHotelName').textContent = params.get('hotel') || 'N/A';
+            document.getElementById('summaryRoomType').textContent = params.get('room') || 'N/A';
+            document.getElementById('summaryCheckIn').textContent = params.get('checkIn') || 'N/A';
+            document.getElementById('summaryCheckOut').textContent = params.get('checkOut') || 'N/A';
+            document.getElementById('summaryPrice').textContent = params.get('price') || 'N/A';
+        });
+    </script>
+</body>
+</html>

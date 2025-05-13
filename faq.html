@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help & FAQ - Flog Ride</title>
+    <link rel="stylesheet" href="style.css"> <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap)" rel="stylesheet">
+    <style>
+        .faq-item details {
+            margin-bottom: 0.5rem;
+            border: 1px solid #D3D3D3;
+            border-radius: 0.375rem;
+        }
+        .faq-item summary {
+            padding: 0.75rem 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            background-color: #f8f9fa;
+            border-radius: 0.375rem 0.375rem 0 0; /* Rounded top corners */
+             list-style: none; /* Remove default marker */
+            position: relative;
+        }
+        .faq-item summary::-webkit-details-marker { /* Hide Safari marker */
+            display: none;
+        }
+        .faq-item summary::after { /* Custom marker */
+            content: '+';
+            position: absolute;
+            right: 1rem;
+            font-size: 1.25rem;
+            transition: transform 0.2s ease-in-out;
+        }
+        .faq-item details[open] summary::after {
+            transform: rotate(45deg);
+        }
+        .faq-item .answer {
+            padding: 1rem;
+            font-size: 0.875rem;
+            color: #333;
+            border-top: 1px solid #D3D3D3;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="top-bar">
+            <a href="settings.html" class="top-bar-icon leading">
+                <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+            </a>
+            <h1 class="top-bar-title">Help & FAQ</h1>
+            <div class="w-6"></div> </div>
+
+        <div class="page-content page-content-with-top-bar" style="padding-bottom: 20px;">
+            <div class="mb-4">
+                <input type="search" class="input-field" placeholder="Search FAQs...">
+            </div>
+
+            <div class="faq-list">
+                <div class="faq-item">
+                    <details>
+                        <summary>How do I request a ride?</summary>
+                        <div class="answer">
+                            <p>To request a ride, go to the Home screen and tap the "Request Ride" button. Fill in your start and end locations, select the trip type, vehicle, and other details, then submit your request.</p>
+                        </div>
+                    </details>
+                </div>
+                <div class="faq-item">
+                    <details>
+                        <summary>How is the fare calculated?</summary>
+                        <div class="answer">
+                            <p>Fares are calculated based on the distance of the trip, the type of vehicle selected, and the duration for certain trip types. Inter-state trips may have different rate structures. You will see an estimated fare before confirming your request.</p>
+                        </div>
+                    </details>
+                </div>
+                <div class="faq-item">
+                    <details>
+                        <summary>Can I cancel a ride?</summary>
+                        <div class="answer">
+                            <p>Yes, you can cancel a ride. Cancellation policies and potential fees may apply depending on how close to the pickup time you cancel. Check the "Upcoming Trips" section in your history for cancellation options.</p>
+                        </div>
+                    </details>
+                </div>
+                <div class="faq-item">
+                    <details>
+                        <summary>How do I update my profile information?</summary>
+                        <div class="answer">
+                            <p>You can update your profile by navigating to the "Profile" tab from the bottom navigation, then tapping the "Edit Profile" button.</p>
+                        </div>
+                    </details>
+                </div>
+                 <div class="faq-item">
+                    <details>
+                        <summary>What types of vehicles are available?</summary>
+                        <div class="answer">
+                            <p>We offer a range of vehicles including Motorbikes, Sedans, Buses (16 seaters), and 4x4 Runners (Hilux, Jeep, Pick-up, Truck). Availability may vary by zone.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <div class="mt-8 text-center">
+                <p class="text-ngo-dark-gray mb-2">Can't find your answer?</p>
+                <a href="feedback.html?issueType=support_request" class="btn btn-primary">Contact Support</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
