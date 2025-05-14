@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Dashboard - Flog Ride</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="app-container">
+        <div class="page-content page-content-with-bottom-nav">
+            <header class="flex items-center justify-between mb-4 pb-4 border-b border-ngo-border-gray">
+                <div>
+                    <h1 class="text-xl font-bold text-ngo-blueblack">Driver Dashboard</h1>
+                    <p class="text-sm text-ngo-dark-gray">Welcome, [Driver Name]!</p>
+                </div>
+                <a href="driver_profile.html"
+                    class="w-10 h-10 bg-ngo-orange rounded-full flex items-center justify-center text-white font-semibold cursor-pointer">
+                    D
+                </a>
+            </header>
+
+            <div class="availability-toggle">
+                <p>Your Status: <span id="driverStatusText" class="status-offline">Offline</span></p>
+                <div class="toggle-switch-driver">
+                    <input type="checkbox" id="availabilitySwitch">
+                    <span class="slider-driver"></span>
+                </div>
+            </div>
+
+            <div id="driverTaskSection">
+                <div id="noRequestsView" class="text-center p-6 bg-ngo-light-gray-accent rounded-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-ngo-dark-gray mx-auto mb-3"
+                        fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                    </svg>
+                    <h2 class="text-lg font-semibold text-ngo-blueblack mb-1">No new ride requests</h2>
+                    <p class="text-sm text-ngo-dark-gray">Go online to start receiving requests.</p>
+                </div>
+
+                <div id="incomingRequestView" class="ride-request-card" style="display: none;">
+                    <h3>New Ride Request!</h3>
+                    <p>From: <strong>Wuse Market, Abuja</strong> (Sample)</p>
+                    <p>To: <strong>Asokoro General Hospital</strong> (Sample)</p>
+                    <p>Type: <strong>Intra-State Short Term</strong> (Sample)</p>
+                    <p class="fare">Estimated Fare: NGN 3,500 (Sample)</p>
+                    <div class="ride-request-actions">
+                        <a href="driver_ride_details.html?reqId=123" class="btn btn-primary flex-grow">View Details</a>
+                        <button class="btn btn-secondary flex-grow" onclick="ignoreRequest()">Ignore</button>
+                    </div>
+                </div>
+
+                <div id="ongoingRideView" class="list-item-card border-ngo-orange" style="display: none;">
+                    <div class="list-item-header">
+                        <h3 class="list-item-title">Ongoing Trip: To Asokoro (Sample)</h3>
+                        <span class="list-item-status status-ongoing">En Route</span>
+                    </div>
+                    <div class="list-item-details">
+                        <p>Passenger: Aisha Bello (Sample)</p>
+                        <p>Pickup: Wuse Market (Sample)</p>
+                        <p>Destination: Asokoro General Hospital (Sample)</p>
+                    </div>
+                    <div class="mt-3">
+                        <a href="driver_navigation.html?tripId=current456" class="btn btn-primary w-full mb-2">Open
+                            Navigation</a>
+                        <button class="btn btn-secondary w-full" onclick="markRideCompleted('current456')">Mark as
+                            Completed</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="bottom-nav">
+            <a href="driver_home.html" class="flex flex-col items-center active">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+                <span class="text-xs">Home</span>
+            </a>
+            <a href="driver_earnings.html" class="flex flex-col items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                <span class="text-xs">Earnings</span>
+            </a>
+            <a href="driver_history.html" class="flex flex-col items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6">
+                    <path fill-rule="evenodd"
+                        d="M10 2a1 1 0 00-1 1v1H5a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V6a2 2 0 00-2-2h-4V3a1 1 0 00-1-1zm0 4H5V5h5v1zm0 2H5V7h5v1zm5 2H5v-1h10v1z"
+                        clip-rule="evenodd" />
+                </svg>
+                <span class="text-xs">History</span>
+            </a>
+            <a href="driver_profile.html" class="flex flex-col items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                <span class="text-xs">Profile</span>
+            </a>
+        </nav>
+    </div>
+    <script>
+        // This script should execute after the DOM is fully loaded.
+        document.addEventListener('DOMContentLoaded', function () {
+            // Get references to the HTML elements involved in the toggle and view switching.
+            const availabilitySwitch = document.getElementById('availabilitySwitch');
+            const driverStatusText = document.getElementById('driverStatusText');
+            const noRequestsView = document.getElementById('noRequestsView');
+            const incomingRequestView = document.getElementById('incomingRequestView');
+            const ongoingRideView = document.getElementById('ongoingRideView');
+
+            // Function to update which view (no requests, incoming, or ongoing) is displayed.
+            function updateDriverView(state) {
+                // Hide all conditional views initially.
+                noRequestsView.style.display = 'none';
+                incomingRequestView.style.display = 'none';
+                ongoingRideView.style.display = 'none';
+
+                // Show the appropriate view based on the driver's current state.
+                // This uses sessionStorage to mimic application state across page loads in this mockup.
+                if (state === 'offline' || (state === 'online' && !sessionStorage.getItem('driver_has_incoming_request') && !sessionStorage.getItem('driver_ongoing_trip'))) {
+                    noRequestsView.style.display = 'block';
+                } else if (state === 'online' && sessionStorage.getItem('driver_has_incoming_request')) {
+                    incomingRequestView.style.display = 'block';
+                } else if (state === 'online' && sessionStorage.getItem('driver_ongoing_trip')) {
+                    ongoingRideView.style.display = 'block';
+                }
+            }
+
+            // Initialize the view when the page loads based on any stored state.
+            let currentStatus = sessionStorage.getItem('driver_status') || 'offline';
+            availabilitySwitch.checked = (currentStatus === 'online');
+            driverStatusText.textContent = currentStatus.charAt(0).toUpperCase() + currentStatus.slice(1);
+            driverStatusText.className = 'status-' + currentStatus; // Applies 'status-online' or 'status-offline' class
+            updateDriverView(currentStatus);
+
+
+            // Add an event listener to the toggle switch.
+            if (availabilitySwitch && driverStatusText && noRequestsView && incomingRequestView && ongoingRideView) {
+                availabilitySwitch.addEventListener('change', function () {
+                    
+                    if (this.checked) { // When toggled to Online
+                        driverStatusText.textContent = 'Online';
+                        driverStatusText.classList.remove('status-offline');
+                        driverStatusText.classList.add('status-online');
+                        sessionStorage.setItem('driver_status', 'online');
+
+                        // Simulate receiving a request if not already handling one.
+                        if (!sessionStorage.getItem('driver_ongoing_trip')) {
+                            sessionStorage.removeItem('driver_has_incoming_request'); // Clear any previous mock request flag.
+                            // Wait a few seconds then show a mock incoming request.
+                            setTimeout(() => {
+                                if (availabilitySwitch.checked && !sessionStorage.getItem('driver_ongoing_trip')) {
+                                    sessionStorage.setItem('driver_has_incoming_request', 'true');
+                                    updateDriverView('online'); // Refresh view to show incoming request.
+                                }
+                            }, 3000); // 3-second delay for simulation.
+                        }
+                        updateDriverView('online'); // Initial update after going online.
+                    } else { // When toggled to Offline
+                        driverStatusText.textContent = 'Offline';
+                        driverStatusText.classList.remove('status-online');
+                        driverStatusText.classList.add('status-offline');
+                        sessionStorage.setItem('driver_status', 'offline');
+                        // Clear any active request/trip states when going offline for this mockup.
+                        sessionStorage.removeItem('driver_has_incoming_request');
+                        sessionStorage.removeItem('driver_ongoing_trip');
+                        updateDriverView('offline'); // Refresh view to show "no requests".
+                    }
+                });
+            } else {
+                // Log an error if any essential elements are missing (for debugging).
+                console.error("One or more elements for the driver dashboard toggle were not found.");
+            }
+
+            // Mock function to handle ignoring an incoming request.
+            window.ignoreRequest = function () {
+                alert('Request Ignored (Mock)');
+                sessionStorage.removeItem('driver_has_incoming_request'); // Clear the incoming request flag.
+                updateDriverView(sessionStorage.getItem('driver_status') || 'offline'); // Refresh view.
+            }
+
+            // Mock function to handle marking a ride as completed.
+            window.markRideCompleted = function (tripId) {
+                alert('Ride ' + tripId + ' marked as completed! (Mock)');
+                sessionStorage.removeItem('driver_ongoing_trip'); // Clear the ongoing trip flag.
+                sessionStorage.removeItem('driver_has_incoming_request'); // Ensure no old request shows.
+                // Navigate to a ride summary page (mock).
+                window.location.href = `driver_ride_summary.html?tripId=${tripId}&status=completed`;
+            }
+
+            // Check for URL parameters that might indicate an accepted ride (e.g., after navigating from ride details).
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('action') === 'acceptedRide' && urlParams.get('tripId')) {
+                sessionStorage.setItem('driver_ongoing_trip', urlParams.get('tripId')); // Set ongoing trip flag.
+                sessionStorage.removeItem('driver_has_incoming_request'); // Clear incoming request flag.
+                // If driver was somehow offline, force them online.
+                if (!availabilitySwitch.checked) {
+                    availabilitySwitch.checked = true;
+                    driverStatusText.textContent = 'Online';
+                    driverStatusText.classList.remove('status-offline');
+                    driverStatusText.classList.add('status-online');
+                    sessionStorage.setItem('driver_status', 'online');
+                }
+                updateDriverView('online'); // Refresh view to show ongoing trip.
+                // Clean the URL parameters to prevent this from re-triggering on page refresh.
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        });
+    </script>
+</body>
+
+</html>

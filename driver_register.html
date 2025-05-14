@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Registration - Flog Ride</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="[https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap)"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <div class="page-content" style="padding-bottom: 20px;">
+            <h1 class="page-header-title">Become a Flog Ride Driver</h1>
+            <form id="driverRegistrationForm" class="w-full" style="max-height: calc(100vh - 100px); overflow-y: auto;">
+
+                <h2 class="text-lg font-semibold text-ngo-blueblack mt-2 mb-3">Personal Information</h2>
+                <div>
+                    <label for="driverFullName" class="form-label">Full Name</label>
+                    <input type="text" id="driverFullName" class="input-field" placeholder="Your Full Name" required>
+                </div>
+                <div>
+                    <label for="driverPhone" class="form-label">Phone Number</label>
+                    <input type="tel" id="driverPhone" class="input-field" placeholder="+234 XXX XXX XXXX" required>
+                </div>
+                <div>
+                    <label for="driverEmail" class="form-label">Email Address (Optional)</label>
+                    <input type="email" id="driverEmail" class="input-field" placeholder="your.email@example.com">
+                </div>
+                <div>
+                    <label for="driverPassword" class="form-label">Create Password</label>
+                    <input type="password" id="driverPassword" class="input-field"
+                        placeholder="Create a strong password" required>
+                </div>
+
+                <h2 class="text-lg font-semibold text-ngo-blueblack mt-4 mb-3">Vehicle Information</h2>
+                <div>
+                    <label for="vehicleType" class="form-label">Vehicle Type</label>
+                    <select id="vehicleType" class="select-field" required>
+                        <option value="" disabled selected>Select your vehicle type</option>
+                        <option value="motorbike">Motorbike</option>
+                        <option value="sedan">Car (Sedan)</option>
+                        <option value="bus">Minivan (Bus - 16 Seater)</option>
+                        <option value="4x4">4x4 Runner (Hilux, Jeep, Pick-up)</option>
+                        <option value="truck">Truck</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="plateNumber" class="form-label">Vehicle Plate Number</label>
+                    <input type="text" id="plateNumber" class="input-field" placeholder="e.g., LAG 123 AB" required>
+                </div>
+                <div>
+                    <label for="vehiclePhoto" class="form-label">Vehicle Photo</label>
+                    <input type="file" id="vehiclePhoto" class="file-input-field" accept="image/*" required>
+                </div>
+                <div>
+                    <label for="serviceAreas" class="form-label">Service Area(s) / Zones</label>
+                    <input type="text" id="serviceAreas" class="input-field"
+                        placeholder="e.g., Lagos Mainland, Abuja Central" required>
+                    <p class="text-xs text-ngo-dark-gray -mt-2 mb-2">Enter states or zones you operate in, separated by
+                        commas.</p>
+                </div>
+
+
+                <h2 class="text-lg font-semibold text-ngo-blueblack mt-4 mb-3">Required Documents</h2>
+                <div>
+                    <label for="driversLicense" class="form-label">Driver's License</label>
+                    <input type="file" id="driversLicense" class="file-input-field" accept=".pdf,image/*" required>
+                </div>
+                <div>
+                    <label for="vehicleDocuments" class="form-label">Vehicle Documents (Proof of Ownership, Road
+                        Worthiness)</label>
+                    <input type="file" id="vehicleDocuments" class="file-input-field" accept=".pdf,image/*" multiple
+                        required>
+                </div>
+                <div>
+                    <label for="nationalId" class="form-label">National ID / NIN Slip</label>
+                    <input type="file" id="nationalId" class="file-input-field" accept=".pdf,image/*" required>
+                </div>
+
+                <div class="flex items-start mt-4 mb-4">
+                    <input type="checkbox" id="termsAgreement"
+                        class="form-checkbox h-5 w-5 text-ngo-orange mr-2 mt-1 border-ngo-border-gray focus-ring-ngo-orange"
+                        required>
+                    <label for="termsAgreement" class="text-sm text-ngo-dark-gray">
+                        I agree to the <a href="terms.html" class="link" target="_blank">Terms of Service</a> and <a
+                            href="privacy.html" class="link" target="_blank">Privacy Policy</a> of Flog Ride.
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-full mt-4 mb-2">Register as Driver</button>
+                <p class="text-center text-ngo-dark-gray">
+                    Already have a driver account? <a href="driver_login.html" class="link">Login</a>
+                </p>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.getElementById('driverRegistrationForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            if (!document.getElementById('termsAgreement').checked) {
+                alert('You must agree to the Terms of Service and Privacy Policy.');
+                return;
+            }
+            console.log('Driver registration submitted for:', document.getElementById('driverFullName').value);
+            alert('Registration submitted! Your application will be reviewed. You will be notified once approved. (Mock submission)');
+            window.location.href = 'driver_login.html';
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Driver Profile - Flog Ride</title>
+    <link rel="stylesheet" href="style.css"> <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap)" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <div class="top-bar">
+            <a href="driver_profile.html" class="top-bar-icon leading">
+                <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+            </a>
+            <h1 class="top-bar-title">Edit Driver Profile</h1>
+            <div class="w-6"></div> </div>
+
+        <div class="page-content page-content-with-top-bar" style="padding-bottom: 20px;">
+            <form id="driverEditProfileForm" class="w-full" style="max-height: calc(100vh - 80px); overflow-y: auto;">
+                
+                <div class="profile-picture-container mb-4">
+                    <span class="initials">JD</span>
+                    </div>
+                 <div class="text-center mb-4">
+                     <label for="changeProfilePic" class="link text-sm">Change Profile Picture</label>
+                     <input type="file" id="changeProfilePic" class="hidden" accept="image/*">
+                 </div>
+
+
+                <h2 class="text-lg font-semibold text-ngo-blueblack mt-2 mb-3">Personal Information</h2>
+                <div>
+                    <label for="editDriverFullName" class="form-label">Full Name</label>
+                    <input type="text" id="editDriverFullName" class="input-field" value="John Doe (Sample)" required>
+                </div>
+                <div>
+                    <label for="editDriverPhone" class="form-label">Phone Number</label>
+                    <input type="tel" id="editDriverPhone" class="input-field" value="+234 801 234 5678" required>
+                </div>
+                <div>
+                    <label for="editDriverEmail" class="form-label">Email Address (Optional)</label>
+                    <input type="email" id="editDriverEmail" class="input-field" value="john.doe@example.com">
+                </div>
+                <div class="mt-2 mb-4">
+                     <a href="#" class="link" onclick="alert('Change Password functionality to be implemented.')">Change Password?</a>
+                </div>
+
+
+                <h2 class="text-lg font-semibold text-ngo-blueblack mt-4 mb-3">Vehicle Information</h2>
+                <div>
+                    <label for="editVehicleType" class="form-label">Vehicle Type</label>
+                    <select id="editVehicleType" class="select-field" required>
+                        <option value="motorbike">Motorbike</option>
+                        <option value="sedan" selected>Car (Sedan)</option>
+                        <option value="bus">Minivan (Bus - 16 Seater)</option>
+                        <option value="4x4">4x4 Runner (Hilux, Jeep, Pick-up)</option>
+                        <option value="truck">Truck</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="editPlateNumber" class="form-label">Vehicle Plate Number</label>
+                    <input type="text" id="editPlateNumber" class="input-field" value="ABJ 123 XY" required>
+                </div>
+                 <div>
+                    <label for="editVehiclePhoto" class="form-label">Update Vehicle Photo</label>
+                    <input type="file" id="editVehiclePhoto" class="file-input-field" accept="image/*">
+                </div>
+                 <div>
+                    <label for="editServiceAreas" class="form-label">Service Area(s) / Zones</label>
+                    <input type="text" id="editServiceAreas" class="input-field" value="Abuja Central, Wuse, Garki" required>
+                </div>
+
+                <h2 class="text-lg font-semibold text-ngo-blueblack mt-4 mb-3">Update Documents (If necessary)</h2>
+                <p class="text-xs text-ngo-dark-gray mb-2">Only upload if your documents have changed or expired. Approved documents do not need re-uploading unless requested.</p>
+                <div>
+                    <label for="updateDriversLicense" class="form-label">Update Driver's License</label>
+                    <input type="file" id="updateDriversLicense" class="file-input-field" accept=".pdf,image/*">
+                </div>
+                <div>
+                    <label for="updateVehicleDocuments" class="form-label">Update Vehicle Documents</label>
+                    <input type="file" id="updateVehicleDocuments" class="file-input-field" accept=".pdf,image/*" multiple>
+                </div>
+                <div>
+                    <label for="updateNationalId" class="form-label">Update National ID / NIN Slip</label>
+                    <input type="file" id="updateNationalId" class="file-input-field" accept=".pdf,image/*">
+                </div>
+                
+                <button type="submit" class="btn btn-primary w-full mt-6 mb-2 text-lg">Save Changes</button>
+                <button type="button" class="btn btn-secondary w-full mt-2 mb-2 text-lg onclick="window.location.href='driver_profile.html'">Cancel</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.getElementById('driverEditProfileForm').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+            console.log('Driver profile update attempt for:', document.getElementById('editDriverFullName').value);
+            alert('Profile updated successfully! (Mock submission)');
+            window.location.href = 'driver_profile.html'; 
+        });
+        // Basic script to trigger file input when "Change Profile Picture" is clicked
+        const changeProfilePicLabel = document.querySelector('label[for="changeProfilePic"]');
+        const profilePicInput = document.getElementById('changeProfilePic');
+        if(changeProfilePicLabel && profilePicInput) {
+            changeProfilePicLabel.addEventListener('click', function() {
+                profilePicInput.click();
+            });
+            profilePicInput.addEventListener('change', function(event){
+                if(event.target.files && event.target.files[0]){
+                    // Placeholder for image preview logic
+                    console.log("New profile picture selected:", event.target.files[0].name);
+                    alert("Profile picture selected: " + event.target.files[0].name + " (Preview not implemented in mockup)");
+                }
+            });
+        }
+    </script>
+</body>
+</html>
