@@ -1,22 +1,21 @@
+
+
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Driver Registration - Flog Ride</title>
-    <link rel="stylesheet" href="style.css">
-    <link
-        href="[https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap)"
-        rel="stylesheet">
+    <link rel="stylesheet" href="style.css"> <!-- Links to your existing style.css -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
     <div class="app-container">
         <div class="page-content" style="padding-bottom: 20px;">
             <h1 class="page-header-title">Become a Flog Ride Driver</h1>
             <form id="driverRegistrationForm" class="w-full" style="max-height: calc(100vh - 100px); overflow-y: auto;">
-
+                
                 <h2 class="text-lg font-semibold text-ngo-blueblack mt-2 mb-3">Personal Information</h2>
                 <div>
                     <label for="driverFullName" class="form-label">Full Name</label>
@@ -30,10 +29,9 @@
                     <label for="driverEmail" class="form-label">Email Address (Optional)</label>
                     <input type="email" id="driverEmail" class="input-field" placeholder="your.email@example.com">
                 </div>
-                <div>
+                 <div>
                     <label for="driverPassword" class="form-label">Create Password</label>
-                    <input type="password" id="driverPassword" class="input-field"
-                        placeholder="Create a strong password" required>
+                    <input type="password" id="driverPassword" class="input-field" placeholder="Create a strong password" required>
                 </div>
 
                 <h2 class="text-lg font-semibold text-ngo-blueblack mt-4 mb-3">Vehicle Information</h2>
@@ -49,19 +47,57 @@
                     </select>
                 </div>
                 <div>
+                    <label for="vehicleMake" class="form-label">Vehicle Make</label>
+                    <input type="text" id="vehicleMake" class="input-field" placeholder="e.g., Toyota, Honda, BMW" required>
+                </div>
+                <div>
+                    <label for="vehicleYear" class="form-label">Year of Production</label>
+                    <input type="number" id="vehicleYear" class="input-field" placeholder="e.g., 2018" min="1990" max="2025" required> <!-- Adjust min/max as needed -->
+                </div>
+                <div>
+                    <label for="vehicleColor" class="form-label">Vehicle Color</label>
+                    <input type="text" id="vehicleColor" class="input-field" placeholder="e.g., Silver, Black" required>
+                </div>
+                <div>
                     <label for="plateNumber" class="form-label">Vehicle Plate Number</label>
                     <input type="text" id="plateNumber" class="input-field" placeholder="e.g., LAG 123 AB" required>
                 </div>
                 <div>
+                    <label for="chassisNumber" class="form-label">Chassis Number (VIN)</label>
+                    <input type="text" id="chassisNumber" class="input-field" placeholder="Enter vehicle chassis number" required>
+                </div>
+                 <div>
                     <label for="vehiclePhoto" class="form-label">Vehicle Photo</label>
                     <input type="file" id="vehiclePhoto" class="file-input-field" accept="image/*" required>
                 </div>
-                <div>
+                 <div>
                     <label for="serviceAreas" class="form-label">Service Area(s) / Zones</label>
-                    <input type="text" id="serviceAreas" class="input-field"
-                        placeholder="e.g., Lagos Mainland, Abuja Central" required>
-                    <p class="text-xs text-ngo-dark-gray -mt-2 mb-2">Enter states or zones you operate in, separated by
-                        commas.</p>
+                    <input type="text" id="serviceAreas" class="input-field" placeholder="e.g., Lagos Mainland, Abuja Central" required>
+                    <p class="text-xs text-ngo-dark-gray -mt-2 mb-2">Enter states or zones you operate in, separated by commas.</p>
+                </div>
+
+                <h2 class="text-lg font-semibold text-ngo-blueblack mt-4 mb-3">Vehicle Accessories (Required)</h2>
+                <div class="space-y-2 mb-4">
+                    <label class="flex items-center">
+                        <input type="checkbox" id="accessoryJack" name="vehicleAccessory" value="jack" class="form-checkbox h-5 w-5 text-ngo-orange mr-2 border-ngo-border-gray focus-ring-ngo-orange">
+                        Jack
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" id="accessorySpareTyre" name="vehicleAccessory" value="spare_tyre" class="form-checkbox h-5 w-5 text-ngo-orange mr-2 border-ngo-border-gray focus-ring-ngo-orange">
+                        Spare Tyre
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" id="accessoryFireExtinguisher" name="vehicleAccessory" value="fire_extinguisher" class="form-checkbox h-5 w-5 text-ngo-orange mr-2 border-ngo-border-gray focus-ring-ngo-orange">
+                        Fire Extinguisher
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" id="accessoryTriangle" name="vehicleAccessory" value="triangle" class="form-checkbox h-5 w-5 text-ngo-orange mr-2 border-ngo-border-gray focus-ring-ngo-orange">
+                        Warning Triangle
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" id="accessoryNeedleThread" name="vehicleAccessory" value="needle_thread" class="form-checkbox h-5 w-5 text-ngo-orange mr-2 border-ngo-border-gray focus-ring-ngo-orange">
+                        Needle and a thread (for tyre quick fix)
+                    </label>
                 </div>
 
 
@@ -71,23 +107,18 @@
                     <input type="file" id="driversLicense" class="file-input-field" accept=".pdf,image/*" required>
                 </div>
                 <div>
-                    <label for="vehicleDocuments" class="form-label">Vehicle Documents (Proof of Ownership, Road
-                        Worthiness)</label>
-                    <input type="file" id="vehicleDocuments" class="file-input-field" accept=".pdf,image/*" multiple
-                        required>
+                    <label for="vehicleDocuments" class="form-label">Vehicle Documents (Proof of Ownership, Road Worthiness)</label>
+                    <input type="file" id="vehicleDocuments" class="file-input-field" accept=".pdf,image/*" multiple required>
                 </div>
                 <div>
                     <label for="nationalId" class="form-label">National ID / NIN Slip</label>
                     <input type="file" id="nationalId" class="file-input-field" accept=".pdf,image/*" required>
                 </div>
-
+                
                 <div class="flex items-start mt-4 mb-4">
-                    <input type="checkbox" id="termsAgreement"
-                        class="form-checkbox h-5 w-5 text-ngo-orange mr-2 mt-1 border-ngo-border-gray focus-ring-ngo-orange"
-                        required>
+                    <input type="checkbox" id="termsAgreement" class="form-checkbox h-5 w-5 text-ngo-orange mr-2 mt-1 border-ngo-border-gray focus-ring-ngo-orange" required>
                     <label for="termsAgreement" class="text-sm text-ngo-dark-gray">
-                        I agree to the <a href="terms.html" class="link" target="_blank">Terms of Service</a> and <a
-                            href="privacy.html" class="link" target="_blank">Privacy Policy</a> of Flog Ride.
+                        I agree to the <a href="terms.html" class="link" target="_blank">Terms of Service</a> and <a href="privacy.html" class="link" target="_blank">Privacy Policy</a> of Flog Ride.
                     </label>
                 </div>
 
@@ -99,17 +130,22 @@
         </div>
     </div>
     <script>
-        document.getElementById('driverRegistrationForm').addEventListener('submit', function (event) {
-            event.preventDefault();
+        document.getElementById('driverRegistrationForm').addEventListener('submit', function(event) {
+            event.preventDefault(); 
             if (!document.getElementById('termsAgreement').checked) {
                 alert('You must agree to the Terms of Service and Privacy Policy.');
                 return;
             }
+            // Basic check for at least one accessory (optional, based on "Required" in heading)
+            const accessories = document.querySelectorAll('input[name="vehicleAccessory"]:checked');
+            if (accessories.length === 0) {
+                // alert('Please select at least one vehicle accessory.'); // Or make this optional
+                // return;
+            }
             console.log('Driver registration submitted for:', document.getElementById('driverFullName').value);
             alert('Registration submitted! Your application will be reviewed. You will be notified once approved. (Mock submission)');
-            window.location.href = 'driver_login.html';
+            window.location.href = 'driver_login.html'; 
         });
     </script>
 </body>
-
 </html>

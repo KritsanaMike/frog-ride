@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ride Summary - Flog Ride Driver</title>
+    <link rel="stylesheet" href="style.css"> <!-- Links to your existing style.css -->
+    <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap)" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <div class="top-bar">
+            <a href="driver_history.html" class="top-bar-icon leading">
+                <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+            </a>
+            <h1 class="top-bar-title">Completed Ride Summary</h1>
+            <div class="w-6"></div> <!-- Spacer -->
+        </div>
+
+        <div class="page-content page-content-with-top-bar" style="padding-bottom: px;">
+            <div class="text-center mb-6">
+                 <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" class="h-10 w-10 text-ngo-orange mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <h2 class="text-xl font-bold text-ngo-blueblack">Trip Completed Successfully!</h2>
+            </div>
+
+            <div class="mb-6">
+                <div class="details-info-item">
+                    <p class="details-info-label">Trip ID</p>
+                    <p class="details-info-value" id="summaryTripId">TRP123XYZ (Sample)</p>
+                </div>
+                <div class="details-info-item">
+                    <p class="details-info-label">Date & Time</p>
+                    <p class="details-info-value" id="summaryDateTime">May 13, 2025 - 16:05</p>
+                </div>
+                <div class="details-info-item">
+                    <p class="details-info-label">Passenger</p>
+                    <p class="details-info-value" id="summaryPassenger">Aisha Bello</p>
+                </div>
+                <div class="details-info-item">
+                    <p class="details-info-label">Pickup</p>
+                    <p class="details-info-value" id="summaryPickup">Wuse Market, Abuja</p>
+                </div>
+                <div class="details-info-item">
+                    <p class="details-info-label">Destination</p>
+                    <p class="details-info-value" id="summaryDestination">Asokoro General Hospital</p>
+                </div>
+                <div class="details-info-item">
+                    <p class="details-info-label">Trip Duration</p>
+                    <p class="details-info-value" id="summaryDuration">35 minutes (Sample)</p>
+                </div>
+                <div class="details-info-item">
+                    <p class="details-info-label">Distance Covered</p>
+                    <p class="details-info-value" id="summaryDistance">12.5 km (Sample)</p>
+                </div>
+                <div class="details-info-item">
+                    <p class="details-info-label">Your Earnings for this Trip</p>
+                    <p class="details-info-value text-2xl text-ngo-orange font-bold" id="summaryEarnings">NGN 3,200</p>
+                </div>
+                 <div class="details-info-item">
+                    <p class="details-info-label">Passenger Rating</p>
+                    <p class="details-info-value hotel-rating-stars" id="summaryPassengerRating">Waiting for rating...</p>
+                    <!-- Or show stars if rated: &#9733;&#9733;&#9733;&#9733;&#9734; -->
+                </div>
+            </div>
+            
+            <a href="driver_home.html" > </a><button class="btn btn-primary w-full" >Back to Dashboard</button></a>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const tripId = params.get('tripId');
+            const status = params.get('status');
+
+            if (tripId) {
+                document.getElementById('summaryTripId').textContent = tripId;
+                // In a real app, you'd fetch details based on tripId
+                // For now, we'll use placeholders or slightly vary them
+                if (tripId === 'pastTrip001' || tripId === 'current456') { // Assuming current456 is the one just completed
+                    document.getElementById('summaryPassenger').textContent = 'Aisha B.';
+                    document.getElementById('summaryPickup').textContent = 'Wuse Market';
+                    document.getElementById('summaryDestination').textContent = 'Asokoro Hospital';
+                    document.getElementById('summaryEarnings').textContent = 'NGN 3,200';
+                    document.getElementById('summaryDuration').textContent = '35 minutes';
+                    document.getElementById('summaryDistance').textContent = '12.5 km';
+                } else if (tripId === 'pastTrip002') {
+                     document.getElementById('summaryPassenger').textContent = 'Musa K.';
+                    document.getElementById('summaryPickup').textContent = 'Airport Rd';
+                    document.getElementById('summaryDestination').textContent = 'Jabi Lake Mall';
+                    document.getElementById('summaryEarnings').textContent = 'NGN 5,500';
+                } else if (tripId === 'cancelled003') {
+                    document.querySelector('.page-content h2').textContent = 'Trip Cancelled';
+                    document.getElementById('summaryEarnings').textContent = 'NGN 0';
+                    document.getElementById('summaryPassengerRating').textContent = 'N/A';
+                }
+            }
+            if (status === 'completed') {
+                 // Default text is fine
+            }
+        });
+    </script>
+</body>
+</html>

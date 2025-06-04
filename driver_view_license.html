@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Driver's License - Flog Ride</title>
+    <link rel="stylesheet" href="style.css"> <!-- Links to your existing style.css -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .document-viewer-container {
+            padding: 1rem;
+        }
+        .document-image-placeholder {
+            width: 100%;
+            max-width: 380px; /* Control max width */
+            min-height: 200px; /* Minimum height */
+            height: auto; /* Adjust based on content or make it fixed */
+            background-color: #e9ecef;
+            border: 2px dashed #D3D3D3;
+            border-radius: 0.375rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem auto;
+            color: #6c757d;
+            font-style: italic;
+            text-align: center;
+        }
+         .document-image-placeholder img {
+            max-width: 100%;
+            max-height: 400px; /* Limit image height */
+            border-radius: 0.25rem;
+        }
+        .document-status {
+            text-align: center;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border-radius: 0.375rem;
+        }
+        .status-approved { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb;}
+        .status-pending { background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba;}
+        .status-rejected { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb;}
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="top-bar">
+            <a href="driver_profile.html" class="top-bar-icon leading">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+            </a>
+            <h1 class="top-bar-title">Driver's License</h1>
+            <div class="w-6"></div>
+        </div>
+        <div class="page-content page-content-with-top-bar document-viewer-container">
+            <div class="document-status status-approved">
+                <p class="font-semibold">Status: Approved</p>
+                <p class="text-xs">Expires: 2026-12-31 (Sample)</p>
+            </div>
+            <div class="document-image-placeholder">
+                <!-- In a real app, an <img> tag would display the uploaded document -->
+                <!-- <img src="path/to/license_image.jpg" alt="Driver's License"> -->
+                Driver's License Image Placeholder
+            </div>
+            <p class="text-sm text-ngo-dark-gray mb-4">This is the currently approved driver's license on file. If this document is outdated or incorrect, please upload a new one via the "Edit Profile" section.</p>
+            <a href="driver_edit_profile.html#updateDriversLicense" ><button class="btn btn-secondary w-full">Upload New License</button></a>
+        </div>
+    </div>
+</body>
+</html>

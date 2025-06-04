@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payout History - Flog Ride Driver</title>
+    <link rel="stylesheet" href="style.css"> <!-- Links to your existing style.css -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .payout-item {
+            /* Uses .list-item-card styles from main style.css */
+        }
+        .payout-item .payout-amount {
+            font-weight: 600;
+            color: #28a745; /* Green for successful payout */
+        }
+        .payout-item .payout-status-pending {
+            color: #ff6b0b; /* Orange for pending */
+            font-style: italic;
+        }
+         .payout-item .payout-status-failed {
+            color: #dc3545; /* Red for failed */
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="top-bar">
+            <a href="driver_earnings.html" class="top-bar-icon leading">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+            </a>
+            <h1 class="top-bar-title">Payout History</h1>
+            <div class="w-6"></div> <!-- Spacer -->
+        </div>
+
+        <div class="page-content page-content-with-top-bar" style="padding-bottom: 20px;">
+            <p class="text-sm text-ngo-dark-gray mb-4">Below is a history of your payouts. Payouts are typically processed weekly.</p>
+
+            <!-- Payout Item 1 -->
+            <div class="list-item-card payout-item">
+                <div class="list-item-header">
+                    <h4 class="list-item-title">Weekly Payout</h4>
+                    <span class="text-sm text-ngo-dark-gray">May 10, 2025</span>
+                </div>
+                <div class="list-item-details">
+                    <p>Amount: <span class="payout-amount">NGN 42,500</span></p>
+                    <p>Status: <span class="font-semibold" style="color: #28a745;">Paid</span> to Acct: ****1234</p>
+                    <p>Reference ID: PAYOUT_WK19_2025</p>
+                </div>
+            </div>
+
+            <!-- Payout Item 2 -->
+            <div class="list-item-card payout-item">
+                <div class="list-item-header">
+                    <h4 class="list-item-title">Weekly Payout</h4>
+                    <span class="text-sm text-ngo-dark-gray">May 03, 2025</span>
+                </div>
+                <div class="list-item-details">
+                    <p>Amount: <span class="payout-amount">NGN 38,900</span></p>
+                    <p>Status: <span class="font-semibold" style="color: #28a745;">Paid</span> to Acct: ****1234</p>
+                    <p>Reference ID: PAYOUT_WK18_2025</p>
+                </div>
+            </div>
+            
+            <!-- Payout Item 3 - Pending Example -->
+            <div class="list-item-card payout-item">
+                <div class="list-item-header">
+                    <h4 class="list-item-title">Weekly Payout</h4>
+                    <span class="text-sm text-ngo-dark-gray">May 17, 2025 (Expected)</span>
+                </div>
+                <div class="list-item-details">
+                    <p>Amount: <span class="payout-amount">NGN 45,700 (Estimated)</span></p>
+                    <p>Status: <span class="payout-status-pending">Pending Processing</span></p>
+                    <p>Reference ID: -</p>
+                </div>
+            </div>
+
+            <!-- No payouts placeholder -->
+            <!-- <p class="text-center text-ngo-dark-gray mt-8">No payout history found.</p> -->
+        </div>
+    </div>
+</body>
+</html>

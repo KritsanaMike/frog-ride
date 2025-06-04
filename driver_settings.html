@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Settings - Flog Ride</title>
+    <link rel="stylesheet" href="style.css"> <!-- Links to your existing style.css -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* These styles can be moved to your main style.css if preferred */
+        .settings-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0; 
+            border-bottom: 1px solid #e9ecef; 
+            text-decoration: none;
+            color: #1C2833; 
+        }
+        .settings-item:last-child {
+            border-bottom: none;
+        }
+        .settings-item:hover {
+            background-color: #f8f9fa; 
+        }
+        .settings-item-text {
+            font-weight: 500;
+        }
+        .settings-item-icon svg {
+            width: 1.25rem; 
+            height: 1.25rem;
+            color: #6c757d; 
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <a href="driver_profile.html" class="top-bar-icon leading">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+            </a>
+            <h1 class="top-bar-title">Settings & Support</h1>
+            <div class="w-6"></div> <!-- Spacer -->
+        </div>
+
+        <div class="page-content page-content-with-top-bar" style="padding: 0 20px 20px 20px;">
+            <div class="w-full">
+                <h2 class="text-md font-semibold text-ngo-dark-gray mt-4 mb-1">Account</h2>
+                <a href="driver_profile.html#documents" class="settings-item" onclick="alert('Link to My Documents section/page (Mock)')">
+                    <span class="settings-item-text">My Documents</span>
+                    <span class="settings-item-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
+                    </span>
+                </a>
+                <a href="driver_notification_settings.html" class="settings-item">
+                    <span class="settings-item-text">Notification Preferences</span>
+                    <span class="settings-item-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
+                    </span>
+                </a>
+                <a href="#" class="settings-item" onclick="alert('Link to Change Password section/page (Mock)')">
+                    <span class="settings-item-text">Change Password</span>
+                     <span class="settings-item-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
+                    </span>
+                </a>
+                
+                <h2 class="text-md font-semibold text-ngo-dark-gray mt-6 mb-1">Support</h2>
+                <a href="driver_feedback.html" class="settings-item">
+                    <span class="settings-item-text">Submit Feedback / Report Issue</span>
+                     <span class="settings-item-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
+                    </span>
+                </a>
+                <a href="driver_faq.html" class="settings-item">
+                    <span class="settings-item-text">Help & FAQ</span>
+                     <span class="settings-item-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
+                    </span>
+                </a>
+
+                <h2 class="text-md font-semibold text-ngo-dark-gray mt-6 mb-1">Legal</h2>
+                 <a href="privacy.html" class="settings-item"> <!-- Assuming shared privacy page -->
+                    <span class="settings-item-text">Privacy Policy</span>
+                     <span class="settings-item-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
+                    </span>
+                </a>
+                <a href="terms.html" class="settings-item"> <!-- Assuming shared terms page -->
+                    <span class="settings-item-text">Terms of Service</span>
+                    <span class="settings-item-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
+                    </span>
+                </a>
+                <a href="driver_about.html" class="settings-item">
+                    <span class="settings-item-text">About Flog Ride Driver App</span>
+                    <span class="settings-item-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
+                    </span>
+                </a>
+                
+                <div class="mt-8">
+                    <a href="driver_login.html"><button  class="btn btn-outline-danger w-full" >Logout</button></a>
+                </div>
+                 <p class="text-center text-xs text-ngo-dark-gray mt-4">App Version: 1.0.0 (Driver Mock)</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

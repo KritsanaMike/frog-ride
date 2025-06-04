@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Vehicle Documents - Flog Ride</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap)" rel="stylesheet">
+    <style>
+        .document-viewer-container { padding: 1rem; }
+        .document-image-placeholder { width: 100%; max-width: 380px; min-height: 200px; height: auto; background-color: #e9ecef; border: 2px dashed #D3D3D3; border-radius: 0.375rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem auto; color: #6c757d; font-style: italic; text-align: center; }
+        .document-image-placeholder img { max-width: 100%; max-height: 400px; border-radius: 0.25rem;}
+        .document-status { text-align: center; margin-bottom: 1rem; padding: 0.5rem; border-radius: 0.375rem; }
+        .status-approved { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb;}
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="top-bar">
+            <a href="driver_profile.html" class="top-bar-icon leading">
+                <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+            </a>
+            <h1 class="top-bar-title">Vehicle Documents</h1>
+            <div class="w-6"></div>
+        </div>
+        <div class="page-content page-content-with-top-bar document-viewer-container">
+            <div class="document-status status-approved">
+                <p class="font-semibold">Status: Approved</p>
+                <p class="text-xs">Proof of Ownership & Road Worthiness (Sample)</p>
+            </div>
+            <div class="document-image-placeholder">
+                <!-- <img src="path/to/vehicle_doc_image.jpg" alt="Vehicle Document"> -->
+                Vehicle Document Image Placeholder (e.g., Proof of Ownership)
+            </div>
+             <div class="document-image-placeholder mt-4">
+                <!-- <img src="path/to/road_worthiness_image.jpg" alt="Road Worthiness Certificate"> -->
+                Road Worthiness Certificate Placeholder
+            </div>
+            <p class="text-sm text-ngo-dark-gray my-4">These are the currently approved vehicle documents. Ensure they are always up to date.</p>
+            <a href="driver_edit_profile.html#updateVehicleDocuments" ><button class="btn btn-secondary w-full">Upload New Documents</button></a>
+        </div>
+    </div>
+</body>
+</html>

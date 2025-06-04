@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Feedback - Flog Ride</title>
+    <link rel="stylesheet" href="style.css"> <!-- Links to your existing style.css -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <a href="driver_settings.html" class="top-bar-icon leading">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+            </a>
+            <h1 class="top-bar-title">Submit Feedback / Report Issue</h1>
+            <div class="w-6"></div> <!-- Spacer -->
+        </div>
+
+        <div class="page-content page-content-with-top-bar" style="padding-bottom: 20px;">
+            <form id="driverFeedbackForm" class="w-full">
+                <div>
+                    <label for="driverIssueType" class="form-label">Subject / Issue Type</label>
+                    <select id="driverIssueType" class="select-field" required>
+                        <option value="" disabled selected>Select a category</option>
+                        <option value="payment_issue">Payment or Earnings Issue</option>
+                        <option value="app_problem">App Problem / Bug</option>
+                        <option value="passenger_issue">Issue with a Passenger</option>
+                        <option value="support_request">Support Request</option>
+                        <option value="suggestion_driver">Suggestion for Driver App</option>
+                        <option value="other_driver">Other</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="driverFeedbackDescription" class="form-label">Description</label>
+                    <textarea id="driverFeedbackDescription" class="input-field" rows="6" placeholder="Please provide details about your feedback or issue..." required></textarea>
+                </div>
+
+                <div>
+                    <label for="driverFeedbackAttachment" class="form-label">Attach Screenshot/File (Optional)</label>
+                    <input type="file" id="driverFeedbackAttachment" class="file-input-field">
+                </div>
+                
+                <button type="submit" class="btn btn-primary w-full mt-6">Submit</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.getElementById('driverFeedbackForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            console.log('Driver Feedback submitted:', {
+                type: document.getElementById('driverIssueType').value,
+                description: document.getElementById('driverFeedbackDescription').value
+            });
+            alert('Thank you for your feedback! Our support team will get back to you if needed. (Mock submission)');
+            this.reset();
+        });
+    </script>
+</body>
+</html>

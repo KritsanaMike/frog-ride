@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation - Flog Ride Driver</title>
+    <link rel="stylesheet" href="style.css"> <!-- Links to your existing style.css -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .navigation-map-area {
+            width: 100%;
+            height: 60vh; /* Adjust as needed */
+            background-color: #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            font-style: italic;
+            border-radius: 0.375rem;
+            margin-bottom: 1rem;
+        }
+        .navigation-instructions {
+            padding: 0.75rem;
+            background-color: #1C2833; /* ngo-blueblack */
+            color: white;
+            text-align: center;
+            border-radius: 0.375rem;
+            margin-bottom: 1rem;
+        }
+        .navigation-instructions p { margin: 0.25rem 0; }
+        .navigation-instructions .distance { font-size: 1.25rem; font-weight: bold; }
+        .navigation-actions button { margin-top: 0.5rem; }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="top-bar">
+            <!-- Typically, a full-screen map might not have a back button to the previous app screen, 
+                 but a button to exit navigation or go back to the ongoing trip summary.
+                 For simplicity, linking back to driver_home.html.
+            -->
+            <a href="driver_home.html" class="top-bar-icon leading">
+                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /> <!-- Close icon -->
+                  </svg>
+            </a>
+            <h1 class="top-bar-title" id="navigationTitle">Navigating to Pickup</h1>
+            <div class="w-6"></div> <!-- Spacer -->
+        </div>
+
+        <div class="page-content page-content-with-top-bar" style="padding: 10px; overflow-y: hidden;">
+            <div class="navigation-instructions">
+                <p id="instructionText">Turn left onto Main Street</p>
+                <p class="distance" id="distanceToNextTurn">500m</p>
+                <p>ETA: <span id="etaText">15:30</span></p>
+            </div>
+
+            <div class="navigation-map-area">
+                Live GPS Navigation Map Placeholder
+                <p class="text-sm">(Full screen map integration here)</p>
+            </div>
+            
+            <div class="navigation-actions grid grid-cols-2 gap-2">
+                <button id="startTripButton" class="btn btn-primary w-full" onclick="startTrip()">Start Trip</button>
+                <button id="endTripButton" class="btn btn-secondary w-full" style="display:none;" onclick="endTrip()">End Trip</button>
+                <button class="btn btn-secondary w-full" onclick="alert('Call Passenger: Aisha Bello at +234 XXX XXX XXXX (Mock)')">Call Passenger</button>
+                <button class="btn btn-outline-danger w-full" onclick="alert('Emergency Action Triggered (Mock)')">Emergency</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const startTripButton = document.getElementById('startTripButton');
+        const endTripButton = document.getElementById('endTripButton');
+        const navigationTitle = document.getElementById('navigationTitle');
+        const instructionText = document.getElementById('instructionText');
+        const distanceToNextTurn = document.getElementById('distanceToNextTurn');
+        const etaText = document.getElementById('etaText');
+        let tripStarted = false;
+
+        // Mock trip details from URL (if needed)
+        const urlParamsNav = new URLSearchParams(window.location.search);
+        const tripIdNav = urlParamsNav.get('tripId') || 'current456';
+
+        function startTrip() {
+            tripStarted = true;
+            startTripButton.style.display = 'none';
+            endTripButton.style.display = 'block';
+            navigationTitle.textContent = 'Navigating to Destination';
+            instructionText.textContent = 'Continue straight for 2km';
+            distanceToNextTurn.textContent = '2km';
+            etaText.textContent = '15:45'; // Updated ETA
+            alert('Trip Started! Navigating to destination. (Mock)');
+        }
+
+        function endTrip() {
+            alert('Trip Ended! Calculating fare... (Mock)');
+            // Navigate to ride summary page
+            window.location.href = `driver_ride_summary.html?tripId=${tripIdNav}&status=completed`;
+        }
+    </script>
+</body>
+</html>
