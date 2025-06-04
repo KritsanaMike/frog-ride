@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Details - Hotel Admin</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <div class="top-bar">
+            <a href="hotel_admin_bookings_new.html" class="top-bar-icon leading" id="backLink">
+                <!-- Default back to new bookings -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+            </a>
+            <h1 class="top-bar-title">Booking Details</h1>
+            <div class="w-6"></div>
+        </div>
+
+        <div class="page-content page-content-with-top-bar" style="padding-bottom: 20px;">
+            <!-- Booking Details Section -->
+            <div class="content-section">
+                <div class="flex justify-between items-center mb-3">
+                    <h2 class="text-xl font-semibold text-ngo-blueblack" id="guestName">Aisha Bello (NGO Staff)</h2>
+                    <span class="list-item-status status-pending" id="bookingStatus">Pending</span>
+                </div>
+
+                <div class="details-info-item">
+                    <p class="details-info-label">Booking ID</p>
+                    <p class="details-info-value" id="bookingId">NGO1001</p>
+                </div>
+                <div class="details-info-item">
+                    <p class="details-info-label">Room Type</p>
+                    <p class="details-info-value" id="roomType">Standard King Room</p>
+                </div>
+                <div class="details-info-item">
+                    <p class="details-info-label">Check-in Date</p>
+                    <p class="details-info-value" id="checkInDate">June 10, 2025</p>
+                </div>
+                <div class="details-info-item">
+                    <p class="details-info-label">Check-out Date</p>
+                    <p class="details-info-value" id="checkOutDate">June 12, 2025</p>
+                </div>
+                <div class="details-info-item">
+                    <p class="details-info-label">Number of Nights</p>
+                    <p class="details-info-value" id="numNights">2</p>
+                </div>
+                <div class="details-info-item">
+                    <p class="details-info-label">Number of Guests</p>
+                    <p class="details-info-value" id="numGuests">1 adult</p>
+                </div>
+                <div class="details-info-item">
+                    <p class="details-info-label">Total Price</p>
+                    <p class="details-info-value text-ngo-orange font-bold" id="totalPrice">NGN 150,000</p>
+                </div>
+                <div class="details-info-item">
+                    <p class="details-info-label">NGO Organization</p>
+                    <p class="details-info-value" id="ngoName">Hope Foundation Nigeria</p>
+                </div>
+                <div class="details-info-item">
+                    <p class="details-info-label">Contact Person (NGO)</p>
+                    <p class="details-info-value" id="ngoContactName">Mr. Adebayo</p>
+                </div>
+                <div class="details-info-item">
+                    <p class="details-info-label">Contact Phone (NGO)</p>
+                    <p class="details-info-value"><a href="tel:+2348012345678" class="link" id="ngoContactPhone">+234
+                            801 234 5678</a></p>
+                </div>
+                <div class="details-info-item">
+                    <p class="details-info-label">Special Requests</p>
+                    <p class="details-info-value" id="specialRequests">"Quiet room preferred, late check-in around 10
+                        PM."</p>
+                </div>
+            </div>
+
+            <!-- Action Buttons (Conditional based on status) -->
+            <div id="bookingActions" class="mt-6 flex flex-col sm:flex-row gap-3">
+                <button class="btn btn-primary flex-grow mb-2" id="acceptButton"
+                    onclick="processBooking('accept')">Accept Booking</button>
+                <button class="btn btn-outline-danger flex-grow" id="declineButton"
+                    onclick="processBooking('decline')">Decline Booking</button>
+                <!-- <button class="btn btn-secondary flex-grow" id="markCheckedInButton" style="display:none;" onclick="processBooking('checkin')">Mark as Checked-In</button> -->
+                <!-- <button class="btn btn-secondary flex-grow" id="markCheckedOutButton" style="display:none;" onclick="processBooking('checkout')">Mark as Checked-Out</button> -->
+            </div>
+            <a href="hotel_admin_bookings_new.html" id="">
+                <button class="btn btn-secondary w-full mt-4" type="button">Back to New Bookings</button>
+            </a>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const bookingId = params.get('bookingId');
+            const fromPage = params.get('from') || 'new'; // Default to 'new' if not specified
+
+            const backLink = document.getElementById('backLink');
+            const backToListButton = document.getElementById('backToListButton');
+
+            if (fromPage === 'all') {
+                backLink.href = 'hotel_admin_bookings_all.html';
+                backToListButton.href = 'hotel_admin_bookings_all.html';
+                backToListButton.textContent = 'Back to All Bookings';
+            } else {
+                backLink.href = 'hotel_admin_bookings_new.html';
+                backToListButton.href = 'hotel_admin_bookings_new.html';
+                backToListButton.textContent = 'Back to New Bookings';
+            }
+
+            // Mock data - in a real app, fetch booking details by ID
+            if (bookingId === 'NGO1001') {
+                // Default sample data is fine
+            } else if (bookingId === 'NGO1002') {
+                document.getElementById('guestName').textContent = 'Musa Ibrahim (NGO Staff)';
+                document.getElementById('bookingId').textContent = 'NGO1002';
+                document.getElementById('roomType').textContent = 'Deluxe Twin Room';
+                document.getElementById('checkInDate').textContent = 'June 15, 2025';
+                document.getElementById('checkOutDate').textContent = 'June 16, 2025';
+                document.getElementById('numNights').textContent = '1';
+                document.getElementById('numGuests').textContent = '2 adults';
+                document.getElementById('totalPrice').textContent = 'NGN 85,000';
+                document.getElementById('ngoName').textContent = 'Education First Initiative';
+                document.getElementById('specialRequests').textContent = 'None';
+            } else if (bookingId === 'NGO_CONFIRMED_124') { // Example for a confirmed booking
+                document.getElementById('guestName').textContent = 'Musa Ibrahim (NGO Staff)';
+                document.getElementById('bookingId').textContent = 'NGO124';
+                document.getElementById('roomType').textContent = 'Standard Single';
+                document.getElementById('checkInDate').textContent = 'June 05, 2025';
+                document.getElementById('checkOutDate').textContent = 'June 07, 2025';
+                document.getElementById('numNights').textContent = '2';
+                document.getElementById('numGuests').textContent = '1 adult';
+                document.getElementById('totalPrice').textContent = 'NGN 120,000';
+                document.getElementById('ngoName').textContent = 'Green Earth Org';
+                document.getElementById('specialRequests').textContent = 'Early check-in if possible.';
+                document.getElementById('bookingStatus').textContent = 'Confirmed';
+                document.getElementById('bookingStatus').className = 'list-item-status status-completed'; // Using completed for green
+                document.getElementById('acceptButton').style.display = 'none';
+                document.getElementById('declineButton').style.display = 'none';
+            }
+            // Add more mock data for other booking IDs if needed
+        });
+
+        function processBooking(action) {
+            const bookingId = document.getElementById('bookingId').textContent;
+            if (action === 'accept') {
+                alert(`Booking ID ${bookingId} has been ACCEPTED. (Mock)`);
+                document.getElementById('bookingStatus').textContent = 'Confirmed';
+                document.getElementById('bookingStatus').className = 'list-item-status status-completed'; // Green
+                document.getElementById('acceptButton').style.display = 'none';
+                document.getElementById('declineButton').style.display = 'none';
+                // Add logic to show "Mark as Checked-In" if applicable
+            } else if (action === 'decline') {
+                const reason = prompt("Enter reason for declining (optional):");
+                alert(`Booking ID ${bookingId} has been DECLINED. Reason: ${reason || 'N/A'} (Mock)`);
+                document.getElementById('bookingStatus').textContent = 'Declined';
+                document.getElementById('bookingStatus').className = 'list-item-status status-cancelled'; // Red
+                document.getElementById('acceptButton').style.display = 'none';
+                document.getElementById('declineButton').style.display = 'none';
+            }
+            // Add more actions like check-in, check-out
+        }
+    </script>
+</body>
+
+</html>

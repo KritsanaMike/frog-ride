@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Admin Registration - Flog Ride</title>
+    <link rel="stylesheet" href="style.css"> <!-- Links to your existing style.css -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* .app-container { max-width: 420px; margin: auto; background-color: #fff; min-height: 100vh; box-shadow: 0 0 10px rgba(0,0,0,0.1); } */
+        /* .page-content { padding:20px; padding-bottom: 20px; max-height: 100vh; overflow-y: auto; } */
+        .portal-title { /* Re-scoped for this page if needed, or use .page-header-title */
+            font-size: 1.5rem; 
+            font-weight: 700; 
+            color: #1C2833; 
+            text-align: center;
+            margin-top: 1rem; /* Added margin top */
+            margin-bottom: 1.5rem; 
+        }
+        .checkbox-group label {
+            margin-right: 1rem;
+            font-size: 0.875rem; /* text-sm */
+        }
+        .grid-cols-sm-2 label { /* For smaller screens on checkbox group */
+             flex-basis: calc(50% - 0.5rem); /* Two columns with gap */
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="page-content" style="padding-bottom: 20px;"> <!-- Standard page content padding -->
+            <h1 class="portal-title">Register Your Hotel</h1>
+            <form id="hotelRegistrationForm" class="w-full" style="max-height: calc(100vh - 100px); overflow-y: auto;">
+                
+                <h2 class="text-lg font-semibold text-ngo-blueblack mt-2 mb-3">Hotel Information</h2>
+                <div>
+                    <label for="hotelFullName" class="form-label">Hotel Full Name</label>
+                    <input type="text" id="hotelFullName" class="input-field" placeholder="e.g., The Grand Plaza Hotel" required>
+                </div>
+                <div>
+                    <label for="hotelContactEmail" class="form-label">Hotel Contact Email</label>
+                    <input type="email" id="hotelContactEmail" class="input-field" placeholder="contact@grandplazahotel.com" required>
+                </div>
+                 <div>
+                    <label for="hotelPassword" class="form-label">Create Account Password</label>
+                    <input type="password" id="hotelPassword" class="input-field" placeholder="Create a strong password" required>
+                </div>
+                <div>
+                    <label for="hotelAddress" class="form-label">Hotel Address</label>
+                    <textarea id="hotelAddress" class="input-field" rows="2" placeholder="Full address of your hotel" required></textarea>
+                </div>
+                 <div>
+                    <label for="hotelCity" class="form-label">City / Town</label>
+                    <input type="text" id="hotelCity" class="input-field" placeholder="e.g., Abuja" required>
+                </div>
+                 <div>
+                    <label for="hotelState" class="form-label">State</label>
+                    <input type="text" id="hotelState" class="input-field" placeholder="e.g., FCT" required>
+                </div>
+
+
+                <h2 class="text-lg font-semibold text-ngo-blueblack mt-4 mb-3">Offered Services</h2>
+                <p class="text-sm text-ngo-dark-gray mb-2">Select all services your establishment offers:</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-2 gap-y-2 mb-4 checkbox-group"> <!-- Adjusted grid for mobile -->
+                    <label class="flex items-center"><input type="checkbox" name="hotelService" value="accommodation" class="form-checkbox h-5 w-5 text-ngo-orange mr-2" checked> Accommodation</label>
+                    <label class="flex items-center"><input type="checkbox" name="hotelService" value="restaurant" class="form-checkbox h-5 w-5 text-ngo-orange mr-2"> Restaurant / Bar</label>
+                    <label class="flex items-center"><input type="checkbox" name="hotelService" value="gym" class="form-checkbox h-5 w-5 text-ngo-orange mr-2"> Gym</label>
+                    <label class="flex items-center"><input type="checkbox" name="hotelService" value="pool" class="form-checkbox h-5 w-5 text-ngo-orange mr-2"> Swimming Pool</label>
+                    <label class="flex items-center"><input type="checkbox" name="hotelService" value="spa_massage" class="form-checkbox h-5 w-5 text-ngo-orange mr-2"> Spa / Massage</label>
+                    <label class="flex items-center"><input type="checkbox" name="hotelService" value="conference" class="form-checkbox h-5 w-5 text-ngo-orange mr-2"> Conference Hall</label>
+                    <label class="flex items-center"><input type="checkbox" name="hotelService" value="laundry" class="form-checkbox h-5 w-5 text-ngo-orange mr-2"> Laundry Service</label>
+                </div>
+                 <div>
+                    <label for="otherServices" class="form-label">Other Services (Specify)</label>
+                    <input type="text" id="otherServices" class="input-field" placeholder="e.g., Airport Shuttle">
+                </div>
+
+
+                <h2 class="text-lg font-semibold text-ngo-blueblack mt-4 mb-3">Required Documents</h2>
+                <div>
+                    <label for="govRegCert" class="form-label">Government Registration Certificate (CAC)</label>
+                    <input type="file" id="govRegCert" class="file-input-field" accept=".pdf,image/*" required>
+                </div>
+                <div>
+                    <label for="opLicense" class="form-label">License of Operation</label>
+                    <input type="file" id="opLicense" class="file-input-field" accept=".pdf,image/*" required>
+                </div>
+                
+                <div class="flex items-start mt-6 mb-4">
+                    <input type="checkbox" id="hotelTermsAgreement" class="form-checkbox h-5 w-5 text-ngo-orange mr-2 mt-1" required>
+                    <label for="hotelTermsAgreement" class="text-sm text-ngo-dark-gray">
+                        I confirm authorization and agree to Flog Ride's <a href="terms.html" class="link" target="_blank">Partner Terms</a> & <a href="privacy.html" class="link" target="_blank">Privacy Policy</a>.
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-full mt-4 mb-2">Submit Registration</button>
+                <p class="text-center text-ngo-dark-gray">
+                    Already a partner? <a href="hotel_admin_login.html" class="link">Login</a>
+                </p>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.getElementById('hotelRegistrationForm').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+            if (!document.getElementById('hotelTermsAgreement').checked) {
+                alert('You must agree to the Partner Terms and Privacy Policy.');
+                return;
+            }
+            console.log('Hotel registration submitted for:', document.getElementById('hotelFullName').value);
+            alert('Registration application submitted! Your hotel details will be reviewed. You will be notified once approved. (Mock submission)');
+            window.location.href = 'hotel_admin_login.html'; 
+        });
+    </script>
+</body>
+</html>

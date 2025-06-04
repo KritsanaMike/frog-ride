@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Reviews - Hotel Admin</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .review-card {
+            /* Uses .list-item-card styles from main style.css */
+            margin-bottom: 1.5rem; /* More space between reviews */
+        }
+        .review-card .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        .review-card .reviewer-name {
+            font-weight: 600;
+            color: #1C2833;
+        }
+        .review-card .review-date {
+            font-size: 0.75rem;
+            color: #6c757d;
+        }
+        .review-card .review-stars {
+            color: #ffc107; /* Standard yellow for stars */
+            margin-bottom: 0.5rem;
+        }
+        .review-card .review-comment {
+            font-size: 0.875rem;
+            color: #333;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="top-bar">
+             <a href="hotel_admin_dashboard.html" class="top-bar-icon leading">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+            </a>
+            <h1 class="top-bar-title">Client Ratings & Reviews</h1>
+            <div class="w-6"></div>
+        </div>
+
+        <div class="page-content page-content-with-top-bar page-content-with-bottom-nav">
+            <div class="content-section mb-4">
+                <h2 class="content-section-title">Overall Rating</h2>
+                <div class="text-center">
+                    <p class="text-4xl font-bold text-ngo-orange">4.3 <span class="text-xl text-ngo-dark-gray">/ 5</span></p>
+                    <p class="text-sm text-ngo-dark-gray">(Based on 125 reviews)</p>
+                </div>
+            </div>
+
+            <!-- Review Filter Placeholder -->
+            <div class="mb-4">
+                <select class="select-field">
+                    <option value="">Sort by: Most Recent</option>
+                    <option value="highest_rating">Highest Rating</option>
+                    <option value="lowest_rating">Lowest Rating</option>
+                </select>
+            </div>
+
+            <!-- Review Card 1 -->
+            <div class="list-item-card review-card">
+                <div class="review-header">
+                    <span class="reviewer-name">Aisha Bello</span>
+                    <span class="review-date">June 05, 2025</span>
+                </div>
+                <div class="review-stars">
+                    &#9733;&#9733;&#9733;&#9733;&#9734; <!-- 4 stars -->
+                </div>
+                <p class="review-comment">
+                    "The hotel was clean and the staff were very helpful. Location was convenient for my fieldwork. 
+                    Breakfast could have more variety, but overall a good stay."
+                </p>
+            </div>
+
+            <!-- Review Card 2 -->
+            <div class="list-item-card review-card">
+                <div class="review-header">
+                    <span class="reviewer-name">Musa Ibrahim</span>
+                    <span class="review-date">May 28, 2025</span>
+                </div>
+                <div class="review-stars">
+                    &#9733;&#9733;&#9733;&#9733;&#9733; <!-- 5 stars -->
+                </div>
+                <p class="review-comment">
+                    "Excellent service and very comfortable rooms. The Wi-Fi was fast, which was important for my work. 
+                    Highly recommend this hotel for NGO staff."
+                </p>
+            </div>
+            
+            <!-- Review Card 3 -->
+            <div class="list-item-card review-card">
+                <div class="review-header">
+                    <span class="reviewer-name">Chinedu Okoro</span>
+                    <span class="review-date">May 15, 2025</span>
+                </div>
+                <div class="review-stars">
+                    &#9733;&#9733;&#9733;&#9734;&#9734; <!-- 3 stars -->
+                </div>
+                <p class="review-comment">
+                    "Decent hotel. The room was a bit small and the AC was noisy. However, the staff were friendly and tried to assist."
+                </p>
+            </div>
+
+            <!-- No reviews placeholder -->
+            <!-- 
+            <div class="text-center p-6 mt-4 bg-ngo-light-gray-accent rounded-lg">
+                <p class="text-ngo-dark-gray">No reviews received yet.</p>
+            </div>
+             -->
+        </div>
+
+        <nav class="bottom-nav">
+            <a href="hotel_admin_dashboard.html" class="flex flex-col items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h7.5" /></svg>
+                <span class="text-xs">Dashboard</span>
+            </a>
+            <a href="hotel_admin_bookings_all.html" class="flex flex-col items-center active"> <!-- Bookings is active -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-3.75h.008v.008H12v-.008z" /></svg>
+                <span class="text-xs">Bookings</span>
+            </a>
+            <a href="hotel_admin_room_management.html" class="flex flex-col items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                <span class="text-xs">Rooms</span>
+            </a>
+            <a href="hotel_admin_profile_manage.html" class="flex flex-col items-center">
+                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z" /></svg>
+                <span class="text-xs">My Hotel</span>
+            </a>
+             <a href="hotel_admin_account_settings.html" class="flex flex-col items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.646.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.438.992a6.759 6.759 0 010 1.255c0 .379.145.752.438.992l1.003.827c.446.368.539.995.26 1.431l-1.296 2.247a1.125 1.125 0 01-1.37.49l-1.217-.456c-.355-.133-.75-.072-1.075.124a6.57 6.57 0 01-.22.127c-.333.184-.583.496-.646.87l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.646-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.37-.49l-1.296-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.437-.992a6.758 6.758 0 010-1.255c0-.379-.145-.752-.438-.992l-1.004-.827a1.125 1.125 0 01-.26-1.431l1.296-2.247a1.125 1.125 0 011.37-.49l1.217.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.184.582-.496.646-.87l.213-1.28z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                <span class="text-xs">Settings</span>
+            </a>
+        </nav>
+    </div>
+</body>
+</html>

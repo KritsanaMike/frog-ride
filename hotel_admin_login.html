@@ -3,56 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hotel Admin Login - Flog Ride</title> <!-- Title Updated -->
+    <title>Hotel Admin Login - Flog Ride</title>
     <link rel="stylesheet" href="style.css"> <!-- Links to your existing style.css -->
     <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap)" rel="stylesheet">
     <style>
-        /* Additional styles for portal layout if needed, or add to main style.css */
-        body.portal-body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: #F0F0F0; /* Light Gray Background */
-        }
-        .login-container {
-            background-color: #ffffff;
-            padding: 2.5rem; /* p-10 */
-            border-radius: 0.5rem; /* rounded-lg */
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); /* shadow-xl */
-            width: 100%;
-            max-width: 450px; /* Adjust as needed */
-        }
-        .portal-title {
-            font-size: 1.875rem; /* text-3xl */
-            font-weight: 700; /* font-bold */
+        /* Styles for login page, ensuring it uses app-container for consistency */
+        /* body { background-color: #F0F0F0; } /* Ensure this is in main style.css */
+        /* .app-container { max-width: 420px; margin: auto; background-color: #fff; min-height: 100vh; box-shadow: 0 0 10px rgba(0,0,0,0.1); } */
+        /* .page-content { padding: 20px; display: flex; flex-direction: column; justify-content: center; min-height: calc(100vh - 40px); } */
+         .portal-title { /* Re-scoped for this page if needed, or use .header-title */
+            font-size: 1.5rem; /* text-2xl */
+            font-weight: 700; /* bold */
             color: #1C2833; /* ngo-blueblack */
             text-align: center;
-            margin-bottom: 2rem; /* mb-8 */
+            margin-bottom: 1.5rem;
         }
     </style>
 </head>
-<body class="portal-body">
-    <div class="login-container">
-        <div class="logo-placeholder" style="width: 80px; height: 80px; margin-bottom:1.5rem;">HOTEL</div>
-        <h1 class="portal-title">Hotel Admin Login</h1> <!-- Title Updated -->
-        <form id="hotelLoginForm" class="w-full">
-            <div>
-                <label for="hotelLoginEmail" class="form-label">Email Address</label>
-                <input type="email" id="hotelLoginEmail" class="input-field" placeholder="hotel.email@example.com" required>
-            </div>
-            <div>
-                <label for="hotelLoginPassword" class="form-label">Password</label>
-                <input type="password" id="hotelLoginPassword" class="input-field" placeholder="********" required>
-            </div>
-            <a href="hotel_admin_dashboard.html" class="btn btn-primary w-full mt-6 mb-3">Login</a> <!-- Link Updated -->
-            <div class="text-center mb-4">
-                <a href="#" class="link" onclick="alert('Forgot password functionality to be implemented.')">Forgot Password?</a>
-            </div>
-            <p class="text-center text-ngo-dark-gray">
-                Not yet a partner? <a href="hotel_admin_register.html" class="link">Register Your Hotel</a> <!-- Link Updated -->
-            </p>
-        </form>
+<body>
+    <div class="app-container">
+        <div class="page-content auth-page-content"> <!-- Using auth-page-content for vertical centering like other login pages -->
+            <div class="logo-placeholder" style="width: 80px; height: 80px; margin-bottom:1.5rem;">HOTEL</div>
+            <h1 class="portal-title">Hotel Admin Login</h1>
+            <form id="hotelLoginForm" class="w-full">
+                <div>
+                    <label for="hotelLoginEmail" class="form-label">Email Address</label>
+                    <input type="email" id="hotelLoginEmail" class="input-field" placeholder="hotel.email@example.com" >
+                </div>
+                <div>
+                    <label for="hotelLoginPassword" class="form-label">Password</label>
+                    <input type="password" id="hotelLoginPassword" class="input-field" placeholder="********" >
+                </div>
+                <a href="hotel_admin_dashboard.html" ><button class="btn btn-primary w-full mt-6 mb-3" type="button">Login</button></a>
+                <div class="text-center mb-4">
+                    <a href="#" class="link" onclick="alert('Forgot password functionality to be implemented.')">Forgot Password?</a>
+                </div>
+                <p class="text-center text-ngo-dark-gray">
+                    Not yet a partner? <a href="hotel_admin_register.html" class="link">Register Your Hotel</a>
+                </p>
+            </form>
+        </div>
     </div>
 </body>
 </html>

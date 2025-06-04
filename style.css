@@ -323,6 +323,12 @@ body {
 .status-ongoing {
   background-color: #ff6b0b; /* UPDATED Orange */
 }
+.status-confirmed{
+  color: #28a745; /* Green */
+}
+.status-pending{
+  color: #ff6b0b; /* Green */
+}
 
 .history-item-details p {
   font-size: 0.875rem; /* text-sm */
