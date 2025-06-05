@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flog Ride - Admin Portal Login</title>
+    <link rel="stylesheet" href="style.css"> <!-- Links to your existing style.css -->
+    <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap)" rel="stylesheet">
+    <style>
+        /* Reusing portal-body and login-container styles from hotel_admin_login, ensure these are in your main style.css or defined here */
+        body.portal-body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #F0F0F0; /* Light Gray Background */
+        }
+        .login-container {
+            background-color: #ffffff;
+            padding: 2.5rem; 
+            border-radius: 0.5rem; 
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); 
+            width: 100%;
+            max-width: 450px;
+        }
+        .portal-title {
+            font-size: 1.875rem; 
+            font-weight: 700; 
+            color: #1C2833; 
+            text-align: center;
+            margin-bottom: 2rem; 
+        }
+    </style>
+</head>
+<body class="portal-body">
+    <div class="login-container">
+        <div class="logo-placeholder" style="width: 80px; height: 80px; margin-bottom:1.5rem; background-color: #1C2833; color: #ff6b0b;">FR</div>
+        <h1 class="portal-title">Flog Ride Admin Portal</h1>
+        <form id="adminLoginForm" class="w-full">
+            <div>
+                <label for="adminLoginEmail" class="form-label">Admin Email</label>
+                <input type="email" id="adminLoginEmail" class="input-field" placeholder="admin@flogride.com" >
+            </div>
+            <div>
+                <label for="adminLoginPassword" class="form-label">Password</label>
+                <input type="password" id="adminLoginPassword" class="input-field" placeholder="********" >
+            </div>
+            <a href="admin_portal_dashboard.html" >
+                <button class="btn btn-primary w-full mt-6 mb-3" type="button">Secure Login</button>
+            </a>
+             <div class="text-center mb-4">
+                <a href="#" class="link" onclick="alert('Admin password recovery procedure to be implemented.')">Forgot Password?</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

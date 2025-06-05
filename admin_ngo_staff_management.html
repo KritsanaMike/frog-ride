@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NGO Staff Management - Admin Portal</title>
+    <!-- <link rel="stylesheet" href="style.css"> Ensure this links to your main styles if not using CDN only -->
+    <script src="https://cdn.tailwindcss.com"></script> <!-- Added Tailwind CDN -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles specific to Admin Portal can go here or in style.css */
+        body.portal-dashboard-body {
+            background-color: #F0F0F0;
+            /* Tailwind bg-gray-100 */
+            display: flex;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .sidebar {
+            width: 280px;
+            background-color: #1C2833;
+            /* ngo-blueblack */
+            color: white;
+            /* padding: 1.5rem 1rem; Tailwind p-6 px-4 */
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            text-align: center;
+            /* margin-bottom: 1.5rem; Tailwind mb-6 */
+            /* padding-bottom: 1rem; Tailwind pb-4 */
+            border-bottom: 1px solid #34495E;
+        }
+
+        .sidebar-logo {
+            width: 50px;
+            height: 50px;
+            background-color: #ff6b0b;
+            /* ngo-orange */
+            border-radius: 50%;
+            /* rounded-full */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* margin: 0 auto 0.5rem auto; Tailwind mx-auto mb-2 */
+            font-weight: bold;
+            /* font-bold */
+            font-size: 1.25rem;
+            /* text-xl */
+            color: white;
+        }
+
+        .sidebar-title {
+            font-size: 1.25rem;
+            /* text-xl */
+            font-weight: 600;
+            /* font-semibold */
+        }
+
+        /* Sidebar nav links adjusted for Tailwind where possible, keeping custom structure */
+        .sidebar-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-nav li a {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            color: #bdc3c7;
+            /* text-gray-400 */
+            text-decoration: none;
+            border-radius: 0.375rem;
+            /* rounded-md */
+            margin-bottom: 0.35rem;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        .sidebar-nav li a:hover,
+        .sidebar-nav li a.active {
+            background-color: #ff6b0b;
+            /* bg-ngo-orange */
+            color: white;
+            /* text-white */
+            font-weight: 500;
+            /* font-medium */
+        }
+
+        .sidebar-nav li a svg {
+            width: 1.125rem;
+            height: 1.125rem;
+            margin-right: 0.875rem;
+        }
+
+        .sidebar-nav .nav-section-title {
+            padding: 1rem 1rem 0.5rem 1rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: #7f8c8d;
+            font-weight: 600;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid #34495E;
+        }
+
+        .main-content-portal {
+            margin-left: 280px;
+            padding: 2rem;
+            /* p-8 */
+            width: calc(100% - 280px);
+            background-color: #F0F0F0;
+            /* bg-gray-100 */
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        /* Tailwind will handle .portal-page-title, .stats-card etc. if classes are applied in HTML */
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'ngo-orange': '#ff6b0b',
+                        'ngo-blueblack': '#1C2833',
+                        'ngo-dark-gray': '#6c757d',
+                        'ngo-light-gray': '#F0F0F0',
+                        'ngo-border-gray': '#D3D3D3',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom styles for table if not using a Tailwind table plugin */
+        .table-auto {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table-auto th,
+        .table-auto td {
+            border: 1px solid #e0e0e0;
+            padding: 0.75rem;
+            text-align: left;
+            font-size: 0.875rem;
+        }
+
+        .table-auto th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+
+        .table-auto tbody tr:nth-child(odd) {
+            background-color: #ffffff;
+        }
+
+        .table-auto tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .table-auto tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .link {
+            color: #ff6b0b;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .link:hover {
+            text-decoration: underline;
+        }
+
+        /* General Button Styles (can be in style.css, complementing Tailwind) */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #ff6b0b;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #e05c0a;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        .btn-outline-danger {
+            background-color: transparent;
+            color: #dc3545;
+            border: 1px solid #dc3545;
+        }
+
+        .btn-outline-danger:hover {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .btn-sm {
+            padding: 0.3rem 0.6rem;
+            font-size: 0.8rem;
+        }
+
+        /* General Form Styles (can be in style.css) */
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #1C2833;
+        }
+
+        .input-field,
+        .select-field {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #D3D3D3;
+            border-radius: 0.375rem;
+            margin-bottom: 1rem;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        .input-field:focus,
+        .select-field:focus {
+            outline: none;
+            border-color: #ff6b0b;
+            box-shadow: 0 0 0 2px rgba(255, 107, 11, 0.3);
+        }
+
+        /* Page Title */
+        .portal-page-title {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: #1C2833;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Stats Card from Dashboard (might be reused or specific components created) */
+        .stats-card {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        .stats-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .stats-card-title {
+            font-size: 0.875rem;
+            color: #6c757d;
+            font-weight: 500;
+        }
+
+        .stats-card-icon-container {
+            background-color: #ffe8d6;
+            padding: 0.5rem;
+            border-radius: 50%;
+        }
+
+        .stats-card-icon {
+            width: 24px;
+            height: 24px;
+            color: #ff6b0b;
+        }
+
+        .stats-card-value {
+            font-size: 1.875rem;
+            font-weight: bold;
+            color: #1C2833;
+            margin-bottom: 0.25rem;
+        }
+
+        .stats-card-change {
+            font-size: 0.875rem;
+        }
+
+        .text-green-500 {
+            color: #28a745;
+        }
+
+        .text-red-500 {
+            color: #dc3545;
+        }
+
+        .content-section {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .content-section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1C2833;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .action-btn {
+            padding: 0.3rem 0.6rem;
+            font-size: 0.8rem;
+            margin-right: 0.25rem;
+        }
+
+        .status-active {
+            color: #28a745;
+            font-weight: 500;
+        }
+
+        .status-inactive {
+            color: #dc3545;
+            font-weight: 500;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 0.5rem;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .close-button {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .close-button:hover {
+            color: black;
+        }
+    </style>
+</head>
+
+<body class="portal-dashboard-body">
+    <aside class="sidebar p-6">
+        <div class="sidebar-header mb-6 pb-4">
+            <div class="sidebar-logo mx-auto mb-2">FR</div>
+            <h2 class="sidebar-title text-white">Flog Ride Admin</h2>
+        </div>
+        <nav class="sidebar-nav flex-grow">
+            <ul>
+                <li><a href="admin_portal_dashboard.html" class="active">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h7.5" />
+                        </svg>
+                        Dashboard
+                    </a></li>
+
+                <li class="nav-section-title">User Management</li>
+                <li><a href="admin_ngo_staff_management.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.241-.013a9.098 9.098 0 01-2.287 2.45M16.5 7.5V5.25A2.25 2.25 0 0014.25 3H7.5A2.25 2.25 0 005.25 5.25v13.5A2.25 2.25 0 007.5 21h6.75a2.25 2.25 0 002.25-2.25V16.5m-13.5-9M13.5 6H9m4.5 0v-2.25m0 2.25c1.5 0 3 .672 3 1.5s-1.5 1.5-3 1.5S10.5 8.172 10.5 7.5 12 6 13.5 6zm-9 9a9.095 9.095 0 002.25 5.537m14.25-5.537a9.095 9.095 0 01-2.25 5.537M3 18.75V7.5A2.25 2.25 0 015.25 5.25h13.5A2.25 2.25 0 0121 7.5v3.75m-16.5 7.5a9.094 9.094 0 01-2.25-5.537M3 14.25V7.5m18 6.75v-3.75M3 14.25L3 12m18 2.25l0-2.25m-18 2.25L3 12m18-1.5l0-2.25" />
+                        </svg>
+                        NGO Staff
+                    </a></li>
+                <li><a href="admin_driver_management.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        Drivers
+                    </a></li>
+                <li><a href="admin_hotel_management.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z" />
+                        </svg>
+                        Hotels
+                    </a></li>
+
+                <li class="nav-section-title">Operations</li>
+                <li><a href="admin_live_activity.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                        </svg>
+                        Live Activity Map
+                    </a></li>
+                <li><a href="admin_rides_log.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M8.25 6.75h7.5M8.25 12h7.5m-7.5 5.25h7.5M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                        </svg>
+                        All Rides Log
+                    </a></li>
+                <li><a href="admin_bookings_log.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-3.75h.008v.008H12v-.008z" />
+                        </svg>
+                        All Bookings Log
+                    </a></li>
+
+                <li class="nav-section-title">Configuration</li>
+                <li><a href="admin_rates_config.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Rate Configuration
+                    </a></li>
+                <li><a href="admin_zones_config.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.875 5.688c-.317.159-.69.159-1.006 0L.398 4.96C.19 4.841 0 4.692 0 4.506V18a2.25 2.25 0 002.25 2.25h19.5A2.25 2.25 0 0024 18V4.506c0-.186-.19-.335-.398-.446L18.75 2.81a1.125 1.125 0 00-1.006 0Z" />
+                        </svg>
+                        Service Zones
+                    </a></li>
+                <li><a href="admin_vehicle_types_config.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106A48.554 48.554 0 0012 5.25c-2.773 0-5.491.235-8.135.667-.565.058-.987.538-.987 1.106v7.635M16.5 18.75a1.5 1.5 0 01-3 0m3 0V6.75" />
+                        </svg>
+                        Vehicle Types
+                    </a></li>
+
+                <li class="nav-section-title">System</li>
+                <li><a href="admin_reports_main.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M10.5 6a7.5 7.5 0 100 15 7.5 7.5 0 000-15zM21 21l-5.197-5.197" />
+                        </svg>
+                        Reporting & Analytics
+                    </a></li>
+                <li><a href="admin_support_issues.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 9v3.75m0-10.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.75h-.152c-3.196 0-6.1-1.249-8.25-3.286zm0 13.036h.008v.008H12v-.008z" />
+                        </svg>
+                        Support & Feedback
+                    </a></li>
+                <li><a href="admin_system_settings.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.646.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.438.992a6.759 6.759 0 010 1.255c0 .379.145.752.438.992l1.003.827c.446.368.539.995.26 1.431l-1.296 2.247a1.125 1.125 0 01-1.37.49l-1.217-.456c-.355-.133-.75-.072-1.075.124a6.57 6.57 0 01-.22.127c-.333.184-.583.496-.646.87l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.646-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.37-.49l-1.296-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.437-.992a6.758 6.758 0 010-1.255c0-.379-.145-.752-.438-.992l-1.004-.827a1.125 1.125 0 01-.26-1.431l1.296-2.247a1.125 1.125 0 011.37-.49l1.217.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.184.582-.496.646-.87l.213-1.28z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        System Settings
+                    </a></li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <ul>
+                    <li><a href="admin_portal_login.html">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
+                            </svg>
+                            Logout (Admin User)
+                        </a></li>
+                </ul>
+            </div>
+        </nav>
+    </aside>
+
+    <main class="main-content-portal"> <!-- This class should be defined in style.css -->
+        <h1 class="portal-page-title text-2xl font-bold text-ngo-blueblack mb-6">NGO Staff Management</h1>
+
+        <!-- Filters and Search -->
+        <div class="mb-6 flex flex-wrap gap-4 items-center">
+            <input type="search" id="ngoSearch" class="input-field flex-grow"
+                placeholder="Search by Name, Email, or NGO...">
+            <select id="ngoStatusFilter" class="select-field w-auto">
+                <option value="">All Statuses</option>
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+            </select>
+            <button class="btn btn-secondary btn-sm">Apply Filters</button>
+        </div>
+
+        <!-- NGO Staff List Table -->
+        <div class="table-container overflow-x-auto">
+            <table class="table-auto w-full"> <!-- Tailwind table class -->
+                <thead>
+                    <tr>
+                        <th class="px-4 py-2">Staff Name</th>
+                        <th class="px-4 py-2">Email</th>
+                        <th class="px-4 py-2">Organization</th>
+                        <th class="px-4 py-2">Department</th>
+                        <th class="px-4 py-2">Status</th>
+                        <th class="px-4 py-2">Registered On</th>
+                        <th class="px-4 py-2">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="ngoStaffTableBody">
+                    <!-- Sample Row 1 -->
+                    <tr>
+                        <td class="px-4 py-2">Aisha Bello</td>
+                        <td class="px-4 py-2">aisha.bello@ngo.org</td>
+                        <td class="px-4 py-2">Hope Foundation</td>
+                        <td class="px-4 py-2">Programs</td>
+                        <td class="px-4 py-2"><span class="status-active">Active</span></td>
+                        <td class="px-4 py-2">2024-03-15</td>
+                        <td class="px-4 py-2 whitespace-nowrap">
+                            <button class="btn btn-secondary btn-sm action-btn"
+                                onclick="viewNgoStaffDetails('ngo001')">View</button>
+                            <button class="btn btn-outline-danger btn-sm action-btn"
+                                onclick="toggleNgoStaffStatus('ngo001', 'inactive')">Deactivate</button>
+                        </td>
+                    </tr>
+                    <!-- Sample Row 2 -->
+                    <tr>
+                        <td class="px-4 py-2">Musa Ibrahim</td>
+                        <td class="px-4 py-2">m.ibrahim@anotherngo.org</td>
+                        <td class="px-4 py-2">Education First</td>
+                        <td class="px-4 py-2">Logistics</td>
+                        <td class="px-4 py-2"><span class="status-inactive">Inactive</span></td>
+                        <td class="px-4 py-2">2023-11-01</td>
+                        <td class="px-4 py-2 whitespace-nowrap">
+                            <button class="btn btn-secondary btn-sm action-btn"
+                                onclick="viewNgoStaffDetails('ngo002')">View</button>
+                            <button class="btn btn-primary btn-sm action-btn" style="background-color: #28a745;"
+                                onclick="toggleNgoStaffStatus('ngo002', 'active')">Activate</button>
+                        </td>
+                    </tr>
+                    <!-- More rows would be dynamically populated here -->
+                </tbody>
+            </table>
+        </div>
+        <!-- Pagination Placeholder -->
+        <div class="mt-6 text-center">
+            <span class="text-sm text-ngo-dark-gray">Page 1 of 5 (Showing 1-2 of 48 Staff)</span>
+            <!-- Add pagination buttons here -->
+        </div>
+    </main>
+
+    <!-- NGO Staff Details Modal -->
+    <div id="ngoStaffDetailsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="ngoStaffModalTitle">NGO Staff Details</h2>
+                <button class="close-button" onclick="closeNgoStaffModal()">&times;</button>
+            </div>
+            <div id="ngoStaffModalBody" class="py-4">
+                <!-- Details will be populated here by JavaScript -->
+                <p><strong>Name:</strong> <span id="modalNgoName"></span></p>
+                <p><strong>Email:</strong> <span id="modalNgoEmail"></span></p>
+                <p><strong>Organization:</strong> <span id="modalNgoOrg"></span></p>
+                <p><strong>Department:</strong> <span id="modalNgoDept"></span></p>
+                <p><strong>Phone:</strong> <span id="modalNgoPhone"></span></p>
+                <p><strong>Office Address:</strong> <span id="modalNgoAddress"></span></p>
+                <p><strong>Required Services:</strong> <span id="modalNgoServices"></span></p>
+                <p><strong>Status:</strong> <span id="modalNgoStatus" class="font-semibold"></span></p>
+                <p><strong>Registered:</strong> <span id="modalNgoRegisteredDate"></span></p>
+            </div>
+            <div class="mt-6 flex justify-end gap-3">
+                <button type="button" class="btn btn-secondary" onclick="closeNgoStaffModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sidebar active link
+        document.addEventListener('DOMContentLoaded', function () {
+            const currentPath = window.location.pathname.split("/").pop();
+            const navLinks = document.querySelectorAll('.sidebar-nav a');
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        });
+
+        // NGO Staff Modal Logic
+        const ngoStaffModal = document.getElementById('ngoStaffDetailsModal');
+        function viewNgoStaffDetails(staffId) {
+            // Mock data fetching; in a real app, fetch by staffId
+            console.log("Viewing details for NGO Staff ID:", staffId);
+            if (staffId === 'ngo001') {
+                document.getElementById('modalNgoName').textContent = 'Aisha Bello';
+                document.getElementById('modalNgoEmail').textContent = 'aisha.bello@ngo.org';
+                document.getElementById('modalNgoOrg').textContent = 'Hope Foundation';
+                document.getElementById('modalNgoDept').textContent = 'Programs';
+                document.getElementById('modalNgoPhone').textContent = '+234 801 234 5678';
+                document.getElementById('modalNgoAddress').textContent = '123 Freedom Way, Abuja';
+                document.getElementById('modalNgoServices').textContent = 'Transport, Hotel';
+                document.getElementById('modalNgoStatus').textContent = 'Active';
+                document.getElementById('modalNgoStatus').className = 'status-active font-semibold';
+                document.getElementById('modalNgoRegisteredDate').textContent = '2024-03-15';
+            } else if (staffId === 'ngo002') {
+                document.getElementById('modalNgoName').textContent = 'Musa Ibrahim';
+                document.getElementById('modalNgoEmail').textContent = 'm.ibrahim@anotherngo.org';
+                document.getElementById('modalNgoOrg').textContent = 'Education First';
+                document.getElementById('modalNgoDept').textContent = 'Logistics';
+                document.getElementById('modalNgoPhone').textContent = '+234 802 345 6789';
+                document.getElementById('modalNgoAddress').textContent = '456 Unity Road, Lagos';
+                document.getElementById('modalNgoServices').textContent = 'Transport';
+                document.getElementById('modalNgoStatus').textContent = 'Inactive';
+                document.getElementById('modalNgoStatus').className = 'status-inactive font-semibold';
+                document.getElementById('modalNgoRegisteredDate').textContent = '2023-11-01';
+            }
+            ngoStaffModal.style.display = 'block';
+        }
+
+        function closeNgoStaffModal() {
+            ngoStaffModal.style.display = 'none';
+        }
+
+        function toggleNgoStaffStatus(staffId, newStatus) {
+            // Mock action
+            alert(`NGO Staff ID ${staffId} status will be changed to ${newStatus}. (Mock Action)`);
+            // In a real app: API call to update status, then refresh table or update row.
+            const tableBody = document.getElementById('ngoStaffTableBody');
+            const rows = tableBody.getElementsByTagName('tr');
+            for (let row of rows) {
+                if (row.cells[0].textContent.includes(staffId.replace('ngo00', '')) || (staffId === 'ngo001' && row.cells[0].textContent.includes('Aisha Bello')) || (staffId === 'ngo002' && row.cells[0].textContent.includes('Musa Ibrahim'))) {
+                    const statusCell = row.cells[4].querySelector('span');
+                    const actionButton = row.cells[6].querySelectorAll('button')[1];
+                    if (newStatus === 'active') {
+                        statusCell.textContent = 'Active';
+                        statusCell.className = 'status-active';
+                        actionButton.textContent = 'Deactivate';
+                        actionButton.className = 'btn btn-outline-danger btn-sm action-btn';
+                        actionButton.onclick = () => toggleNgoStaffStatus(staffId, 'inactive');
+                    } else {
+                        statusCell.textContent = 'Inactive';
+                        statusCell.className = 'status-inactive';
+                        actionButton.textContent = 'Activate';
+                        actionButton.className = 'btn btn-primary btn-sm action-btn';
+                        actionButton.style.backgroundColor = '#28a745'; // Green for activate
+                        actionButton.onclick = () => toggleNgoStaffStatus(staffId, 'active');
+                    }
+                    break;
+                }
+            }
+        }
+
+        // Close modal if clicked outside
+        window.onclick = function (event) {
+            if (event.target == ngoStaffModal) {
+                closeNgoStaffModal();
+            }
+        }
+    </script>
+</body>
+
+</html>
