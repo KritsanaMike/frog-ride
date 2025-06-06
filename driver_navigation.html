@@ -1,15 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Navigation - Flog Ride Driver</title>
     <link rel="stylesheet" href="style.css"> <!-- Links to your existing style.css -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+
     <style>
+        /* Map Container Style (as requested) */
         .navigation-map-area {
             width: 100%;
-            height: 60vh; /* Adjust as needed */
+            height: 55vh; /* Adjusted height to fit screen better */
+            border-radius: 0.375rem;
+            margin-bottom: 1rem;
+            border: 1px solid #e0e0e0;
+        }
+        .navigation-map-area {
+            width: 100%;
+            height: 60vh;
+            /* Adjust as needed */
             background-color: #e0e0e0;
             display: flex;
             flex-direction: column;
@@ -20,19 +33,35 @@
             border-radius: 0.375rem;
             margin-bottom: 1rem;
         }
+
         .navigation-instructions {
             padding: 0.75rem;
-            background-color: #1C2833; /* ngo-blueblack */
+            background-color: #1C2833;
+            /* ngo-blueblack */
             color: white;
             text-align: center;
             border-radius: 0.375rem;
             margin-bottom: 1rem;
         }
-        .navigation-instructions p { margin: 0.25rem 0; }
-        .navigation-instructions .distance { font-size: 1.25rem; font-weight: bold; }
-        .navigation-actions button { margin-top: 0.5rem; }
+
+        .navigation-instructions p {
+            margin: 0.25rem 0;
+        }
+
+        .navigation-instructions .distance {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        .navigation-actions button {
+            margin-top: 0.5rem;
+        }
+
+         /* Hide leaflet routing machine's text instructions */
+        .leaflet-routing-container { display: none; }
     </style>
 </head>
+
 <body>
     <div class="app-container">
         <div class="top-bar">
@@ -41,9 +70,10 @@
                  For simplicity, linking back to driver_home.html.
             -->
             <a href="driver_home.html" class="top-bar-icon leading">
-                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /> <!-- Close icon -->
-                  </svg>
+                </svg>
             </a>
             <h1 class="top-bar-title" id="navigationTitle">Navigating to Pickup</h1>
             <div class="w-6"></div> <!-- Spacer -->
@@ -56,19 +86,26 @@
                 <p>ETA: <span id="etaText">15:30</span></p>
             </div>
 
-            <div class="navigation-map-area">
+            <!-- <div class="navigation-map-area">
                 Live GPS Navigation Map Placeholder
                 <p class="text-sm">(Full screen map integration here)</p>
-            </div>
-            
+            </div> -->
+            <div id="map" class="navigation-map-area"></div>
+
             <div class="navigation-actions grid grid-cols-2 gap-2">
                 <button id="startTripButton" class="btn btn-primary w-full" onclick="startTrip()">Start Trip</button>
-                <button id="endTripButton" class="btn btn-secondary w-full" style="display:none;" onclick="endTrip()">End Trip</button>
-                <button class="btn btn-secondary w-full" onclick="alert('Call Passenger: Aisha Bello at +234 XXX XXX XXXX (Mock)')">Call Passenger</button>
-                <button class="btn btn-outline-danger w-full" onclick="alert('Emergency Action Triggered (Mock)')">Emergency</button>
+                <button id="endTripButton" class="btn btn-secondary w-full" style="display:none;"
+                    onclick="endTrip()">End Trip</button>
+                <button class="btn btn-secondary w-full"
+                    onclick="alert('Call Passenger: Aisha Bello at +234 XXX XXX XXXX (Mock)')">Call Passenger</button>
+                <button class="btn btn-outline-danger w-full"
+                    onclick="alert('Emergency Action Triggered (Mock)')">Emergency</button>
             </div>
         </div>
     </div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+
     <script>
         const startTripButton = document.getElementById('startTripButton');
         const endTripButton = document.getElementById('endTripButton');
@@ -81,6 +118,81 @@
         // Mock trip details from URL (if needed)
         const urlParamsNav = new URLSearchParams(window.location.search);
         const tripIdNav = urlParamsNav.get('tripId') || 'current456';
+
+        // --- Map Initialization ---
+        const map = L.map('map', { zoomControl: false }).setView([9.06, 7.49], 15);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+        // --- Mock Locations & Icons ---
+        const driverInitialLocation = L.latLng(9.058, 7.491);
+        const pickupLocation = L.latLng(9.066, 7.472);
+        const destinationLocation = L.latLng(9.052, 7.520);
+
+        const driverIcon = L.divIcon({
+            html: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#007bff" class="w-8 h-8"><path d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25z" /></svg>`,
+            className: 'bg-transparent border-0', iconSize: [32, 32], iconAnchor: [16, 16]
+        });
+        const destinationIcon = L.divIcon({
+            html: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#dc3545" class="w-8 h-8"><path d="M4.5 3.75a3 3 0 00-3 3v10.5a3 3 0 003 3h15a3 3 0 003-3V6.75a3 3 0 00-3-3h-15z" /></svg>`,
+            className: 'bg-transparent border-0', iconSize: [32, 32], iconAnchor: [16, 16]
+        });
+
+        let driverMarker = L.marker(driverInitialLocation, { icon: driverIcon }).addTo(map);
+        let simulationInterval;
+        let routingControl;
+
+        // --- Routing and Simulation ---
+        function startNavigation(start, end) {
+            // If there's an old route, remove it
+            if (routingControl) {
+                map.removeControl(routingControl);
+            }
+            if (simulationInterval) clearInterval(simulationInterval);
+
+            routingControl = L.Routing.control({
+                waypoints: [start, end],
+                fitSelectedRoutes: true,
+                show: false,
+                addWaypoints: false,
+                lineOptions: { styles: [{ color: '#ff6b0b', opacity: 0.8, weight: 7 }] },
+                createMarker: function(i, wp) {
+                    return i === 1 ? L.marker(wp.latLng, { icon: destinationIcon }) : null;
+                }
+            }).on('routesfound', function(e) {
+                const coords = e.routes[0].coordinates;
+                let index = 0;
+                simulationInterval = setInterval(() => {
+                    if (index < coords.length) {
+                        driverMarker.setLatLng(coords[index]);
+                        map.panTo(coords[index]);
+                        if (index === 15) instructionText.textContent = "In 200m, turn right";
+                        if (index === 30) instructionText.textContent = "Continue straight";
+                        index++;
+                    } else {
+                        clearInterval(simulationInterval);
+                    }
+                }, 1000);
+            }).addTo(map);
+        }
+
+        // --- UI Button Functions ---
+        function startTrip() {
+            navigationTitle.textContent = 'Navigating to Destination';
+            startTripButton.style.display = 'none';
+            endTripButton.style.display = 'block';
+            startNavigation(pickupLocation, destinationLocation);
+        }
+
+        function endTrip() {
+            alert('Trip Ended! (Mock)');
+            if(simulationInterval) clearInterval(simulationInterval);
+            window.location.href = 'driver_ride_summary.html';
+        }
+
+        // --- Initial Call ---
+        document.addEventListener('DOMContentLoaded', () => {
+             startNavigation(driverInitialLocation, pickupLocation);
+        });
 
         function startTrip() {
             tripStarted = true;
@@ -100,4 +212,5 @@
         }
     </script>
 </body>
+
 </html>

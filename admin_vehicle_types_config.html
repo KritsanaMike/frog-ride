@@ -4,13 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Activity Monitoring - Admin Portal</title>
+    <title>Vehicle Type Management</title>
     <!-- <link rel="stylesheet" href="style.css"> Ensure this links to your main styles if not using CDN only -->
     <script src="https://cdn.tailwindcss.com"></script> <!-- Added Tailwind CDN -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
-
     <style>
         /* Custom styles specific to Admin Portal can go here or in style.css */
         body.portal-dashboard-body {
@@ -131,23 +128,7 @@
         }
 
         /* Tailwind will handle .portal-page-title, .stats-card etc. if classes are applied in HTML */
-    </style>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'ngo-orange': '#ff6b0b',
-                        'ngo-blueblack': '#1C2833',
-                        'ngo-dark-gray': '#6c757d',
-                        'ngo-light-gray': '#F0F0F0',
-                        'ngo-border-gray': '#D3D3D3',
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
+
         /* Custom styles for table if not using a Tailwind table plugin */
         .table-auto {
             width: 100%;
@@ -449,7 +430,41 @@
             position: absolute;
             box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
         }
+
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            align-items: flex-end;
+        }
+
+        .filter-bar>div {
+            flex-grow: 1;
+            min-width: 150px;
+        }
+
+        .booking-detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
     </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'ngo-orange': '#ff6b0b',
+                        'ngo-blueblack': '#1C2833',
+                        'ngo-dark-gray': '#6c757d',
+                        'ngo-light-gray': '#F0F0F0',
+                        'ngo-border-gray': '#D3D3D3',
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 
 <body class="portal-dashboard-body">
@@ -592,42 +607,90 @@
         </nav>
     </aside>
 
+     <main class="main-content-portal">
+        <div class="flex justify-between items-center">
+            <h1 class="portal-page-title">Vehicle Type Management</h1>
+            <button class="btn btn-primary" onclick="openVehicleModal()">Add New Vehicle Type</button>
+        </div>
 
-    <main class="main-content-portal">
-        <h1 class="portal-page-title text-2xl font-bold text-ngo-blueblack mb-6">Live Activity Monitoring</h1>
-
-        <div class="flex flex-col lg:flex-row gap-6">
-            <div class="lg:w-3/4" id="mapContainer">
-            </div>
-            <div class="lg:w-1/4 content-section info-panel">
-                <h2 class="content-section-title text-lg">Real-time Updates</h2>
-                <div id="activityFeed">
-                    <div class="p-2 border-b text-xs">
-                        <p><strong>Ride #R789:</strong> Driver John A. started trip. (1 min ago)</p>
-                        <p class="text-gray-500">Passenger: Fatima B. | Route: Garki to Wuse II</p>
-                    </div>
-                    <div class="p-2 border-b text-xs">
-                        <p><strong>Driver Musa K.</strong> went online in Maitama. (3 mins ago)</p>
-                    </div>
-                    <div class="p-2 border-b text-xs">
-                        <p><strong>Booking #H203:</strong> Confirmed for The Royal Hotel. (5 mins ago)</p>
-                        <p class="text-gray-500">Guest: Chinedu E.</p>
-                    </div>
-                    <div class="p-2 border-b text-xs">
-                        <p><strong>Driver Aisha S.</strong> went online in Asokoro. (6 mins ago)</p>
-                    </div>
-                    <div class="p-2 border-b text-xs">
-                        <p><strong>Ride #R788:</strong> Completed by Driver David L. (8 mins ago)</p>
-                        <p class="text-gray-500">Fare: NGN 3,500</p>
-                    </div>
-                </div>
+        <div class="content-section">
+            <div class="overflow-x-auto">
+                <table class="table-auto">
+                    <thead>
+                        <tr>
+                            <th>Icon</th>
+                            <th>Vehicle Type Name</th>
+                            <th>Max. Passengers</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><svg class="vehicle-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M14.25 21v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75v4.5m12-9a.75.75 0 00-.75-.75H3.75a.75.75 0 000 1.5h16.5a.75.75 0 00.75-.75zm-1.5-6a3 3 0 10-6 0 3 3 0 006 0zm-3 18.75a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5z" /></svg></td>
+                            <td>Motorcycle</td>
+                            <td>1</td>
+                            <td class="status-enabled">Enabled</td>
+                            <td><button class="btn btn-secondary btn-sm" onclick="openVehicleModal('Motorcycle', 1, 'Enabled')">Edit</button></td>
+                        </tr>
+                        <tr>
+                            <td><svg class="vehicle-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106A48.554 48.554 0 0012 5.25c-2.773 0-5.491.235-8.135.667-.565.058-.987.538-.987 1.106v7.635M16.5 18.75a1.5 1.5 0 01-3 0m3 0V6.75" /></svg></td>
+                            <td>Car (Sedan)</td>
+                            <td>4</td>
+                            <td class="status-enabled">Enabled</td>
+                            <td><button class="btn btn-secondary btn-sm" onclick="openVehicleModal('Car (Sedan)', 4, 'Enabled')">Edit</button></td>
+                        </tr>
+                        <tr>
+                             <td><svg class="vehicle-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a.75.75 0 01-.75-.75V6.75a.75.75 0 011.5 0v11.25a.75.75 0 01-.75.75zM12 6.75h.008v.008H12V6.75zm0 11.25h.008v.008H12v-.008zM12 3.75a.75.75 0 00-.75.75v.008h1.5V4.5a.75.75 0 00-.75-.75z" /><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h12A2.25 2.25 0 0120.25 6v12A2.25 2.25 0 0118 20.25H6A2.25 2.25 0 013.75 18V6z" /></svg></td>
+                            <td>Minivan (Bus)</td>
+                            <td>16</td>
+                            <td class="status-enabled">Enabled</td>
+                            <td><button class="btn btn-secondary btn-sm" onclick="openVehicleModal('Minivan (Bus)', 16, 'Enabled')">Edit</button></td>
+                        </tr>
+                         <tr>
+                            <td><svg class="vehicle-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10l2.5-1.5L8 17l2.5-1.5L13 16z" /><path stroke-linecap="round" stroke-linejoin="round" d="M17 16h2l1.375-4.125-2.438-2.437c-.375-.375-.625-.875-.625-1.438V6a1 1 0 00-1-1h-2" /></svg></td>
+                            <td>Pick-up Truck</td>
+                            <td>2</td>
+                            <td class="status-disabled">Disabled</td>
+                             <td><button class="btn btn-secondary btn-sm" onclick="openVehicleModal('Pick-up Truck', 2, 'Disabled')">Edit</button></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </main>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
-
+    <div id="vehicleModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('vehicleModal')">&times;</span>
+            <h2 id="vehicleModalTitle" class="content-section-title">Add New Vehicle Type</h2>
+            <form>
+                <div class="mb-4">
+                    <label for="vehicleName" class="form-label">Vehicle Type Name</label>
+                    <input type="text" id="vehicleName" class="input-field" placeholder="e.g., 4x4 Runner">
+                </div>
+                <div class="mb-4">
+                    <label for="vehiclePassengers" class="form-label">Max. Passengers</label>
+                    <input type="number" id="vehiclePassengers" class="input-field" placeholder="e.g., 4">
+                </div>
+                 <div class="mb-4">
+                    <label for="vehicleIcon" class="form-label">Icon (SVG Code or URL)</label>
+                    <input type="text" id="vehicleIcon" class="input-field" placeholder="<svg>...</svg> or /icons/suv.png">
+                </div>
+                <div class="mb-4">
+                    <label for="vehicleStatus" class="form-label">Status</label>
+                    <select id="vehicleStatus" class="select-field">
+                        <option value="Enabled">Enabled</option>
+                        <option value="Disabled">Disabled</option>
+                    </select>
+                </div>
+                <div class="flex justify-end gap-4">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('vehicleModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Vehicle Type</button>
+                </div>
+            </form>
+        </div>
+    </div>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const currentPath = window.location.pathname.split("/").pop();
@@ -640,66 +703,34 @@
                 }
             });
         });
-        const map = L.map('mapContainer').setView([9.0765, 7.3986], 13);
-
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-
-        // --- Custom Icons ---
-        function createVehicleIcon(color) {
-            return L.divIcon({
-                html: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="${color}" class="w-8 h-8"><path d="M16.5 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106A48.554 48.554 0 0012 5.25c-2.773 0-5.491.235-8.135.667-.565.058-.987.538-.987 1.106v7.635M16.5 18.75a1.5 1.5 0 01-3 0m3 0V6.75" /></svg>`,
-                className: 'bg-transparent', iconSize: [32, 32], iconAnchor: [16, 16]
-            });
+        function openVehicleModal(name, passengers, status) {
+            const modal = document.getElementById('vehicleModal');
+            const title = document.getElementById('vehicleModalTitle');
+            if (name) {
+                title.textContent = `Edit Vehicle Type: ${name}`;
+                document.getElementById('vehicleName').value = name;
+                document.getElementById('vehiclePassengers').value = passengers;
+                document.getElementById('vehicleStatus').value = status;
+            } else {
+                title.textContent = 'Add New Vehicle Type';
+                document.getElementById('vehicleName').value = '';
+                document.getElementById('vehiclePassengers').value = '';
+                document.getElementById('vehicleStatus').value = 'Enabled';
+            }
+            modal.style.display = 'block';
         }
 
-        const idleDriverIcon = createVehicleIcon('#ff6b0b'); // Orange for idle
-        const activeDriverIcon = createVehicleIcon('#007bff'); // Blue for on-trip
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
 
-        // --- Example Scenario Data ---
-        const pickupLocation = L.latLng(9.055, 7.485); // Garki
-        const dropoffLocation = L.latLng(9.083, 7.475); // Wuse II
-        const driverOnTripLocation = L.latLng(9.068, 7.480);
-
-        // --- Add Markers (Pickup, Dropoff, and Drivers) ---
-        // These are added separately to have full control over their popups
-        L.marker(pickupLocation, { icon: createVehicleIcon('#28a745') }) // Green car for pickup
-            .addTo(map)
-            .bindPopup(`<div class="popup-title">Pickup: Ride #R789</div><div class="popup-info"><strong>Location:</strong> Garki, Abuja</div>`);
-
-        L.marker(dropoffLocation, { icon: createVehicleIcon('#dc3545') }) // Red car for dropoff
-            .addTo(map)
-            .bindPopup(`<div class="popup-title">Dropoff: Ride #R789</div><div class="popup-info"><strong>Location:</strong> Wuse II, Abuja</div>`);
-
-        L.marker(driverOnTripLocation, { icon: activeDriverIcon })
-            .addTo(map)
-            .bindPopup(`<div class="popup-title">Active Ride: #R789</div><div class="popup-info"><strong>Driver:</strong> John A.<br><strong>Passenger:</strong> Fatima B.<br><strong>Status:</strong> En Route to Wuse II</div>`);
-
-        // Idle Drivers
-        L.marker([9.085, 7.510], { icon: idleDriverIcon }).addTo(map) // Maitama
-            .bindPopup(`<div class="popup-title">Driver: Musa K.</div><div class="popup-info"><strong>Status:</strong> Online - Available<br><strong>Vehicle:</strong> Toyota Corolla</div>`);
-
-        L.marker([9.045, 7.525], { icon: idleDriverIcon }).addTo(map) // Asokoro
-            .bindPopup(`<div class="popup-title">Driver: Aisha S.</div><div class="popup-info"><strong>Status:</strong> Online - Available<br><strong>Vehicle:</strong> 4x4 Runner</div>`);
-
-        // --- Add Routing Control to draw the line on the roads ---
-        L.Routing.control({
-            waypoints: [
-                pickupLocation,
-                dropoffLocation
-            ],
-            routeWhileDragging: false,
-            show: false, // Hide the default text instructions
-            addWaypoints: false, // Don't allow user to change the route
-            lineOptions: {
-                styles: [{ color: '#007bff', opacity: 0.8, weight: 6 }]
-            },
-            // Suppress the default A and B markers
-            createMarker: function () { return null; }
-        }).addTo(map);
-
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
     </script>
+
 </body>
 
 </html>

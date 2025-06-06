@@ -4,13 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Activity Monitoring - Admin Portal</title>
+    <title>Support & Communication - Admin Portal</title>
     <!-- <link rel="stylesheet" href="style.css"> Ensure this links to your main styles if not using CDN only -->
     <script src="https://cdn.tailwindcss.com"></script> <!-- Added Tailwind CDN -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
-
     <style>
         /* Custom styles specific to Admin Portal can go here or in style.css */
         body.portal-dashboard-body {
@@ -131,23 +128,7 @@
         }
 
         /* Tailwind will handle .portal-page-title, .stats-card etc. if classes are applied in HTML */
-    </style>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'ngo-orange': '#ff6b0b',
-                        'ngo-blueblack': '#1C2833',
-                        'ngo-dark-gray': '#6c757d',
-                        'ngo-light-gray': '#F0F0F0',
-                        'ngo-border-gray': '#D3D3D3',
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
+
         /* Custom styles for table if not using a Tailwind table plugin */
         .table-auto {
             width: 100%;
@@ -449,7 +430,41 @@
             position: absolute;
             box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
         }
+
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            align-items: flex-end;
+        }
+
+        .filter-bar>div {
+            flex-grow: 1;
+            min-width: 150px;
+        }
+
+        .booking-detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
     </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'ngo-orange': '#ff6b0b',
+                        'ngo-blueblack': '#1C2833',
+                        'ngo-dark-gray': '#6c757d',
+                        'ngo-light-gray': '#F0F0F0',
+                        'ngo-border-gray': '#D3D3D3',
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 
 <body class="portal-dashboard-body">
@@ -592,41 +607,197 @@
         </nav>
     </aside>
 
-
     <main class="main-content-portal">
-        <h1 class="portal-page-title text-2xl font-bold text-ngo-blueblack mb-6">Live Activity Monitoring</h1>
+        <h1 class="portal-page-title">Support & Communication</h1>
 
-        <div class="flex flex-col lg:flex-row gap-6">
-            <div class="lg:w-3/4" id="mapContainer">
+        <div class="tabs flex">
+            <button class="tab-button active" onclick="openTab(event, 'issues')">Issues & Feedback</button>
+            <button class="tab-button" onclick="openTab(event, 'announcements')">Announcements</button>
+        </div>
+
+        <div id="issues" class="tab-content active">
+            <div class="content-section">
+                <h2 class="content-section-title">Manage User Feedback & Issues</h2>
+                <div class="flex flex-wrap gap-4 items-center mb-4">
+                    <select class="input-field w-auto flex-grow">
+                        <option>Status: All</option>
+                        <option>New</option>
+                        <option>In Progress</option>
+                        <option>Resolved</option>
+                    </select>
+                    <select class="input-field w-auto flex-grow">
+                        <option>User Type: All</option>
+                        <option>NGO Staff</option>
+                        <option>Driver</option>
+                        <option>Hotel</option>
+                    </select>
+                    <input type="text" placeholder="Search by Ticket ID or User..."
+                        class="input-field w-auto flex-grow">
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="table-auto w-full">
+                        <thead>
+                            <tr>
+                                <th>Ticket ID</th>
+                                <th>User</th>
+                                <th>User Type</th>
+                                <th>Subject</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#8675</td>
+                                <td>Aisha Bello</td>
+                                <td>NGO Staff</td>
+                                <td>Incorrect Fare Calculation</td>
+                                <td>2025-06-05</td>
+                                <td><span class="status-badge status-new">New</span></td>
+                                <td><button class="btn btn-secondary btn-sm"
+                                        onclick="openModal('issueModal')">View</button></td>
+                            </tr>
+                            <tr>
+                                <td>#8674</td>
+                                <td>Musa Ibrahim</td>
+                                <td>Driver</td>
+                                <td>Payout delay for RIDE-5810</td>
+                                <td>2025-06-04</td>
+                                <td><span class="status-badge status-progress">In Progress</span></td>
+                                <td><button class="btn btn-secondary btn-sm"
+                                        onclick="openModal('issueModal')">View</button></td>
+                            </tr>
+                            <tr>
+                                <td>#8672</td>
+                                <td>Grand Plaza</td>
+                                <td>Hotel</td>
+                                <td>Question about commission</td>
+                                <td>2025-06-02</td>
+                                <td><span class="status-badge status-resolved">Resolved</span></td>
+                                <td><button class="btn btn-secondary btn-sm"
+                                        onclick="openModal('issueModal')">View</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div class="lg:w-1/4 content-section info-panel">
-                <h2 class="content-section-title text-lg">Real-time Updates</h2>
-                <div id="activityFeed">
-                    <div class="p-2 border-b text-xs">
-                        <p><strong>Ride #R789:</strong> Driver John A. started trip. (1 min ago)</p>
-                        <p class="text-gray-500">Passenger: Fatima B. | Route: Garki to Wuse II</p>
-                    </div>
-                    <div class="p-2 border-b text-xs">
-                        <p><strong>Driver Musa K.</strong> went online in Maitama. (3 mins ago)</p>
-                    </div>
-                    <div class="p-2 border-b text-xs">
-                        <p><strong>Booking #H203:</strong> Confirmed for The Royal Hotel. (5 mins ago)</p>
-                        <p class="text-gray-500">Guest: Chinedu E.</p>
-                    </div>
-                    <div class="p-2 border-b text-xs">
-                        <p><strong>Driver Aisha S.</strong> went online in Asokoro. (6 mins ago)</p>
-                    </div>
-                    <div class="p-2 border-b text-xs">
-                        <p><strong>Ride #R788:</strong> Completed by Driver David L. (8 mins ago)</p>
-                        <p class="text-gray-500">Fare: NGN 3,500</p>
+        </div>
+
+        <div id="announcements" class="tab-content">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="content-section">
+                    <h2 class="content-section-title">Create New Announcement</h2>
+                    <form>
+                        <div class="mb-4"><label for="annTitle" class="form-label">Title</label><input type="text"
+                                id="annTitle" class="input-field"></div>
+                        <div class="mb-4"><label for="annBody" class="form-label">Message</label><textarea id="annBody"
+                                class="textarea-field input-field" rows="6"></textarea></div>
+                        <div class="mb-4"><label class="form-label">Target Audience</label>
+                            <div class="grid grid-cols-2 gap-2 text-sm">
+                                <label class="flex items-center gap-2"><input type="checkbox" checked>All Users</label>
+                                <label class="flex items-center gap-2"><input type="checkbox">NGO Staff Only</label>
+                                <label class="flex items-center gap-2"><input type="checkbox">Drivers Only</label>
+                                <label class="flex items-center gap-2"><input type="checkbox">Hotels Only</label>
+                            </div>
+                        </div>
+                        <div class="mb-4"><label for="annImportance" class="form-label">Importance</label><select
+                                id="annImportance" class="select-field">
+                                <option>Normal</option>
+                                <option>High (Triggers Push Notification)</option>
+                            </select></div>
+                        <div class="text-right"><button type="submit" class="btn btn-primary">Send Announcement</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="content-section">
+                    <h2 class="content-section-title">Sent Announcements</h2>
+                    <div class="overflow-x-auto">
+                        <table class="table-auto w-full">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Title</th>
+                                    <th>Audience</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>2025-05-20</td>
+                                    <td>Scheduled Maintenance</td>
+                                    <td>All Users</td>
+                                    <td><a href="#" class="text-ngo-orange font-semibold">View</a></td>
+                                </tr>
+                                <tr>
+                                    <td>2025-05-15</td>
+                                    <td>New Payout Schedule</td>
+                                    <td>Drivers</td>
+                                    <td><a href="#" class="text-ngo-orange font-semibold">View</a></td>
+                                </tr>
+                                <tr>
+                                    <td>2025-05-01</td>
+                                    <td>Welcome to Flog Ride!</td>
+                                    <td>All Users</td>
+                                    <td><a href="#" class="text-ngo-orange font-semibold">View</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+    <div id="issueModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('issueModal')">&times;</span>
+            <h2 class="content-section-title">Ticket #8675: Incorrect Fare Calculation</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="md:col-span-2">
+                    <div class="mb-4">
+                        <p><strong>User:</strong> Aisha Bello (Hope Foundation)</p>
+                        <p><strong>Submitted:</strong> 2025-06-05 09:30 AM</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg border">
+                        <h4 class="font-bold mb-2">Message:</h4>
+                        <p>Hello, my recent trip (RIDE-5821) from Abuja to Nasarawa seems to have an incorrect fare. The
+                            app estimated NGN 70,000 but the final charge was NGN 75,000. Could you please look into
+                            this? Thank you.</p>
+                    </div>
+                    <div class="mt-4">
+                        <label for="reply" class="form-label">Your Reply:</label>
+                        <textarea id="reply" rows="4" class="textarea-field"
+                            placeholder="Type your response to the user..."></textarea>
+                        <button class="btn btn-primary mt-2">Send Reply</button>
+                    </div>
+                </div>
+                <div class="md:col-span-1 bg-gray-100 p-4 rounded-lg">
+                    <h4 class="font-bold mb-2">Ticket Details</h4>
+                    <div class="mb-4">
+                        <label for="ticketStatus" class="form-label text-sm">Status</label>
+                        <select id="ticketStatus" class="select-field text-sm p-2">
+                            <option>New</option>
+                            <option>In Progress</option>
+                            <option>Resolved</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="ticketAssignee" class="form-label text-sm">Assignee</label>
+                        <select id="ticketAssignee" class="select-field text-sm p-2">
+                            <option>Unassigned</option>
+                            <option>Admin User 1</option>
+                            <option>Admin User 2</option>
+                        </select>
+                    </div>
+                    <label class="form-label text-sm">Internal Notes</label>
+                    <textarea rows="3" class="textarea-field text-sm"
+                        placeholder="Notes for admin eyes only..."></textarea>
+                    <button class="btn btn-secondary w-full mt-4">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -640,66 +811,34 @@
                 }
             });
         });
-        const map = L.map('mapContainer').setView([9.0765, 7.3986], 13);
-
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-
-        // --- Custom Icons ---
-        function createVehicleIcon(color) {
-            return L.divIcon({
-                html: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="${color}" class="w-8 h-8"><path d="M16.5 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106A48.554 48.554 0 0012 5.25c-2.773 0-5.491.235-8.135.667-.565.058-.987.538-.987 1.106v7.635M16.5 18.75a1.5 1.5 0 01-3 0m3 0V6.75" /></svg>`,
-                className: 'bg-transparent', iconSize: [32, 32], iconAnchor: [16, 16]
-            });
+        function openTab(evt, tabName) {
+            const tabcontent = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            const tabbuttons = document.getElementsByClassName("tab-button");
+            for (let i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].className = tabbuttons[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
         }
 
-        const idleDriverIcon = createVehicleIcon('#ff6b0b'); // Orange for idle
-        const activeDriverIcon = createVehicleIcon('#007bff'); // Blue for on-trip
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
 
-        // --- Example Scenario Data ---
-        const pickupLocation = L.latLng(9.055, 7.485); // Garki
-        const dropoffLocation = L.latLng(9.083, 7.475); // Wuse II
-        const driverOnTripLocation = L.latLng(9.068, 7.480);
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
 
-        // --- Add Markers (Pickup, Dropoff, and Drivers) ---
-        // These are added separately to have full control over their popups
-        L.marker(pickupLocation, { icon: createVehicleIcon('#28a745') }) // Green car for pickup
-            .addTo(map)
-            .bindPopup(`<div class="popup-title">Pickup: Ride #R789</div><div class="popup-info"><strong>Location:</strong> Garki, Abuja</div>`);
-
-        L.marker(dropoffLocation, { icon: createVehicleIcon('#dc3545') }) // Red car for dropoff
-            .addTo(map)
-            .bindPopup(`<div class="popup-title">Dropoff: Ride #R789</div><div class="popup-info"><strong>Location:</strong> Wuse II, Abuja</div>`);
-
-        L.marker(driverOnTripLocation, { icon: activeDriverIcon })
-            .addTo(map)
-            .bindPopup(`<div class="popup-title">Active Ride: #R789</div><div class="popup-info"><strong>Driver:</strong> John A.<br><strong>Passenger:</strong> Fatima B.<br><strong>Status:</strong> En Route to Wuse II</div>`);
-
-        // Idle Drivers
-        L.marker([9.085, 7.510], { icon: idleDriverIcon }).addTo(map) // Maitama
-            .bindPopup(`<div class="popup-title">Driver: Musa K.</div><div class="popup-info"><strong>Status:</strong> Online - Available<br><strong>Vehicle:</strong> Toyota Corolla</div>`);
-
-        L.marker([9.045, 7.525], { icon: idleDriverIcon }).addTo(map) // Asokoro
-            .bindPopup(`<div class="popup-title">Driver: Aisha S.</div><div class="popup-info"><strong>Status:</strong> Online - Available<br><strong>Vehicle:</strong> 4x4 Runner</div>`);
-
-        // --- Add Routing Control to draw the line on the roads ---
-        L.Routing.control({
-            waypoints: [
-                pickupLocation,
-                dropoffLocation
-            ],
-            routeWhileDragging: false,
-            show: false, // Hide the default text instructions
-            addWaypoints: false, // Don't allow user to change the route
-            lineOptions: {
-                styles: [{ color: '#007bff', opacity: 0.8, weight: 6 }]
-            },
-            // Suppress the default A and B markers
-            createMarker: function () { return null; }
-        }).addTo(map);
-
+        window.onclick = function (event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
     </script>
+
 </body>
 
 </html>

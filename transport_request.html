@@ -1,38 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Request Transport - Flog Ride</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+
 </head>
+<style>
+   
+
+    /* Map Container Style */
+    #mapContainer {
+        height: 250px;
+        width: 100%;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+        border: 1px solid #d1d5db;
+    }
+
+    /* Hide routing machine's default instruction panel */
+    .leaflet-routing-container {
+        display: none;
+    }
+
+    .estimate-box {
+        background-color: #f3f4f6;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin-top: 1rem;
+    }
+
+    .estimate-box h3 {
+        font-weight: 600;
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+        color: #1C2833;
+    }
+
+    .estimate-box p {
+        margin: 0.25rem 0;
+    }
+
+    .estimate-box .highlight {
+        font-weight: 700;
+        color: #ff6b0b;
+    }
+</style>
+
 <body>
     <div class="app-container">
         <div class="top-bar">
             <a href="home.html" class="top-bar-icon leading">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
                 </svg>
             </a>
             <h1 class="top-bar-title">Request New Transport</h1>
-            <div class="w-6"></div> </div>
+            <div class="w-6"></div>
+        </div>
 
-        <div class="page-content page-content-with-top-bar" style="padding-bottom: 20px;">
+        <div class="page-content page-content-with-top-bar mt-4" style="padding-bottom: 20px;">
             <form id="transportRequestForm" class="w-full" style="max-height: calc(100vh - 80px); overflow-y: auto;">
-                
-                <div class="map-display-placeholder">
-                    Map Area: Select start and end points here.<br>(Interactive map functionality would be here in a real app)
-                </div>
+
+
+
+                <div id="mapContainer"></div>
 
                 <div>
                     <label for="startLocation" class="form-label">Start Location</label>
-                    <input type="text" id="startLocation" class="input-field" placeholder="e.g., NGO Office, Abuja" required>
+                    <input type="text" id="startLocation" class="input-field" placeholder="e.g., NGO Office, Abuja"
+                        required>
                     <p class="text-xs text-ngo-dark-gray -mt-2 mb-2">Ideally, pick from map or type to search.</p>
                 </div>
                 <div>
                     <label for="endLocation" class="form-label">End Location / Destination</label>
-                    <input type="text" id="endLocation" class="input-field" placeholder="e.g., Kaduna Field Site" required>
+                    <input type="text" id="endLocation" class="input-field" placeholder="e.g., Kaduna Field Site"
+                        required>
                     <p class="text-xs text-ngo-dark-gray -mt-2 mb-2">Ideally, pick from map or type to search.</p>
                 </div>
 
@@ -58,7 +107,8 @@
                         <input type="time" id="startTime" class="input-field" required>
                     </div>
                 </div>
-                <div id="endDateContainer" class="grid grid-cols-2 gap-4" style="display: none;"> <div>
+                <div id="endDateContainer" class="grid grid-cols-2 gap-4" style="display: none;">
+                    <div>
                         <label for="endDate" class="form-label">End Date</label>
                         <input type="date" id="endDate" class="input-field">
                     </div>
@@ -67,7 +117,8 @@
 
                 <div>
                     <label for="purpose" class="form-label">Purpose of Travel</label>
-                    <textarea id="purpose" class="input-field" rows="2" placeholder="Briefly describe the reason for this trip" required></textarea>
+                    <textarea id="purpose" class="input-field" rows="2"
+                        placeholder="Briefly describe the reason for this trip" required></textarea>
                 </div>
 
                 <div>
@@ -91,19 +142,24 @@
                     <label for="tripApprovalDoc" class="form-label">Optional: Upload Trip Approval</label>
                     <input type="file" id="tripApprovalDoc" class="file-input-field">
                 </div>
-                
+
                 <div class="estimate-box">
                     <h3>Trip Estimates</h3>
                     <p>Estimated Distance: <span id="distanceEstimateText" class="highlight">-- km</span></p>
                     <p>Estimated Fare: <span id="fareEstimateText" class="highlight">NGN --</span></p>
-                    <p class="text-xs text-ngo-dark-gray mt-2">Final fare may vary. This is an estimate based on distance and vehicle type.</p>
+                    <p class="text-xs text-ngo-dark-gray mt-2">Final fare may vary. This is an estimate based on
+                        distance and vehicle type.</p>
                 </div>
 
                 <button type="submit" class="btn btn-primary w-full mt-4 mb-2 text-lg">Submit Request</button>
-                <button type="button" class="btn btn-secondary w-full mb-2 text-lg" onclick="window.location.href='home.html'">Cancel</button>
+                <button type="button" class="btn btn-secondary w-full mb-2 text-lg"
+                    onclick="window.location.href='home.html'">Cancel</button>
             </form>
         </div>
     </div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+
     <script>
         // DOM Elements
         const tripTypeSelect = document.getElementById('tripType');
@@ -115,15 +171,109 @@
         const distanceEstimateText = document.getElementById('distanceEstimateText');
         const fareEstimateText = document.getElementById('fareEstimateText');
 
+        // Map Initialization
+        const map = L.map('mapContainer').setView([9.0765, 7.3986], 12);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+        let startMarker, endMarker;
+        let routingControl;
+        let calculatedDistance = 0;
+
+        // Geocoder for getting address from coordinates
+        const geocoder = L.Control.Geocoder.nominatim();
+
+        function createDraggableMarker(latlng, type) {
+            const marker = L.marker(latlng, { draggable: true }).addTo(map);
+            marker.on('dragend', function (event) {
+                const newLatLng = event.target.getLatLng();
+                updateWaypoints();
+                updateInputFromLatLng(newLatLng, type);
+            });
+            return marker;
+        }
+
+        function updateInputFromLatLng(latlng, type) {
+            geocoder.reverse(latlng, map.options.crs.scale(map.getZoom()), (results) => {
+                const r = results[0];
+                if (r) {
+                    const input = (type === 'start') ? startLocationInput : endLocationInput;
+                    input.value = r.name;
+                }
+            });
+        }
+
+        function updateWaypoints() {
+            if (startMarker && endMarker) {
+                const waypoints = [startMarker.getLatLng(), endMarker.getLatLng()];
+                if (routingControl) {
+                    routingControl.setWaypoints(waypoints);
+                } else {
+                    routingControl = L.Routing.control({
+                        waypoints: waypoints,
+                        show: false,
+                        addWaypoints: false,
+                        routeWhileDragging: true,
+                        createMarker: function () { return null; },
+                        lineOptions: { styles: [{ color: '#ff6b0b', opacity: 0.8, weight: 6 }] }
+                    }).on('routesfound', function (e) {
+                        const routes = e.routes;
+                        const summary = routes[0].summary;
+                        // summary.totalDistance is in meters
+                        calculatedDistance = summary.totalDistance / 1000;
+                        updateEstimates();
+                    }).addTo(map);
+                }
+            }
+        }
+
+        map.on('click', function (e) {
+            if (!startMarker) {
+                startMarker = createDraggableMarker(e.latlng, 'start');
+                updateInputFromLatLng(e.latlng, 'start');
+            } else if (!endMarker) {
+                endMarker = createDraggableMarker(e.latlng, 'end');
+                updateInputFromLatLng(e.latlng, 'end');
+            }
+            updateWaypoints();
+        });
+
+        // Function to update estimates based on real distance
+        function updateEstimates() {
+            if (calculatedDistance <= 0) {
+                distanceEstimateText.textContent = "-- km";
+                fareEstimateText.textContent = "NGN --";
+                return;
+            }
+
+            distanceEstimateText.textContent = calculatedDistance.toFixed(1) + " km";
+
+            const selectedVehicleOption = vehicleTypeSelect.options[vehicleTypeSelect.selectedIndex];
+            const ratePerKm = parseFloat(selectedVehicleOption.dataset.rate) || 0;
+
+            if (ratePerKm > 0) {
+                let estimatedFare = calculatedDistance * ratePerKm;
+                // Add trip type multipliers if needed
+                switch (tripTypeSelect.value) {
+                    case 'inter_dropoff': estimatedFare *= 1.5; break;
+                    case 'intra_multi': estimatedFare *= 2.0; break; // Rough estimate per day
+                }
+                fareEstimateText.textContent = "NGN " + estimatedFare.toLocaleString();
+            } else {
+                fareEstimateText.textContent = "Select Vehicle Type";
+            }
+        }
+        vehicleTypeSelect.addEventListener('change', updateEstimates);
+        tripTypeSelect.addEventListener('change', updateEstimates);
+
         // Event listener for showing/hiding end date
-        tripTypeSelect.addEventListener('change', function() {
+        tripTypeSelect.addEventListener('change', function () {
             if (this.value === 'intra_multi') {
                 endDateContainer.style.display = 'grid';
                 endDateInput.required = true;
             } else {
                 endDateContainer.style.display = 'none';
                 endDateInput.required = false;
-                endDateInput.value = ''; 
+                endDateInput.value = '';
             }
             updateEstimates(); // Update estimates when trip type changes
         });
@@ -142,13 +292,13 @@
             if (startLoc.length > 2 && endLoc.length > 2) {
                 estimatedDistance = (startLoc.length + endLoc.length) * 5; // Arbitrary multiplier
                 // Add more "realistic" random distance for variety
-                estimatedDistance += Math.floor(Math.random() * 100) + 50; 
+                estimatedDistance += Math.floor(Math.random() * 100) + 50;
             } else {
                 distanceEstimateText.textContent = "-- km";
                 fareEstimateText.textContent = "NGN --";
                 return;
             }
-            
+
             distanceEstimateText.textContent = estimatedDistance.toFixed(0) + " km";
 
             let estimatedFare = baseFare + (estimatedDistance * ratePerKm);
@@ -168,11 +318,11 @@
                     estimatedFare *= 2;
                     break;
             }
-            
+
             if (estimatedFare > 0 && ratePerKm > 0) {
-                 fareEstimateText.textContent = "NGN " + estimatedFare.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+                fareEstimateText.textContent = "NGN " + estimatedFare.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
             } else {
-                 fareEstimateText.textContent = "NGN --";
+                fareEstimateText.textContent = "NGN --";
             }
         }
 
@@ -180,13 +330,13 @@
         startLocationInput.addEventListener('input', updateEstimates);
         endLocationInput.addEventListener('input', updateEstimates);
         vehicleTypeSelect.addEventListener('change', updateEstimates);
-        
+
         // Initial call to set estimates if values are pre-filled (e.g. on page load if we had defaults)
         // updateEstimates(); 
 
         // Form submission
-        document.getElementById('transportRequestForm').addEventListener('submit', function(event) {
-            event.preventDefault(); 
+        document.getElementById('transportRequestForm').addEventListener('submit', function (event) {
+            event.preventDefault();
             console.log('Transport request submitted.');
             // Pass data to confirmation page via query parameters (simple example)
             const params = new URLSearchParams({
@@ -196,8 +346,9 @@
                 vehicle: vehicleTypeSelect.options[vehicleTypeSelect.selectedIndex].text,
                 fare: fareEstimateText.textContent
             });
-            window.location.href = 'request_confirmation.html?' + params.toString(); 
+            window.location.href = 'request_confirmation.html?' + params.toString();
         });
     </script>
 </body>
+
 </html>
