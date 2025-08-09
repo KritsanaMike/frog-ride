@@ -5,10 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Flog Ride</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"></head>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* This style will hide the 'other-org-wrapper' div by default */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
 <body>
     <div class="app-container">
-        <div class="page-content" style="padding-bottom: 20px;"> <h1 class="page-header-title">Create NGO Staff Account</h1>
+        <div class="page-content" style="padding-bottom: 20px;">
+            <h1 class="page-header-title">Create Your Account</h1>
             <form id="registrationForm" class="w-full" style="max-height: calc(100vh - 100px); overflow-y: auto;">
                 <div>
                     <label for="regFullName" class="form-label">Staff Full Name</label>
@@ -18,10 +26,24 @@
                     <label for="regOrgEmail" class="form-label">Organizational Email</label>
                     <input type="email" id="regOrgEmail" class="input-field" placeholder="your.email@ngo.org" required>
                 </div>
+                
                 <div>
-                    <label for="regOrgName" class="form-label">Organization Name</label>
-                    <input type="text" id="regOrgName" class="input-field" placeholder="Your NGO Name" required>
+                    <label for="orgSelect" class="form-label">Organization Name</label>
+                    <select id="orgSelect" class="input-field" required>
+                        <option value="" disabled selected>Select your organization</option>
+                        <option value="World Health Organization (WHO)">World Health Organization (WHO)</option>
+                        <option value="United Nations Children's Fund (UNICEF)">United Nations Children's Fund (UNICEF)</option>
+                        <option value="Doctors Without Borders (MSF)">Doctors Without Borders (MSF)</option>
+                        <option value="Save the Children">Save the Children</option>
+                        <option value="Mercy Corps">Mercy Corps</option>
+                        <option value="other">Other...</option> </select>
                 </div>
+                
+                <div id="other-org-wrapper" class="hidden">
+                    <label for="otherOrgName" class="form-label">Please specify your organization</label>
+                    <input type="text" id="otherOrgName" class="input-field" placeholder="Your organization's name">
+                </div>
+                
                 <div>
                     <label for="regLocation" class="form-label">Location (State)</label>
                     <input type="text" id="regLocation" class="input-field" placeholder="e.g., Lagos" required>
@@ -51,11 +73,11 @@
                 <div class="space-y-2 mb-4">
                     <label class="flex items-center">
                         <input type="checkbox" name="serviceType" value="transport" class="form-checkbox h-5 w-5 text-ngo-orange mr-2 border-ngo-border-gray focus-ring-ngo-orange">
-                        Transport (short term / half day / full day / multiple days)
+                        Car Hire
                     </label>
                     <label class="flex items-center">
                         <input type="checkbox" name="serviceType" value="hotel" class="form-checkbox h-5 w-5 text-ngo-orange mr-2 border-ngo-border-gray focus-ring-ngo-orange">
-                        Hotel (in days)
+                        Accommodation
                     </label>
                 </div>
 
@@ -66,11 +88,47 @@
             </form>
         </div>
     </div>
+
     <script>
+        const orgSelect = document.getElementById('orgSelect');
+        const otherOrgWrapper = document.getElementById('other-org-wrapper');
+        const otherOrgNameInput = document.getElementById('otherOrgName');
+
+        // Listen for changes on the dropdown menu
+        orgSelect.addEventListener('change', function() {
+            if (this.value === 'other') {
+                // If 'Other' is selected, show the text box and make it required
+                otherOrgWrapper.classList.remove('hidden');
+                otherOrgNameInput.required = true;
+            } else {
+                // If any other option is selected, hide the text box and remove 'required'
+                otherOrgWrapper.classList.add('hidden');
+                otherOrgNameInput.required = false;
+            }
+        });
+
+        // Handle the form submission
         document.getElementById('registrationForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent actual submission for mockup
-            // Add any client-side validation or mock registration logic
-            console.log('Registration attempt with email:', document.getElementById('regOrgEmail').value);
+
+            let organizationName;
+
+            if (orgSelect.value === 'other') {
+                // If 'Other' was selected, get the value from the new text input
+                organizationName = otherOrgNameInput.value;
+            } else {
+                // Otherwise, get the value from the dropdown
+                organizationName = orgSelect.value;
+            }
+
+            // In a real app, you would send this 'organizationName' to the server.
+            console.log('Registering with Organization:', organizationName);
+            
+            if (!organizationName) {
+                alert('Please specify your organization name.');
+                return;
+            }
+
             alert('Registration successful (mock)! Please login.');
             window.location.href = 'login_ngo.html'; // Navigate to login page
         });

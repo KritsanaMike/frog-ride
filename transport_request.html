@@ -12,7 +12,7 @@
 
 </head>
 <style>
-   
+    /* NOTE: All modal-related CSS has been removed. */
 
     /* Map Container Style */
     #mapContainer {
@@ -61,50 +61,45 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
                 </svg>
             </a>
-            <h1 class="top-bar-title">Request New Transport</h1>
+            <h1 class="top-bar-title">Book a Trip</h1>
             <div class="w-6"></div>
         </div>
 
         <div class="page-content page-content-with-top-bar mt-4" style="padding-bottom: 20px;">
             <form id="transportRequestForm" class="w-full" style="max-height: calc(100vh - 80px); overflow-y: auto;">
 
-
-
                 <div id="mapContainer"></div>
 
                 <div>
                     <label for="startLocation" class="form-label">Start Location</label>
-                    <input type="text" id="startLocation" class="input-field" placeholder="e.g., NGO Office, Abuja"
-                        required>
-                    <p class="text-xs text-ngo-dark-gray -mt-2 mb-2">Ideally, pick from map or type to search.</p>
+                    <input type="text" id="startLocation" class="input-field" placeholder="e.g., NGO Office, Abuja">
                 </div>
                 <div>
                     <label for="endLocation" class="form-label">End Location / Destination</label>
-                    <input type="text" id="endLocation" class="input-field" placeholder="e.g., Kaduna Field Site"
-                        required>
-                    <p class="text-xs text-ngo-dark-gray -mt-2 mb-2">Ideally, pick from map or type to search.</p>
+                    <input type="text" id="endLocation" class="input-field" placeholder="e.g., Kaduna Field Site">
                 </div>
 
                 <div>
                     <label for="tripType" class="form-label">Trip Type</label>
-                    <select id="tripType" class="select-field" required>
+                    <select id="tripType" class="select-field">
                         <option value="" disabled selected>Select trip type</option>
                         <option value="intra_short">Intra-State Short Term (up to 3hrs)</option>
                         <option value="intra_half">Intra-State Half Day (up to 4hrs)</option>
                         <option value="intra_full">Intra-State Full Day (5-8hrs)</option>
                         <option value="intra_multi">Intra-State Multiple Days</option>
                         <option value="inter_dropoff">Inter-State Drop Off</option>
+                        <option value="inter_dropoff">Airport Pickup/Drop off</option>
                     </select>
                 </div>
 
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label for="startDate" class="form-label">Start Date</label>
-                        <input type="date" id="startDate" class="input-field" required>
+                        <input type="date" id="startDate" class="input-field">
                     </div>
                     <div>
                         <label for="startTime" class="form-label">Start Time</label>
-                        <input type="time" id="startTime" class="input-field" required>
+                        <input type="time" id="startTime" class="input-field">
                     </div>
                 </div>
                 <div id="endDateContainer" class="grid grid-cols-2 gap-4" style="display: none;">
@@ -118,25 +113,28 @@
                 <div>
                     <label for="purpose" class="form-label">Purpose of Travel</label>
                     <textarea id="purpose" class="input-field" rows="2"
-                        placeholder="Briefly describe the reason for this trip" required></textarea>
+                        placeholder="Briefly describe the reason for this trip"></textarea>
                 </div>
 
                 <div>
                     <label for="vehicleType" class="form-label">Vehicle Type</label>
-                    <select id="vehicleType" class="select-field" required>
+                    <select id="vehicleType" class="select-field">
                         <option value="" disabled selected>Select vehicle type</option>
-                        <option value="motorbike" data-rate="500">Motorbike</option>
-                        <option value="sedan" data-rate="1000">Car (Sedan)</option>
-                        <option value="bus" data-rate="3000">Minivan (Bus - 16 Seater)</option>
-                        <option value="4x4" data-rate="4000">4x4 Runner (Hilux, Jeep, Pick-up)</option>
+                        <option value="sedan" data-rate="1000">Car (Sedan or Saloon)</option>
+                        <option value="suv" data-rate="4000">SUV</option>
+                        <option value="sienna" data-rate="2500">Sienna</option>
+                        <option value="sharon" data-rate="2500">Sharon</option>
+                        <option value="bus" data-rate="3000">Bus</option>
+                        <option value="pickup" data-rate="3500">Pickup</option>
+                        <option value="hilux" data-rate="4000">Hilux</option>
                         <option value="truck" data-rate="5000">Truck</option>
-                        <option value="VIP" data-rate="5000">VIP</option>
+                        <option value="vip" data-rate="6000">VIP</option>
                     </select>
                 </div>
 
                 <div>
                     <label for="passengers" class="form-label">Number of Passengers</label>
-                    <input type="number" id="passengers" class="input-field" min="1" placeholder="e.g., 1" required>
+                    <input type="number" id="passengers" class="input-field" min="1" placeholder="e.g., 1">
                 </div>
 
                 <div>
@@ -152,16 +150,21 @@
                         distance and vehicle type.</p>
                 </div>
 
-                <button type="submit" class="btn btn-primary w-full mt-4 mb-2 text-lg">Submit Request</button>
+                <button type="submit" class="btn btn-primary w-full mt-4 mb-2 text-lg">SubmitRequest</button>
                 <button type="button" class="btn btn-secondary w-full mb-2 text-lg"
                     onclick="window.location.href='home.html'">Cancel</button>
             </form>
         </div>
     </div>
+
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.Nominatim.js"></script>
 
-    <script>
+    <script type="text/javascript">
         // DOM Elements
         const tripTypeSelect = document.getElementById('tripType');
         const endDateContainer = document.getElementById('endDateContainer');
@@ -171,16 +174,14 @@
         const vehicleTypeSelect = document.getElementById('vehicleType');
         const distanceEstimateText = document.getElementById('distanceEstimateText');
         const fareEstimateText = document.getElementById('fareEstimateText');
+        // const submitRequestBtn = document.getElementById('submitRequestBtn'); // This line is removed - it's not needed.
 
-        // Map Initialization
+        // --- All the map functions remain the same ---
         const map = L.map('mapContainer').setView([9.0765, 7.3986], 12);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-
         let startMarker, endMarker;
         let routingControl;
         let calculatedDistance = 0;
-
-        // Geocoder for getting address from coordinates
         const geocoder = L.Control.Geocoder.nominatim();
 
         function createDraggableMarker(latlng, type) {
@@ -211,22 +212,16 @@
                 } else {
                     routingControl = L.Routing.control({
                         waypoints: waypoints,
-                        show: false,
-                        addWaypoints: false,
-                        routeWhileDragging: true,
+                        show: false, addWaypoints: false, routeWhileDragging: true,
                         createMarker: function () { return null; },
                         lineOptions: { styles: [{ color: '#ff6b0b', opacity: 0.8, weight: 6 }] }
                     }).on('routesfound', function (e) {
-                        const routes = e.routes;
-                        const summary = routes[0].summary;
-                        // summary.totalDistance is in meters
-                        calculatedDistance = summary.totalDistance / 1000;
+                        calculatedDistance = e.routes[0].summary.totalDistance / 1000;
                         updateEstimates();
                     }).addTo(map);
                 }
             }
         }
-
         map.on('click', function (e) {
             if (!startMarker) {
                 startMarker = createDraggableMarker(e.latlng, 'start');
@@ -237,26 +232,20 @@
             }
             updateWaypoints();
         });
-
-        // Function to update estimates based on real distance
         function updateEstimates() {
             if (calculatedDistance <= 0) {
                 distanceEstimateText.textContent = "-- km";
                 fareEstimateText.textContent = "NGN --";
                 return;
             }
-
             distanceEstimateText.textContent = calculatedDistance.toFixed(1) + " km";
-
             const selectedVehicleOption = vehicleTypeSelect.options[vehicleTypeSelect.selectedIndex];
             const ratePerKm = parseFloat(selectedVehicleOption.dataset.rate) || 0;
-
             if (ratePerKm > 0) {
                 let estimatedFare = calculatedDistance * ratePerKm;
-                // Add trip type multipliers if needed
                 switch (tripTypeSelect.value) {
                     case 'inter_dropoff': estimatedFare *= 1.5; break;
-                    case 'intra_multi': estimatedFare *= 2.0; break; // Rough estimate per day
+                    case 'intra_multi': estimatedFare *= 2.0; break;
                 }
                 fareEstimateText.textContent = "NGN " + estimatedFare.toLocaleString();
             } else {
@@ -265,8 +254,6 @@
         }
         vehicleTypeSelect.addEventListener('change', updateEstimates);
         tripTypeSelect.addEventListener('change', updateEstimates);
-
-        // Event listener for showing/hiding end date
         tripTypeSelect.addEventListener('change', function () {
             if (this.value === 'intra_multi') {
                 endDateContainer.style.display = 'grid';
@@ -276,80 +263,35 @@
                 endDateInput.required = false;
                 endDateInput.value = '';
             }
-            updateEstimates(); // Update estimates when trip type changes
+            updateEstimates();
         });
 
-        // Function to simulate estimate calculation
-        function updateEstimates() {
-            const startLoc = startLocationInput.value.trim();
-            const endLoc = endLocationInput.value.trim();
-            const selectedVehicleOption = vehicleTypeSelect.options[vehicleTypeSelect.selectedIndex];
-            const ratePerKm = parseFloat(selectedVehicleOption.dataset.rate) || 0;
+        // Get the form element
+        const myForm = document.getElementById('transportRequestForm');
 
-            let estimatedDistance = 0;
-            let baseFare = 500; // A minimum base fare
+        // CORRECTED: Changed 'log' to 'console.log'
+        console.log('Form element found:', myForm);
 
-            // Simulate distance calculation based on input length (very basic)
-            if (startLoc.length > 2 && endLoc.length > 2) {
-                estimatedDistance = (startLoc.length + endLoc.length) * 5; // Arbitrary multiplier
-                // Add more "realistic" random distance for variety
-                estimatedDistance += Math.floor(Math.random() * 100) + 50;
-            } else {
-                distanceEstimateText.textContent = "-- km";
-                fareEstimateText.textContent = "NGN --";
-                return;
-            }
-
-            distanceEstimateText.textContent = estimatedDistance.toFixed(0) + " km";
-
-            let estimatedFare = baseFare + (estimatedDistance * ratePerKm);
-
-            // Adjust fare based on trip type (simple multiplier for mockup)
-            switch (tripTypeSelect.value) {
-                case 'intra_half':
-                    estimatedFare *= 1.2;
-                    break;
-                case 'intra_full':
-                    estimatedFare *= 1.5;
-                    break;
-                case 'intra_multi':
-                    estimatedFare *= 2.5; // Assuming per day, very rough estimate
-                    break;
-                case 'inter_dropoff':
-                    estimatedFare *= 2;
-                    break;
-            }
-
-            if (estimatedFare > 0 && ratePerKm > 0) {
-                fareEstimateText.textContent = "NGN " + estimatedFare.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
-            } else {
-                fareEstimateText.textContent = "NGN --";
-            }
-        }
-
-        // Add event listeners to inputs that affect estimates
-        startLocationInput.addEventListener('input', updateEstimates);
-        endLocationInput.addEventListener('input', updateEstimates);
-        vehicleTypeSelect.addEventListener('change', updateEstimates);
-
-        // Initial call to set estimates if values are pre-filled (e.g. on page load if we had defaults)
-        // updateEstimates(); 
-
-        // Form submission
-        document.getElementById('transportRequestForm').addEventListener('submit', function (event) {
+        // This will now work correctly
+        myForm.addEventListener('submit', function (event) {
+            // This line stops the page from refreshing
             event.preventDefault();
-            console.log('Transport request submitted.');
-            // Pass data to confirmation page via query parameters (simple example)
-            const params = new URLSearchParams({
-                from: startLocationInput.value,
-                to: endLocationInput.value,
-                date: document.getElementById('startDate').value,
-                vehicle: vehicleTypeSelect.options[vehicleTypeSelect.selectedIndex].text,
-                fare: fareEstimateText.textContent
-            });
-            window.location.href = 'request_confirmation.html?' + params.toString();
+
+            console.log('Form submission prevented. Showing confirm dialog.');
+            const userConfirmed = window.confirm("Your request will be submitted and a confirmation email will be sent. \n\nClick OK to proceed.");
+
+            if (userConfirmed) {
+                console.log('User confirmed submission. Redirecting...');
+                window.location.href = 'home.html';
+            } else {
+                console.log('User cancelled the submission.');
+            }
         });
+
+    
     </script>
+
+
 </body>
 
 </html>
