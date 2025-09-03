@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,12 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
-
-</head>
 <style>
-    /* NOTE: All modal-related CSS has been removed. */
-
-    /* Map Container Style */
     #mapContainer {
         height: 250px;
         width: 100%;
@@ -22,42 +16,109 @@
         margin-bottom: 1rem;
         border: 1px solid #d1d5db;
     }
-
-    /* Hide routing machine's default instruction panel */
     .leaflet-routing-container {
         display: none;
     }
-
     .estimate-box {
         background-color: #f3f4f6;
         padding: 1rem;
         border-radius: 0.5rem;
         margin-top: 1rem;
     }
-
     .estimate-box h3 {
-        font-weight: 600;
-        margin-top: 0;
-        margin-bottom: 0.5rem;
-        color: #1C2833;
+        font-weight: 600; margin-top: 0; margin-bottom: 0.5rem; color: #1C2833;
     }
-
     .estimate-box p {
         margin: 0.25rem 0;
     }
-
     .estimate-box .highlight {
-        font-weight: 700;
-        color: #ff6b0b;
+        font-weight: 700; color: #ff6b0b;
+    }
+
+    /* --- Bootstrap-style MultiSelect --- */
+    .multiselect-container {
+        position: relative;
+    }
+    #vehicleSelectBtn {
+        text-align: left;
+        padding-right: 2.5rem;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+        background-position: right 0.75rem center;
+        background-repeat: no-repeat;
+        background-size: 1.25em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .multiselect-dropdown {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: white;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        z-index: 100;
+        margin-top: 0.25rem;
+        max-height: 250px;
+        overflow-y: auto;
+    }
+    .multiselect-dropdown.show {
+        display: block;
+    }
+    #vehicleSearch {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0.75rem;
+        border: none;
+        border-bottom: 1px solid #e5e7eb;
+    }
+    #vehicleSearch:focus {
+        outline: none;
+    }
+    .multiselect-option {
+        display: block;
+        padding: 0.75rem 1rem;
+        cursor: pointer;
+    }
+    .multiselect-option:hover {
+        background-color: #f3f4f6;
+    }
+    .multiselect-option input {
+        margin-right: 0.75rem;
+    }
+    /* --- NEW: Styles for Vehicle Count Inputs --- */
+    #vehicleCountContainer {
+        margin-top: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    .vehicle-count-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #f9fafb;
+        padding: 0.5rem 0.75rem;
+        border-radius: 0.5rem;
+    }
+    .vehicle-count-item label {
+        font-weight: 500;
+        color: #374151;
+    }
+    .vehicle-count-item input {
+        width: 60px;
+        text-align: center;
     }
 </style>
-
+</head>
 <body>
     <div class="app-container">
         <div class="top-bar">
             <a href="home.html" class="top-bar-icon leading">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                    stroke-width="2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
                 </svg>
             </a>
@@ -67,39 +128,35 @@
 
         <div class="page-content page-content-with-top-bar mt-4" style="padding-bottom: 20px;">
             <form id="transportRequestForm" class="w-full" style="max-height: calc(100vh - 80px); overflow-y: auto;">
-
                 <div id="mapContainer"></div>
-
                 <div>
-                    <label for="startLocation" class="form-label">Start Location</label>
-                    <input type="text" id="startLocation" class="input-field" placeholder="e.g., NGO Office, Abuja">
+                    <label for="startLocation" class="form-label">Starting/Pickup Location</label>
+                    <input type="text" id="startLocation" class="input-field" placeholder="e.g., NGO Office, Abuja" required>
                 </div>
                 <div>
-                    <label for="endLocation" class="form-label">End Location / Destination</label>
-                    <input type="text" id="endLocation" class="input-field" placeholder="e.g., Kaduna Field Site">
+                    <label for="endLocation" class="form-label">Dropoff Location/Destination</label>
+                    <input type="text" id="endLocation" class="input-field" placeholder="e.g., Kaduna Field Site" required>
                 </div>
-
                 <div>
                     <label for="tripType" class="form-label">Trip Type</label>
-                    <select id="tripType" class="select-field">
+                    <select id="tripType" class="select-field" required>
                         <option value="" disabled selected>Select trip type</option>
-                        <option value="intra_short">Intra-State Short Term (up to 3hrs)</option>
+                        <option value="intra_short">Local Pickup/Drop off</option>
                         <option value="intra_half">Intra-State Half Day (up to 4hrs)</option>
-                        <option value="intra_full">Intra-State Full Day (5-8hrs)</option>
+                        <option value="intra_full">Intra-State Full Day (4-8hours)</option>
                         <option value="intra_multi">Intra-State Multiple Days</option>
                         <option value="inter_dropoff">Inter-State Drop Off</option>
-                        <option value="inter_dropoff">Airport Pickup/Drop off</option>
+                        <option value="airport">Airport Pickup/Drop off</option>
                     </select>
                 </div>
-
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label for="startDate" class="form-label">Start Date</label>
-                        <input type="date" id="startDate" class="input-field">
+                        <label for="startDate" class="form-label">Starting Date</label>
+                        <input type="date" id="startDate" class="input-field" required>
                     </div>
                     <div>
-                        <label for="startTime" class="form-label">Start Time</label>
-                        <input type="time" id="startTime" class="input-field">
+                        <label for="startTime" class="form-label">Starting Time</label>
+                        <input type="time" id="startTime" class="input-field" required>
                     </div>
                 </div>
                 <div id="endDateContainer" class="grid grid-cols-2 gap-4" style="display: none;">
@@ -108,190 +165,252 @@
                         <input type="date" id="endDate" class="input-field">
                     </div>
                 </div>
-
-
                 <div>
                     <label for="purpose" class="form-label">Purpose of Travel</label>
-                    <textarea id="purpose" class="input-field" rows="2"
-                        placeholder="Briefly describe the reason for this trip"></textarea>
+                    <textarea id="purpose" class="input-field" rows="2" placeholder="Briefly describe the reason for this trip" required></textarea>
                 </div>
-
+                <!-- EDITED: Vehicle Type MultiSelect & Count Component -->
                 <div>
-                    <label for="vehicleType" class="form-label">Vehicle Type</label>
-                    <select id="vehicleType" class="select-field">
-                        <option value="" disabled selected>Select vehicle type</option>
-                        <option value="sedan" data-rate="1000">Car (Sedan or Saloon)</option>
-                        <option value="suv" data-rate="4000">SUV</option>
-                        <option value="sienna" data-rate="2500">Sienna</option>
-                        <option value="sharon" data-rate="2500">Sharon</option>
-                        <option value="bus" data-rate="3000">Bus</option>
-                        <option value="pickup" data-rate="3500">Pickup</option>
-                        <option value="hilux" data-rate="4000">Hilux</option>
-                        <option value="truck" data-rate="5000">Truck</option>
-                        <option value="vip" data-rate="6000">VIP</option>
-                    </select>
+                    <label class="form-label">Vehicle Type</label>
+                    <div class="multiselect-container">
+                        <button type="button" id="vehicleSelectBtn" class="select-field">Select vehicles...</button>
+                        <div id="vehicleDropdown" class="multiselect-dropdown">
+                            <input type="text" id="vehicleSearch" class="input-field" placeholder="Search vehicles...">
+                            <div id="vehicleOptionsContainer">
+                                <!-- Checkbox options will be generated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- NEW: Container for vehicle count inputs -->
+                    <div id="vehicleCountContainer"></div>
                 </div>
-
-                <div>
-                    <label for="passengers" class="form-label">Number of Passengers</label>
-                    <input type="number" id="passengers" class="input-field" min="1" placeholder="e.g., 1">
-                </div>
-
+                <!-- Number of Passengers field is removed -->
                 <div>
                     <label for="tripApprovalDoc" class="form-label">Optional: Upload Trip Approval</label>
                     <input type="file" id="tripApprovalDoc" class="file-input-field">
                 </div>
-
                 <div class="estimate-box">
                     <h3>Trip Estimates</h3>
                     <p>Estimated Distance: <span id="distanceEstimateText" class="highlight">-- km</span></p>
                     <p>Estimated Fare: <span id="fareEstimateText" class="highlight">NGN --</span></p>
-                    <p class="text-xs text-ngo-dark-gray mt-2">Final fare may vary. This is an estimate based on
-                        distance and vehicle type.</p>
+                    <p class="text-xs text-ngo-dark-gray mt-2">Final fare may vary.</p>
                 </div>
-
-                <button type="submit" class="btn btn-primary w-full mt-4 mb-2 text-lg">SubmitRequest</button>
-                <button type="button" class="btn btn-secondary w-full mb-2 text-lg"
-                    onclick="window.location.href='home.html'">Cancel</button>
+                <button type="submit" class="btn btn-primary w-full mt-4 mb-2 text-lg">Submit &nbsp;Request</button>
+                <button type="button" class="btn btn-secondary w-full mb-2 text-lg" onclick="window.location.href='home.html'">Cancel</button>
             </form>
         </div>
     </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
-    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
-    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.Nominatim.js"></script>
 
-    <script type="text/javascript">
-        // DOM Elements
-        const tripTypeSelect = document.getElementById('tripType');
-        const endDateContainer = document.getElementById('endDateContainer');
-        const endDateInput = document.getElementById('endDate');
-        const startLocationInput = document.getElementById('startLocation');
-        const endLocationInput = document.getElementById('endLocation');
-        const vehicleTypeSelect = document.getElementById('vehicleType');
-        const distanceEstimateText = document.getElementById('distanceEstimateText');
-        const fareEstimateText = document.getElementById('fareEstimateText');
-        // const submitRequestBtn = document.getElementById('submitRequestBtn'); // This line is removed - it's not needed.
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const myForm = document.getElementById('transportRequestForm');
+            // DOM Elements
+            const tripTypeSelect = document.getElementById('tripType');
+            const endDateContainer = document.getElementById('endDateContainer');
+            const endDateInput = document.getElementById('endDate');
+            const startLocationInput = document.getElementById('startLocation');
+            const endLocationInput = document.getElementById('endLocation');
+            const distanceEstimateText = document.getElementById('distanceEstimateText');
+            const fareEstimateText = document.getElementById('fareEstimateText');
 
-        // --- All the map functions remain the same ---
-        const map = L.map('mapContainer').setView([9.0765, 7.3986], 12);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-        let startMarker, endMarker;
-        let routingControl;
-        let calculatedDistance = 0;
-        const geocoder = L.Control.Geocoder.nominatim();
+            // --- MultiSelect Elements & Data ---
+            const vehicleSelectBtn = document.getElementById('vehicleSelectBtn');
+            const vehicleDropdown = document.getElementById('vehicleDropdown');
+            const vehicleSearch = document.getElementById('vehicleSearch');
+            const vehicleOptionsContainer = document.getElementById('vehicleOptionsContainer');
+            const vehicleCountContainer = document.getElementById('vehicleCountContainer'); // New container
+            const vehicleData = [
+                { value: 'sedan', text: 'Car (Sedan or Saloon)', rate: 1000 },
+                { value: 'suv', text: 'SUV', rate: 4000 },
+                { value: 'sienna', text: 'Sienna', rate: 2500 },
+                { value: 'sharon', text: 'Sharon', rate: 2500 },
+                { value: 'bus', text: 'Bus', rate: 3000 },
+                { value: 'pickup', text: 'Pickup', rate: 3500 },
+                { value: 'hilux', text: 'Hilux', rate: 4000 },
+                { value: 'truck', text: 'Truck', rate: 5000 },
+                { value: 'vip', text: 'VIP', rate: 6000 }
+            ];
+            let selectedVehicles = new Map(); // Use a Map to store {value: {text, rate, count}}
 
-        function createDraggableMarker(latlng, type) {
-            const marker = L.marker(latlng, { draggable: true }).addTo(map);
-            marker.on('dragend', function (event) {
-                const newLatLng = event.target.getLatLng();
-                updateWaypoints();
-                updateInputFromLatLng(newLatLng, type);
-            });
-            return marker;
-        }
+            // --- MultiSelect Logic ---
+            function populateVehicleOptions(filter = '') {
+                vehicleOptionsContainer.innerHTML = '';
+                vehicleData
+                    .filter(v => v.text.toLowerCase().includes(filter.toLowerCase()))
+                    .forEach(vehicle => {
+                        const optionLabel = document.createElement('label');
+                        optionLabel.className = 'multiselect-option';
+                        const checkbox = document.createElement('input');
+                        checkbox.type = 'checkbox';
+                        checkbox.value = vehicle.value;
+                        checkbox.checked = selectedVehicles.has(vehicle.value);
+                        
+                        checkbox.addEventListener('change', () => {
+                            if (checkbox.checked) {
+                                selectedVehicles.set(vehicle.value, { text: vehicle.text, rate: vehicle.rate, count: 1 });
+                            } else {
+                                selectedVehicles.delete(vehicle.value);
+                            }
+                            updateVehicleButtonText();
+                            renderVehicleCounts(); // New function call
+                            updateEstimates();
+                        });
+                        
+                        optionLabel.appendChild(checkbox);
+                        optionLabel.appendChild(document.createTextNode(vehicle.text));
+                        vehicleOptionsContainer.appendChild(optionLabel);
+                    });
+            }
+            
+            // NEW FUNCTION to render count inputs for selected vehicles
+            function renderVehicleCounts() {
+                vehicleCountContainer.innerHTML = '';
+                if (selectedVehicles.size > 0) {
+                    selectedVehicles.forEach((vehicle, value) => {
+                        const itemDiv = document.createElement('div');
+                        itemDiv.className = 'vehicle-count-item';
 
-        function updateInputFromLatLng(latlng, type) {
-            geocoder.reverse(latlng, map.options.crs.scale(map.getZoom()), (results) => {
-                const r = results[0];
-                if (r) {
-                    const input = (type === 'start') ? startLocationInput : endLocationInput;
-                    input.value = r.name;
+                        const itemLabel = document.createElement('label');
+                        itemLabel.textContent = vehicle.text;
+                        
+                        const countInput = document.createElement('input');
+                        countInput.type = 'number';
+                        countInput.className = 'input-field';
+                        countInput.value = vehicle.count;
+                        countInput.min = 1;
+                        countInput.dataset.value = value;
+
+                        countInput.addEventListener('change', (e) => {
+                            const vehicleValue = e.target.dataset.value;
+                            const newCount = parseInt(e.target.value, 10);
+                            if (selectedVehicles.has(vehicleValue) && newCount > 0) {
+                                selectedVehicles.get(vehicleValue).count = newCount;
+                                updateEstimates();
+                            }
+                        });
+
+                        itemDiv.appendChild(itemLabel);
+                        itemDiv.appendChild(countInput);
+                        vehicleCountContainer.appendChild(itemDiv);
+                    });
                 }
-            });
-        }
+            }
 
-        function updateWaypoints() {
-            if (startMarker && endMarker) {
-                const waypoints = [startMarker.getLatLng(), endMarker.getLatLng()];
-                if (routingControl) {
-                    routingControl.setWaypoints(waypoints);
+            function updateVehicleButtonText() {
+                if (selectedVehicles.size === 0) {
+                    vehicleSelectBtn.textContent = 'Select vehicles...';
+                } else if (selectedVehicles.size <= 2) {
+                    vehicleSelectBtn.textContent = Array.from(selectedVehicles.values()).map(v => v.text).join(', ');
                 } else {
-                    routingControl = L.Routing.control({
-                        waypoints: waypoints,
-                        show: false, addWaypoints: false, routeWhileDragging: true,
-                        createMarker: function () { return null; },
-                        lineOptions: { styles: [{ color: '#ff6b0b', opacity: 0.8, weight: 6 }] }
-                    }).on('routesfound', function (e) {
-                        calculatedDistance = e.routes[0].summary.totalDistance / 1000;
-                        updateEstimates();
-                    }).addTo(map);
+                    vehicleSelectBtn.textContent = `${selectedVehicles.size} vehicles selected`;
                 }
             }
-        }
-        map.on('click', function (e) {
-            if (!startMarker) {
-                startMarker = createDraggableMarker(e.latlng, 'start');
-                updateInputFromLatLng(e.latlng, 'start');
-            } else if (!endMarker) {
-                endMarker = createDraggableMarker(e.latlng, 'end');
-                updateInputFromLatLng(e.latlng, 'end');
-            }
-            updateWaypoints();
-        });
-        function updateEstimates() {
-            if (calculatedDistance <= 0) {
-                distanceEstimateText.textContent = "-- km";
-                fareEstimateText.textContent = "NGN --";
-                return;
-            }
-            distanceEstimateText.textContent = calculatedDistance.toFixed(1) + " km";
-            const selectedVehicleOption = vehicleTypeSelect.options[vehicleTypeSelect.selectedIndex];
-            const ratePerKm = parseFloat(selectedVehicleOption.dataset.rate) || 0;
-            if (ratePerKm > 0) {
-                let estimatedFare = calculatedDistance * ratePerKm;
-                switch (tripTypeSelect.value) {
-                    case 'inter_dropoff': estimatedFare *= 1.5; break;
-                    case 'intra_multi': estimatedFare *= 2.0; break;
+            
+            vehicleSelectBtn.addEventListener('click', () => vehicleDropdown.classList.toggle('show'));
+            vehicleSearch.addEventListener('input', () => populateVehicleOptions(vehicleSearch.value));
+            document.addEventListener('click', (e) => {
+                if (!vehicleSelectBtn.contains(e.target) && !vehicleDropdown.contains(e.target)) {
+                    vehicleDropdown.classList.remove('show');
                 }
-                fareEstimateText.textContent = "NGN " + estimatedFare.toLocaleString();
-            } else {
-                fareEstimateText.textContent = "Select Vehicle Type";
+            });
+            populateVehicleOptions();
+
+            // Map setup and functions
+            const map = L.map('mapContainer').setView([9.0765, 7.3986], 12);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+            let startMarker, endMarker, routingControl, calculatedDistance = 0;
+            const geocoder = L.Control.Geocoder.nominatim();
+
+            function createDraggableMarker(latlng, type) {
+                const marker = L.marker(latlng, { draggable: true }).addTo(map);
+                marker.on('dragend', (e) => { updateWaypoints(); updateInputFromLatLng(e.target.getLatLng(), type); });
+                return marker;
             }
-        }
-        vehicleTypeSelect.addEventListener('change', updateEstimates);
-        tripTypeSelect.addEventListener('change', updateEstimates);
-        tripTypeSelect.addEventListener('change', function () {
-            if (this.value === 'intra_multi') {
-                endDateContainer.style.display = 'grid';
-                endDateInput.required = true;
-            } else {
-                endDateContainer.style.display = 'none';
-                endDateInput.required = false;
-                endDateInput.value = '';
+
+            function updateInputFromLatLng(latlng, type) {
+                geocoder.reverse(latlng, map.options.crs.scale(map.getZoom()), (results) => {
+                    if (results && results[0]) {
+                        const input = (type === 'start') ? startLocationInput : endLocationInput;
+                        input.value = results[0].name;
+                    }
+                });
             }
-            updateEstimates();
+
+            function updateWaypoints() {
+                if (startMarker && endMarker) {
+                    const waypoints = [startMarker.getLatLng(), endMarker.getLatLng()];
+                    if (routingControl) {
+                        routingControl.setWaypoints(waypoints);
+                    } else {
+                        routingControl = L.Routing.control({
+                            waypoints, show: false, addWaypoints: false, routeWhileDragging: true,
+                            createMarker: () => null,
+                            lineOptions: { styles: [{ color: '#ff6b0b', opacity: 0.8, weight: 6 }] }
+                        }).on('routesfound', (e) => {
+                            calculatedDistance = e.routes[0].summary.totalDistance / 1000;
+                            updateEstimates();
+                        }).addTo(map);
+                    }
+                }
+            }
+
+            map.on('click', (e) => {
+                if (!startMarker) {
+                    startMarker = createDraggableMarker(e.latlng, 'start');
+                    updateInputFromLatLng(e.latlng, 'start');
+                } else if (!endMarker) {
+                    endMarker = createDraggableMarker(e.latlng, 'end');
+                    updateInputFromLatLng(e.latlng, 'end');
+                }
+                updateWaypoints();
+            });
+
+            function updateEstimates() {
+                if (calculatedDistance <= 0) {
+                    distanceEstimateText.textContent = "-- km";
+                    fareEstimateText.textContent = "NGN --";
+                    return;
+                }
+                distanceEstimateText.textContent = calculatedDistance.toFixed(1) + " km";
+                
+                // EDITED: Calculate fare based on sum of all vehicles and their counts
+                let totalBaseFare = 0;
+                selectedVehicles.forEach(vehicle => {
+                    totalBaseFare += (vehicle.rate * vehicle.count);
+                });
+
+                if (totalBaseFare > 0) {
+                    let estimatedFare = calculatedDistance * totalBaseFare;
+                    switch (tripTypeSelect.value) {
+                        case 'inter_dropoff': estimatedFare *= 1.5; break;
+                        case 'intra_multi': estimatedFare *= 2.0; break;
+                    }
+                    fareEstimateText.textContent = "NGN " + estimatedFare.toLocaleString();
+                } else {
+                    fareEstimateText.textContent = "Select Vehicle Type";
+                }
+            }
+
+            tripTypeSelect.addEventListener('change', function() {
+                updateEstimates();
+                endDateContainer.style.display = (this.value === 'intra_multi') ? 'grid' : 'none';
+                endDateInput.required = (this.value === 'intra_multi');
+            });
+
+            myForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                if (selectedVehicles.size === 0) {
+                    alert('Please select at least one vehicle type.');
+                    return;
+                }
+                const userConfirmed = window.confirm("Your request will be submitted and a confirmation email will be sent. \n\nClick OK to proceed.");
+                if (userConfirmed) { window.location.href = 'home.html'; }
+            });
         });
-
-        // Get the form element
-        const myForm = document.getElementById('transportRequestForm');
-
-        // CORRECTED: Changed 'log' to 'console.log'
-        console.log('Form element found:', myForm);
-
-        // This will now work correctly
-        myForm.addEventListener('submit', function (event) {
-            // This line stops the page from refreshing
-            event.preventDefault();
-
-            console.log('Form submission prevented. Showing confirm dialog.');
-            const userConfirmed = window.confirm("Your request will be submitted and a confirmation email will be sent. \n\nClick OK to proceed.");
-
-            if (userConfirmed) {
-                console.log('User confirmed submission. Redirecting...');
-                window.location.href = 'home.html';
-            } else {
-                console.log('User cancelled the submission.');
-            }
-        });
-
-    
     </script>
-
-
 </body>
-
 </html>
+

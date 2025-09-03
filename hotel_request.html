@@ -6,6 +6,75 @@
     <title>Book Hotel - Flog Ride</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    /* MultiSelect Component Styles */
+    .multiselect-container {
+        position: relative;
+    }
+    #roomTypeSelectBtn {
+        text-align: left;
+        padding-right: 2.5rem;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+        background-position: right 0.75rem center;
+        background-repeat: no-repeat;
+        background-size: 1.25em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .multiselect-dropdown {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: white;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        z-index: 100;
+        margin-top: 0.25rem;
+        max-height: 250px;
+        overflow-y: auto;
+    }
+    .multiselect-dropdown.show {
+        display: block;
+    }
+    .multiselect-option {
+        display: block;
+        padding: 0.75rem 1rem;
+        cursor: pointer;
+    }
+    .multiselect-option:hover {
+        background-color: #f3f4f6;
+    }
+    .multiselect-option input {
+        margin-right: 0.75rem;
+    }
+    /* Room Details Input Styles */
+    #roomDetailsContainer {
+        margin-top: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .room-details-item {
+        background-color: #f9fafb;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        border: 1px solid #f3f4f6;
+    }
+    .room-details-item h3 {
+        font-weight: 600;
+        color: #1f2937;
+        margin: 0 0 0.75rem 0;
+    }
+    .room-details-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+</style>
 </head>
 <body>
     <div class="app-container">
@@ -15,66 +84,258 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
                 </svg>
             </a>
-            <h1 class="top-bar-title">Find Hotel Accommodation</h1>
-            <div class="w-6"></div> </div>
+            <h1 class="top-bar-title">Book Hotel Accommodation</h1>
+            <div class="w-6"></div>
+        </div>
 
         <div class="page-content page-content-with-top-bar" style="padding-bottom: 20px;">
             <form id="hotelRequestForm" class="w-full" style="max-height: calc(100vh - 80px); overflow-y: auto;">
                 <div>
-                    <label for="hotelLocation" class="form-label">Location / City for Hotel</label>
-                    <input type="text" id="hotelLocation" class="input-field" placeholder="e.g., Abuja, Lagos, Kaduna" required>
+                    <label for="state" class="form-label">State</label>
+                    <select id="state" class="select-field" required>
+                        <option value="" disabled selected>Select a state</option>
+                        <option value="abuja">Abuja (FCT)</option>
+                        <option value="lagos">Lagos</option>
+                        <option value="kaduna">Kaduna</option>
+                        <option value="rivers">Rivers</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="city" class="form-label">City (Optional)</label>
+                    <input type="text" id="city" class="input-field" placeholder="e.g., Ikeja">
+                </div>
+
+                <div>
+                    <label class="form-label">Do you have a preferred hotel?</label>
+                    <div class="flex items-center space-x-4">
+                        <label><input type="radio" name="preferredHotel" value="yes" class="form-radio" required> Yes</label>
+                        <label><input type="radio" name="preferredHotel" value="no" class="form-radio" required> No</label>
+                    </div>
+                </div>
+
+                <!-- This section appears if user selects 'Yes' -->
+                <div id="preferredHotelNameSection" style="display: none;">
+                    <label for="preferredHotelName" class="form-label">Preferred Hotel Name</label>
+                    <input type="text" id="preferredHotelName" class="input-field" placeholder="Enter the name of your hotel">
+                </div>
+
+                <!-- This main section appears if user selects 'No' -->
+                <div id="hotelSearchSection" style="display: none;">
+                    <div>
+                        <label for="hotelClass" class="form-label">Indicate your preferred Hotel class (Optional)</label>
+                        <select id="hotelClass" class="select-field">
+                            <option value="">Any</option>
+                            <option value="1">⭐</option>
+                            <option value="2">⭐⭐</option>
+                            <option value="3">⭐⭐⭐</option>
+                            <option value="4">⭐⭐⭐⭐</option>
+                            <option value="5">⭐⭐⭐⭐⭐</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="form-label">Room Type</label>
+                        <div class="multiselect-container">
+                            <button type="button" id="roomTypeSelectBtn" class="select-field">Select room types...</button>
+                            <div id="roomTypeDropdown" class="multiselect-dropdown">
+                                <div id="roomTypeOptionsContainer"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Container for dynamic room count and budget inputs -->
+                    <div id="roomDetailsContainer"></div>
+
+                    <div>
+                        <label for="selectHotel" class="form-label">Select your hotel</label>
+                        <select id="selectHotel" class="select-field">
+                            <option value="" disabled selected>Choose from available hotels...</option>
+                            <option value="hotel_a">Sheraton Hotel (Pictures...)</option>
+                            <option value="hotel_b">Transcorp Hilton (Pictures...)</option>
+                            <option value="other">Other (Not in this list)</option>
+                        </select>
+                    </div>
+                    
+                    <div id="otherHotelNameSection" style="display: none;">
+                        <label for="otherHotelName" class="form-label">If not found, provide the name of the hotel</label>
+                        <input type="text" id="otherHotelName" class="input-field" placeholder="Enter hotel name">
+                    </div>
                 </div>
 
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label for="checkInDate" class="form-label">Check-in Date</label>
+                        <label for="checkInDate" class="form-label">Expected Check-in Date</label>
                         <input type="date" id="checkInDate" class="input-field" required>
                     </div>
                     <div>
-                        <label for="checkOutDate" class="form-label">Check-out Date</label>
+                        <label for="checkOutDate" class="form-label">Expected Check-out Date</label>
                         <input type="date" id="checkOutDate" class="input-field" required>
                     </div>
                 </div>
-                
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label for="numGuests" class="form-label">Number of Guests</label>
-                        <input type="number" id="numGuests" class="input-field" min="1" placeholder="e.g., 1" required>
-                    </div>
-                    <div>
-                        <label for="numRooms" class="form-label">Number of Rooms</label>
-                        <input type="number" id="numRooms" class="input-field" min="1" placeholder="e.g., 1" required>
-                    </div>
+                <div>
+                    <label for="arrivalTime" class="form-label">Expected Arrival Time</label>
+                    <input type="time" id="arrivalTime" class="input-field" required>
                 </div>
 
                 <div>
-                    <label for="roomTypePreference" class="form-label">Room Type Preference (Optional)</label>
-                    <select id="roomTypePreference" class="select-field">
-                        <option value="">Any</option>
-                        <option value="single">Single Room</option>
-                        <option value="double">Double Room</option>
-                        <option value="suite">Suite</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label for="additionalRequirements" class="form-label">Additional Requirements (Optional)</label>
-                    <textarea id="additionalRequirements" class="input-field" rows="3" placeholder="e.g., Quiet room, specific amenities..."></textarea>
+                    <label for="specialRequests" class="form-label">Any special needs/requests?</label>
+                    <textarea id="specialRequests" class="input-field" rows="3" placeholder="e.g., Quiet room, specific amenities..."></textarea>
                 </div>
                 
-                <button type="submit" class="btn btn-primary w-full mt-6 mb-2 text-lg">Search Hotels</button>
-                <button class="btn btn-secondary w-full max-w-sm mt-2 mb-2 text-lg" onclick="window.location.href='home.html'" >Cancel</button>
-               
+                <button type="submit" class="btn btn-primary w-full mt-6 mb-2 text-lg">Submit Request</button>
+                <button type="button" class="btn btn-secondary w-full max-w-sm mt-2 mb-2 text-lg" onclick="window.location.href='home.html'">Cancel</button>
             </form>
         </div>
     </div>
     <script>
-        document.getElementById('hotelRequestForm').addEventListener('submit', function(event) {
-            event.preventDefault(); 
-            // Add validation and actual submission logic here
-            console.log('Hotel search submitted for location:', document.getElementById('hotelLocation').value);
-            // For mockup, directly navigate to search results
-            window.location.href = 'hotel_search_results.html'; 
+        document.addEventListener('DOMContentLoaded', function() {
+            const myForm = document.getElementById('hotelRequestForm');
+            // Form sections
+            const preferredHotelRadios = document.querySelectorAll('input[name="preferredHotel"]');
+            const preferredHotelNameSection = document.getElementById('preferredHotelNameSection');
+            const hotelSearchSection = document.getElementById('hotelSearchSection');
+            
+            // Room Type MultiSelect Elements
+            const roomTypeSelectBtn = document.getElementById('roomTypeSelectBtn');
+            const roomTypeDropdown = document.getElementById('roomTypeDropdown');
+            const roomTypeOptionsContainer = document.getElementById('roomTypeOptionsContainer');
+            const roomDetailsContainer = document.getElementById('roomDetailsContainer');
+            const roomTypeData = [
+                { value: 'standard', text: 'Standard', budgetGroup: 'A' },
+                { value: 'deluxe', text: 'Deluxe', budgetGroup: 'A' },
+                { value: 'executive', text: 'Executive Room', budgetGroup: 'A' },
+                { value: 'family', text: 'Family Room', budgetGroup: 'B' },
+                { value: 'suite', text: 'Suite', budgetGroup: 'B' },
+                { value: 'penthouse', text: 'Penthouse', budgetGroup: 'B' },
+                { value: 'accessible', text: 'Accessible', budgetGroup: 'A' },
+            ];
+            const budgetOptions = {
+                A: ['20,000 - 39,999', '40,000 - 69,999', '70,000 or higher'],
+                B: ['30,000 - 49,999', '50,000 - 79,999', '80,000 or higher']
+            };
+            let selectedRoomTypes = new Map();
+
+            // Other hotel selection
+            const selectHotel = document.getElementById('selectHotel');
+            const otherHotelNameSection = document.getElementById('otherHotelNameSection');
+
+            // --- Main Conditional Logic ---
+            preferredHotelRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    if (this.value === 'yes') {
+                        hotelSearchSection.style.display = 'none';
+                        preferredHotelNameSection.style.display = 'block';
+                    } else {
+                        hotelSearchSection.style.display = 'block';
+                        preferredHotelNameSection.style.display = 'none';
+                    }
+                });
+            });
+
+            // --- Room Type MultiSelect Logic ---
+            function populateRoomTypeOptions() {
+                roomTypeOptionsContainer.innerHTML = '';
+                roomTypeData.forEach(room => {
+                    const optionLabel = document.createElement('label');
+                    optionLabel.className = 'multiselect-option';
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.value = room.value;
+                    checkbox.checked = selectedRoomTypes.has(room.value);
+                    
+                    checkbox.addEventListener('change', () => {
+                        if (checkbox.checked) {
+                            selectedRoomTypes.set(room.value, { text: room.text, budgetGroup: room.budgetGroup, count: 1 });
+                        } else {
+                            selectedRoomTypes.delete(room.value);
+                        }
+                        updateRoomTypeButtonText();
+                        renderRoomDetails();
+                    });
+                    
+                    optionLabel.appendChild(checkbox);
+                    optionLabel.appendChild(document.createTextNode(room.text));
+                    roomTypeOptionsContainer.appendChild(optionLabel);
+                });
+            }
+
+            function renderRoomDetails() {
+                roomDetailsContainer.innerHTML = '';
+                if (selectedRoomTypes.size > 0) {
+                    selectedRoomTypes.forEach((room, value) => {
+                        const itemDiv = document.createElement('div');
+                        itemDiv.className = 'room-details-item';
+                        itemDiv.innerHTML = `<h3>${room.text}</h3>`;
+                        
+                        const gridDiv = document.createElement('div');
+                        gridDiv.className = 'room-details-grid';
+                        
+                        // Number of Rooms input
+                        const numRoomsDiv = document.createElement('div');
+                        numRoomsDiv.innerHTML = `<label class="form-label text-sm">Number of Rooms</label>`;
+                        const countInput = document.createElement('input');
+                        countInput.type = 'number';
+                        countInput.className = 'input-field';
+                        countInput.value = room.count;
+                        countInput.min = 1;
+                        countInput.addEventListener('change', (e) => {
+                            const newCount = parseInt(e.target.value, 10);
+                            if (newCount > 0) {
+                                selectedRoomTypes.get(value).count = newCount;
+                            }
+                        });
+                        numRoomsDiv.appendChild(countInput);
+                        
+                        // Budget Range dropdown
+                        const budgetDiv = document.createElement('div');
+                        budgetDiv.innerHTML = `<label class="form-label text-sm">Budget Range</label>`;
+                        const budgetSelect = document.createElement('select');
+                        budgetSelect.className = 'select-field';
+                        const budgetGroup = room.budgetGroup;
+                        budgetOptions[budgetGroup].forEach(optionText => {
+                            const option = document.createElement('option');
+                            option.value = optionText;
+                            option.textContent = optionText;
+                            budgetSelect.appendChild(option);
+                        });
+                        budgetDiv.appendChild(budgetSelect);
+
+                        gridDiv.appendChild(numRoomsDiv);
+                        gridDiv.appendChild(budgetDiv);
+                        itemDiv.appendChild(gridDiv);
+                        roomDetailsContainer.appendChild(itemDiv);
+                    });
+                }
+            }
+
+            function updateRoomTypeButtonText() {
+                if (selectedRoomTypes.size === 0) {
+                    roomTypeSelectBtn.textContent = 'Select room types...';
+                } else {
+                    roomTypeSelectBtn.textContent = `${selectedRoomTypes.size} room type(s) selected`;
+                }
+            }
+
+            roomTypeSelectBtn.addEventListener('click', () => roomTypeDropdown.classList.toggle('show'));
+            document.addEventListener('click', (e) => {
+                if (!roomTypeSelectBtn.contains(e.target) && !roomTypeDropdown.contains(e.target)) {
+                    roomTypeDropdown.classList.remove('show');
+                }
+            });
+            populateRoomTypeOptions();
+
+            // "Other" Hotel Logic
+            selectHotel.addEventListener('change', function() {
+                otherHotelNameSection.style.display = (this.value === 'other') ? 'block' : 'none';
+            });
+            
+            // Form Submission
+            myForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                // Add more robust validation here as needed
+                console.log('Hotel request form submitted.');
+                window.location.href = 'hotel_search_results.html';
+            });
         });
     </script>
 </body>
