@@ -6,6 +6,30 @@
     <title>Ride History - Flog Ride</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- NEW: History Group Frames --- */
+        .history-group {
+            padding: 1rem;
+            border-radius: 0.75rem; /* 12px */
+            margin-bottom: 1.5rem; /* 24px */
+        }
+
+        .approved-group {
+            background-color: #f0f9ff; /* Light Blue */
+            border: 1px solid #e0f2fe;
+        }
+
+        .rejected-group {
+            background-color: #fff5f5; /* Light Red */
+            border: 1px solid #ffe3e3;
+        }
+
+        .section-title {
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #e5e7eb;
+            margin-bottom: 1rem;
+        }
+    </style>
 </head>
 <body>
     <div class="app-container">
@@ -16,84 +40,119 @@
                 <input type="text" class="input-field" placeholder="Search history (e.g., location, date)...">
             </div>
 
-            <h2 class="text-lg font-semibold text-ngo-blueblack mb-3">Upcoming</h2>
-            <div class="history-item">
-                <div class="history-item-header">
-                    <h3 class="history-item-title">Trip to Jos Field Office</h3>
-                    <span class="history-item-status status-upcoming">Upcoming</span>
-                </div>
-                <div class="history-item-details">
-                    <p>Date: 2025-05-20, 09:00 AM</p>
-                    <p>Vehicle: Sedan - Driver: TBC</p>
-                    <p>From: HQ Abuja To: Jos Office</p>
-                </div>
-                <div class="mt-2">
-                    <a href="ride_details.html?id=upcoming1" class="link text-sm">View Details</a>
-                    <a href="#" class="link text-sm text-red-500 ml-4" onclick="alert('Cancel trip functionality to be implemented.')">Cancel Trip</a>
-                </div>
-            </div>
+            <div class="history-group approved-group">
+                <h2 class="section-title">Approved Trips</h2>
             
-            <h2 class="text-lg font-semibold text-ngo-blueblack mb-3 mt-4">Ongoing</h2>
-             <div class="history-item">
-                <div class="history-item-header">
-                    <h3 class="history-item-title">Field Visit - Kaduna Rural Area</h3>
-                    <span class="history-item-status status-ongoing">Ongoing</span>
-                </div>
-                <div class="history-item-details">
-                    <p>Date: 2025-05-13 (Today)</p>
-                    <p>Vehicle: Toyota Hilux - Driver: Musa Ibrahim</p>
-                    <p>Status: En route to destination</p>
-                </div>
-                <div class="mt-2">
-                    <a href="ongoing_ride.html?id=current123" class="btn btn-primary btn-sm">Track Ride</a>
-                </div>
-            </div>
-            <h2 class="text-lg font-semibold text-ngo-blueblack mb-3 mt-4">Past Trips</h2>
-            <div class="history-item">
-                <div class="history-item-header">
-                    <h3 class="history-item-title">Airport Pickup - Lagos</h3>
-                     <span class="history-item-status status-completed">Completed</span>
-                </div>
-                <div class="history-item-details">
-                    <p>Date: 2025-05-01, 02:30 PM</p>
-                    <p>Vehicle: Toyota Corolla - Driver: Funke Adebayo</p>
-                    <p>Fare: NGN 8,000</p>
-                </div>
-                <div class="mt-2">
-                    <a href="ride_details.html?id=past1" class="link text-sm">View Details</a>
-                    <a href="rate_driver.html?tripId=past1" class="link text-sm ml-4">Rate Driver</a>
-                </div>
-            </div>
-
-            <div class="history-item">
-                <div class="history-item-header">
-                    <h3 class="history-item-title">Inter-State Drop Off - Ibadan</h3>
-                    <span class="history-item-status status-completed">Completed</span>
-                </div>
-                <div class="history-item-details">
-                    <p>Date: 2025-04-22, 10:00 AM</p>
-                    <p>Vehicle: Bus - Driver: Chinedu Okafor</p>
-                    <p>Fare: NGN 25,000</p>
-                </div>
-                 <div class="mt-2">
-                    <a href="ride_details.html?id=past2" class="link text-sm">View Details</a>
+                <h3 class="subsection-title">Upcoming</h3>
+                <div class="history-item">
+                    <div class="history-item-header">
+                        <h3 class="history-item-title">Trip to Jos Field Office</h3>
+                        <span class="history-item-status status-upcoming">Upcoming</span>
                     </div>
-            </div>
+                    <div class="history-item-details">
+                        <p>Date: 2025-09-10, 09:00 AM</p>
+                        <p>Vehicle: Sedan - Driver: TBC</p>
+                    </div>
+                    <div class="mt-2">
+                        <a href="ride_details.html?id=upcoming1" class="link text-sm">View Details</a>
+                        <a href="#" class="link text-sm text-red-500 ml-4">Cancel Trip</a>
+                    </div>
+                </div>
             
-            <div class="history-item">
-                <div class="history-item-header">
-                    <h3 class="history-item-title">Urban Errands - Cancelled</h3>
-                    <span class="history-item-status status-cancelled">Cancelled</span>
+                <h3 class="subsection-title">Ongoing</h3>
+                 <div class="history-item">
+                    <div class="history-item-header">
+                        <h3 class="history-item-title">Field Visit - Kaduna</h3>
+                        <span class="history-item-status status-ongoing">Ongoing</span>
+                    </div>
+                    <div class="history-item-details">
+                        <p>Date: 2025-09-03 (Today)</p>
+                        <p>Vehicle: Toyota Hilux - Driver: Musa Ibrahim</p>
+                    </div>
+                    <div class="mt-2">
+                        <a href="ongoing_ride.html?id=current123" class="btn btn-primary btn-sm">Track Ride</a>
+                    </div>
                 </div>
-                <div class="history-item-details">
-                    <p>Date: 2025-04-15</p>
-                    <p>Reason: Change of plans</p>
+            
+                <h3 class="subsection-title">Completed</h3>
+                <div class="history-item">
+                    <div class="history-item-header">
+                        <h3 class="history-item-title">Airport Pickup - Lagos</h3>
+                        <span class="history-item-status status-completed">Completed</span>
+                    </div>
+                    <div class="history-item-details">
+                        <p>Date: 2025-08-15, 02:30 PM</p>
+                        <p>Fare: NGN 8,000</p>
+                    </div>
+                    <div class="mt-2">
+                        <a href="ride_details.html?id=past1" class="link text-sm">View Details</a>
+                        <a href="rate_driver.html?tripId=past1" class="link text-sm ml-4">Rate Driver</a>
+                    </div>
                 </div>
-                 <div class="mt-2">
-                    <a href="ride_details.html?id=cancelled1" class="link text-sm">View Details</a>
+
+                <h3 class="subsection-title">Cancelled</h3>
+                <div class="history-item">
+                    <div class="history-item-header">
+                        <h3 class="history-item-title">Urban Errands</h3>
+                        <span class="history-item-status status-cancelled">Cancelled</span>
+                    </div>
+                    <div class="history-item-details">
+                        <p>Date: 2025-08-10</p>
+                        <p>Reason: You cancelled due to change of plans.</p>
+                    </div>
+                     <div class="mt-2">
+                        <a href="ride_details.html?id=cancelled1" class="link text-sm">View Details</a>
+                    </div>
                 </div>
             </div>
+            <div class="history-group rejected-group">
+                <h2 class="section-title">Rejected Trips</h2>
 
+                <h3 class="subsection-title">Postponed</h3>
+                <div class="history-item">
+                    <div class="history-item-header">
+                        <h3 class="history-item-title">Team Retreat - Abeokuta</h3>
+                        <span class="history-item-status status-rejected">Postponed</span>
+                    </div>
+                    <div class="history-item-details">
+                        <p>Original Date: 2025-08-28</p>
+                        <p>Reason: Awaiting new date confirmation from your end.</p>
+                    </div>
+                    <div class="mt-2">
+                        <a href="ride_details.html?id=postponed1" class="link text-sm">View Details & Resubmit</a>
+                    </div>
+                </div>
+
+                <h3 class="subsection-title">Rescheduled</h3>
+                <div class="history-item">
+                    <div class="history-item-header">
+                        <h3 class="history-item-title">Supply Drop-off</h3>
+                        <span class="history-item-status status-rejected">Rescheduled</span>
+                    </div>
+                    <div class="history-item-details">
+                        <p>Original Date: 2025-09-01, 11:00 AM</p>
+                        <p>Reason: Driver proposed a new time. Please check notifications.</p>
+                    </div>
+                    <div class="mt-2">
+                        <a href="notifications.html" class="link text-sm">Check Notifications</a>
+                    </div>
+                </div>
+
+                <h3 class="subsection-title">Cancelled</h3>
+                <div class="history-item">
+                    <div class="history-item-header">
+                        <h3 class="history-item-title">Inter-State Drop Off - Ibadan</h3>
+                        <span class="history-item-status status-cancelled">Cancelled</span>
+                    </div>
+                    <div class="history-item-details">
+                        <p>Original Date: 2025-08-25</p>
+                        <p>Reason: No available drivers were found.</p>
+                    </div>
+                    <div class="mt-2">
+                        <a href="ride_details.html?id=cancelled2" class="link text-sm">View Details</a>
+                    </div>
+                </div>
+            </div>
             </div>
 
         <nav class="bottom-nav">
