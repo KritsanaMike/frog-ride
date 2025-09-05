@@ -4,10 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Earnings - Flog Ride Driver</title>
-    <link rel="stylesheet" href="style.css"> <!-- Links to your existing style.css -->
+    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-
+        /* --- NEW: Payment Option Card Styles --- */
+        .payment-option-card {
+            background-color: #f0f9ff; /* Light blue background */
+            border: 1px solid #e0f2fe;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .payment-option {
+            background-color: #ffffff;
+            border: 1px solid #d1d5db;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .payment-option:hover {
+            border-color: var(--ngo-orange);
+        }
+        .payment-option input[type="radio"] {
+            margin-right: 1rem;
+            accent-color: var(--ngo-orange);
+        }
+        .payment-option-details {
+            display: flex;
+            flex-direction: column;
+        }
+        .payment-option-details strong {
+            font-weight: 600;
+            color: #1f2937;
+        }
+        .payment-option-details .service-charge {
+            font-size: 0.875rem;
+            color: #ef4444; /* Red color for emphasis */
+        }
     </style>
 </head>
 <body>
@@ -29,10 +67,39 @@
                 <a href="driver_payout_history.html" class="detail-link" onclick="alert('View Payout History (Mock)')">View Payout History</a>
             </div>
 
+            <!-- === NEW: PAYMENT OPTION SECTION === -->
+            <div class="payment-option-card">
+                <h3 class="text-lg font-semibold text-ngo-blueblack mb-3">Payment Option</h3>
+                <div id="paymentOptionsContainer">
+                    <label class="payment-option">
+                        <input type="radio" name="paymentOption" value="20" checked>
+                        <div class="payment-option-details">
+                            <strong>Three Days Payment Window</strong>
+                            <span class="service-charge">20% service charge</span>
+                        </div>
+                    </label>
+                    <label class="payment-option">
+                        <input type="radio" name="paymentOption" value="15">
+                        <div class="payment-option-details">
+                            <strong>One Week Payment Window</strong>
+                            <span class="service-charge">15% service charge</span>
+                        </div>
+                    </label>
+                    <label class="payment-option">
+                        <input type="radio" name="paymentOption" value="10">
+                        <div class="payment-option-details">
+                            <strong>Two Weeks Payment Window</strong>
+                            <span class="service-charge">10% service charge</span>
+                        </div>
+                    </label>
+                </div>
+                <button id="savePaymentBtn" class="btn btn-secondary w-full mt-3">Save Payment Preference</button>
+            </div>
+
             <h3 class="text-lg font-semibold text-ngo-blueblack mb-3">Recent Transactions</h3>
 
             <!-- Earning Item 1 -->
-            <div class="list-item-card earning-item">
+            <div class="list-item-card earning-item" data-fare="4000">
                 <div class="list-item-header">
                     <h4 class="list-item-title">Trip with Aisha B.</h4>
                     <span class="text-sm text-ngo-dark-gray">May 13, 2025</span>
@@ -43,13 +110,10 @@
                     <p class="commission">Commission (20%): -NGN 800</p>
                     <p class="fare-earned">You Earned: NGN 3,200</p>
                 </div>
-                <div class="mt-2">
-                    <a href="driver_ride_summary.html?tripId=pastTrip001" class="link text-sm">View Trip Summary</a>
-                </div>
             </div>
 
             <!-- Earning Item 2 -->
-            <div class="list-item-card earning-item">
+            <div class="list-item-card earning-item" data-fare="6875">
                 <div class="list-item-header">
                     <h4 class="list-item-title">Trip with Musa K.</h4>
                     <span class="text-sm text-ngo-dark-gray">May 12, 2025</span>
@@ -60,13 +124,10 @@
                     <p class="commission">Commission (20%): -NGN 1,375</p>
                     <p class="fare-earned">You Earned: NGN 5,500</p>
                 </div>
-                <div class="mt-2">
-                    <a href="driver_ride_summary.html?tripId=pastTrip002" class="link text-sm">View Trip Summary</a>
-                </div>
             </div>
             
             <!-- Earning Item 3 -->
-            <div class="list-item-card earning-item">
+            <div class="list-item-card earning-item" data-fare="22000">
                 <div class="list-item-header">
                     <h4 class="list-item-title">Long Distance - Kaduna</h4>
                     <span class="text-sm text-ngo-dark-gray">May 10, 2025</span>
@@ -74,16 +135,10 @@
                 <div class="list-item-details">
                     <p>From: Abuja HQ To: Kaduna Site</p>
                     <p>Trip Fare: NGN 22,000</p>
-                    <p class="commission">Commission (15% - Special Rate): -NGN 3,300</p>
-                    <p class="fare-earned">You Earned: NGN 18,700</p>
-                </div>
-                <div class="mt-2">
-                    <a href="driver_ride_summary.html?tripId=longTrip001" class="link text-sm">View Trip Summary</a>
+                    <p class="commission">Commission (20%): -NGN 4,400</p>
+                    <p class="fare-earned">You Earned: NGN 17,600</p>
                 </div>
             </div>
-
-            <!-- No earnings placeholder -->
-            <!-- <p class="text-center text-ngo-dark-gray mt-8">No earnings recorded for this period.</p> -->
         </div>
 
         <!-- Bottom Navigation Bar for Driver App -->
@@ -92,7 +147,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
                 <span class="text-xs">Home</span>
             </a>
-            <a href="driver_earnings.html" class="flex flex-col items-center active"> <!-- Earnings is active -->
+            <a href="driver_earnings.html" class="flex flex-col items-center active">
                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
@@ -109,12 +164,11 @@
         </nav>
     </div>
     <script>
-        // Mock script to update earnings display based on period selection
         document.addEventListener('DOMContentLoaded', () => {
+            // Mock script for period selection
             const earningsPeriodSelect = document.getElementById('earningsPeriod');
             const earningsLabel = document.getElementById('earningsLabel');
             const totalEarningsAmount = document.getElementById('totalEarningsAmount');
-
             const mockEarningsData = {
                 today: { label: "Today's Total Earnings", amount: "NGN 8,700" },
                 weekly: { label: "This Week's Total Earnings", amount: "NGN 45,700" },
@@ -122,18 +176,51 @@
                 all_time: { label: "All Time Total Earnings", amount: "NGN 1,250,300" }
             };
 
-            if (earningsPeriodSelect && earningsLabel && totalEarningsAmount) {
+            if (earningsPeriodSelect) {
                 earningsPeriodSelect.addEventListener('change', function() {
-                    const selectedPeriod = this.value;
-                    const data = mockEarningsData[selectedPeriod];
+                    const data = mockEarningsData[this.value];
                     if (data) {
                         earningsLabel.textContent = data.label;
                         totalEarningsAmount.textContent = data.amount;
-                        // In a real app, you would also filter the list of transactions below.
                     }
                 });
-                // Initialize with default selection
                 earningsPeriodSelect.dispatchEvent(new Event('change'));
+            }
+
+            // --- NEW: Payment Option Logic ---
+            const paymentOptions = document.querySelectorAll('input[name="paymentOption"]');
+            const savePaymentBtn = document.getElementById('savePaymentBtn');
+            const earningItems = document.querySelectorAll('.earning-item');
+
+            function updateCommissions(commissionRate) {
+                earningItems.forEach(item => {
+                    const tripFare = parseFloat(item.dataset.fare);
+                    const commissionAmount = tripFare * (commissionRate / 100);
+                    const earnedAmount = tripFare - commissionAmount;
+
+                    const commissionEl = item.querySelector('.commission');
+                    const earnedEl = item.querySelector('.fare-earned');
+
+                    commissionEl.textContent = `Commission (${commissionRate}%): -NGN ${commissionAmount.toLocaleString()}`;
+                    earnedEl.textContent = `You Earned: NGN ${earnedAmount.toLocaleString()}`;
+                });
+            }
+
+            paymentOptions.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    updateCommissions(this.value);
+                });
+            });
+
+            if (savePaymentBtn) {
+                savePaymentBtn.addEventListener('click', function() {
+                    const selectedOption = document.querySelector('input[name="paymentOption"]:checked');
+                    if (selectedOption) {
+                        const selectedValue = selectedOption.value;
+                        console.log('Saving payment preference: ', selectedValue + '% service charge');
+                        alert(`Your payment preference has been saved: ${selectedValue}% service charge. (Mock save)`);
+                    }
+                });
             }
         });
     </script>

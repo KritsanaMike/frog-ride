@@ -1,14 +1,20 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Driver Registration - Flog Ride</title>
-    <link rel="stylesheet" href="style.css"> <!-- Links to your existing style.css -->
+    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    /* --- NEW: Form Section Border Style --- */
+    .form-section {
+        border: 1px solid #e5e7eb; /* Light gray border */
+        padding: 1rem;
+        border-radius: 0.75rem; /* 12px */
+        margin-bottom: 1.5rem; /* 24px */
+    }
+</style>
 </head>
 <body>
     <div class="app-container">
@@ -16,90 +22,126 @@
             <h1 class="page-header-title">Become a Flog Ride Driver</h1>
             <form id="driverRegistrationForm" class="w-full" style="max-height: calc(100vh - 100px); overflow-y: auto;">
                 
-                <h2 class="text-lg font-semibold text-ngo-blueblack mt-2 mb-3">Personal Information</h2>
-                <div>
-                    <label for="driverFullName" class="form-label">Full Name</label>
-                    <input type="text" id="driverFullName" class="input-field" placeholder="Your Full Name" required>
-                </div>
-                <div>
-                    <label for="driverPhone" class="form-label">Phone Number</label>
-                    <input type="tel" id="driverPhone" class="input-field" placeholder="+234 XXX XXX XXXX" required>
-                </div>
-                <div>
-                    <label for="driverEmail" class="form-label">Email Address (Optional)</label>
-                    <input type="email" id="driverEmail" class="input-field" placeholder="your.email@example.com">
-                </div>
-                 <div>
-                    <label for="driverPassword" class="form-label">Create Password</label>
-                    <input type="password" id="driverPassword" class="input-field" placeholder="Create a strong password" required>
+                <!-- === PERSONAL INFORMATION SECTION === -->
+                <div class="form-section">
+                    <h2 class="text-lg font-semibold text-ngo-blueblack mt-2 mb-3">Personal Information</h2>
+                    <div>
+                        <label for="driverFullName" class="form-label">Full Name</label>
+                        <input type="text" id="driverFullName" class="input-field" placeholder="Your Full Name" required>
+                    </div>
+                    <div>
+                        <label for="driverPhone" class="form-label">Phone Number</label>
+                        <input type="tel" id="driverPhone" class="input-field" placeholder="+234 XXX XXX XXXX" required>
+                    </div>
+                    <div>
+                        <label for="driverEmail" class="form-label">Email Address (Optional)</label>
+                        <input type="email" id="driverEmail" class="input-field" placeholder="your.email@example.com">
+                    </div>
+                    <div>
+                        <label for="stateOfOrigin" class="form-label">State of Origin</label>
+                        <input type="text" id="stateOfOrigin" class="input-field" placeholder="e.g., Anambra" required>
+                    </div>
+                    <div>
+                        <label for="stateOfResidence" class="form-label">State of Residence</label>
+                        <input type="text" id="stateOfResidence" class="input-field" placeholder="e.g., Lagos" required>
+                    </div>
+                    <div>
+                        <label for="residentialAddress" class="form-label">Residential Address</label>
+                        <textarea id="residentialAddress" class="input-field" rows="2" placeholder="Your full residential address" required></textarea>
+                    </div>
+                    <div>
+                        <label for="landmark" class="form-label">Major Landmark</label>
+                        <input type="text" id="landmark" class="input-field" placeholder="e.g., Near Central Mosque" required>
+                    </div>
+                    <div>
+                        <label for="officeAddress" class="form-label">Office Address (Optional)</label>
+                        <textarea id="officeAddress" class="input-field" rows="2" placeholder="Your office address"></textarea>
+                    </div>
+                    <div>
+                        <label class="form-label">Service Area(s) / Zones</label>
+                        <div class="space-y-2 mb-4 p-3 bg-gray-50 rounded-lg">
+                            <label class="flex items-center"><input type="checkbox" name="serviceZone" value="ne" class="form-checkbox"> North East</label>
+                            <label class="flex items-center"><input type="checkbox" name="serviceZone" value="nw" class="form-checkbox"> North West</label>
+                            <label class="flex items-center"><input type="checkbox" name="serviceZone" value="nc" class="form-checkbox"> North Central</label>
+                            <label class="flex items-center"><input type="checkbox" name="serviceZone" value="sw" class="form-checkbox"> South West</label>
+                            <label class="flex items-center"><input type="checkbox" name="serviceZone" value="se" class="form-checkbox"> South East</label>
+                            <label class="flex items-center"><input type="checkbox" name="serviceZone" value="ss" class="form-checkbox"> South South</label>
+                        </div>
+                         <p class="text-xs text-ngo-dark-gray -mt-2 mb-2">Select the geopolitical zones you operate in.</p>
+                    </div>
+                    <div>
+                        <label for="driverPassword" class="form-label">Create Password</label>
+                        <input type="password" id="driverPassword" class="input-field" placeholder="Create a strong password" required>
+                    </div>
                 </div>
 
-                <h2 class="text-lg font-semibold text-ngo-blueblack mt-4 mb-3">Vehicle Information</h2>
-                <div>
-                    <label for="vehicleType" class="form-label">Vehicle Type</label>
-                    <select id="vehicleType" class="select-field" required>
-                        <option value="" disabled selected>Select your vehicle type</option>
-                        <option value="motorbike">Motorbike</option>
-                        <option value="sedan">Car (Sedan)</option>
-                        <option value="bus">Minivan (Bus - 16 Seater)</option>
-                        <option value="4x4">4x4 Runner (Hilux, Jeep, Pick-up)</option>
-                        <option value="truck">Truck</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="vehicleMake" class="form-label">Vehicle Make</label>
-                    <input type="text" id="vehicleMake" class="input-field" placeholder="e.g., Toyota, Honda, BMW" required>
-                </div>
-                <div>
-                    <label for="vehicleYear" class="form-label">Year of Production</label>
-                    <input type="number" id="vehicleYear" class="input-field" placeholder="e.g., 2018" min="1990" max="2025" required> <!-- Adjust min/max as needed -->
-                </div>
-                <div>
-                    <label for="vehicleColor" class="form-label">Vehicle Color</label>
-                    <input type="text" id="vehicleColor" class="input-field" placeholder="e.g., Silver, Black" required>
-                </div>
-                <div>
-                    <label for="plateNumber" class="form-label">Vehicle Plate Number</label>
-                    <input type="text" id="plateNumber" class="input-field" placeholder="e.g., LAG 123 AB" required>
-                </div>
-                <div>
-                    <label for="chassisNumber" class="form-label">Chassis Number (VIN)</label>
-                    <input type="text" id="chassisNumber" class="input-field" placeholder="Enter vehicle chassis number" required>
-                </div>
-                 <div>
-                    <label for="vehiclePhoto" class="form-label">Vehicle Photo</label>
-                    <input type="file" id="vehiclePhoto" class="file-input-field" accept="image/*" required>
-                </div>
-                 <div>
-                    <label for="serviceAreas" class="form-label">Service Area(s) / Zones</label>
-                    <input type="text" id="serviceAreas" class="input-field" placeholder="e.g., Lagos Mainland, Abuja Central" required>
-                    <p class="text-xs text-ngo-dark-gray -mt-2 mb-2">Enter states or zones you operate in, separated by commas.</p>
+                <!-- === VEHICLE INFORMATION SECTION === -->
+                <div class="form-section">
+                    <h2 class="text-lg font-semibold text-ngo-blueblack mt-4 mb-3">Vehicle Information</h2>
+                    <div>
+                        <label for="vehicleType" class="form-label">Vehicle Type</label>
+                        <select id="vehicleType" class="select-field" required>
+                            <option value="" disabled selected>Select your vehicle type</option>
+                            <option value="sedan">Car (Sedan/Saloon)</option>
+                            <option value="suv">SUV</option>
+                            <option value="sienna">Sienna</option>
+                            <option value="sharon">Sharon</option>
+                            <option value="bus">Bus</option>
+                            <option value="pickup">Pickup</option>
+                            <option value="hilux">Hilux</option>
+                            <option value="truck">Truck</option>
+                            <option value="vip">VIP (Saloon/Sedan)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="vehicleMake" class="form-label">Vehicle Make</label>
+                        <select id="vehicleMake" class="select-field" required>
+                            <option value="" disabled selected>Select vehicle make</option>
+                            <option value="toyota">Toyota</option>
+                            <option value="honda">Honda</option>
+                            <option value="bmw">BMW</option>
+                            <option value="volkswagen">Volkswagen</option>
+                            <option value="mercedes">Mercedes-Benz</option>
+                            <option value="ford">Ford</option>
+                            <option value="nissan">Nissan</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div id="otherMakeContainer" style="display: none;">
+                        <label for="otherMakeInput" class="form-label">Please Specify Vehicle Make</label>
+                        <input type="text" id="otherMakeInput" class="input-field" placeholder="e.g., Kia, Hyundai">
+                    </div>
+                    <div>
+                        <label for="vehicleYear" class="form-label">Year of Production</label>
+                        <input type="number" id="vehicleYear" class="input-field" placeholder="e.g., 2018" min="1990" max="2025" required>
+                    </div>
+                    <div>
+                        <label for="vehicleColor" class="form-label">Vehicle Color</label>
+                        <input type="text" id="vehicleColor" class="input-field" placeholder="e.g., Silver, Black" required>
+                    </div>
+                    <div>
+                        <label for="plateNumber" class="form-label">Vehicle Plate Number</label>
+                        <input type="text" id="plateNumber" class="input-field" placeholder="e.g., LAG 123 AB" required>
+                    </div>
+                    <div>
+                        <label for="chassisNumber" class="form-label">Chassis Number (VIN)</label>
+                        <input type="text" id="chassisNumber" class="input-field" placeholder="Enter vehicle chassis number" required>
+                    </div>
+                    <div>
+                        <label for="vehiclePhoto" class="form-label">Vehicle Photo</label>
+                        <input type="file" id="vehiclePhoto" class="file-input-field" accept="image/*" required>
+                    </div>
                 </div>
 
                 <h2 class="text-lg font-semibold text-ngo-blueblack mt-4 mb-3">Vehicle Accessories (Required)</h2>
-                <div class="space-y-2 mb-4">
-                    <label class="flex items-center">
-                        <input type="checkbox" id="accessoryJack" name="vehicleAccessory" value="jack" class="form-checkbox h-5 w-5 text-ngo-orange mr-2 border-ngo-border-gray focus-ring-ngo-orange">
-                        Jack
-                    </label>
-                    <label class="flex items-center">
-                        <input type="checkbox" id="accessorySpareTyre" name="vehicleAccessory" value="spare_tyre" class="form-checkbox h-5 w-5 text-ngo-orange mr-2 border-ngo-border-gray focus-ring-ngo-orange">
-                        Spare Tyre
-                    </label>
-                    <label class="flex items-center">
-                        <input type="checkbox" id="accessoryFireExtinguisher" name="vehicleAccessory" value="fire_extinguisher" class="form-checkbox h-5 w-5 text-ngo-orange mr-2 border-ngo-border-gray focus-ring-ngo-orange">
-                        Fire Extinguisher
-                    </label>
-                    <label class="flex items-center">
-                        <input type="checkbox" id="accessoryTriangle" name="vehicleAccessory" value="triangle" class="form-checkbox h-5 w-5 text-ngo-orange mr-2 border-ngo-border-gray focus-ring-ngo-orange">
-                        Warning Triangle
-                    </label>
-                    <label class="flex items-center">
-                        <input type="checkbox" id="accessoryNeedleThread" name="vehicleAccessory" value="needle_thread" class="form-checkbox h-5 w-5 text-ngo-orange mr-2 border-ngo-border-gray focus-ring-ngo-orange">
-                        Needle and a thread (for tyre quick fix)
-                    </label>
+                <div class="space-y-2 mb-4 p-3 bg-gray-50 rounded-lg">
+                    <label class="flex items-center"><input type="checkbox" name="vehicleAccessory" value="jack" class="form-checkbox"> Jack</label>
+                    <label class="flex items-center"><input type="checkbox" name="vehicleAccessory" value="wheel_spanner" class="form-checkbox"> Wheel Spanner</label>
+                    <label class="flex items-center"><input type="checkbox" name="vehicleAccessory" value="spare_tyre" class="form-checkbox"> Spare Tyre</label>
+                    <label class="flex items-center"><input type="checkbox" name="vehicleAccessory" value="fire_extinguisher" class="form-checkbox"> Fire Extinguisher</label>
+                    <label class="flex items-center"><input type="checkbox" name="vehicleAccessory" value="triangle" class="form-checkbox"> Warning Triangle</label>
+                    <label class="flex items-center"><input type="checkbox" name="vehicleAccessory" value="needle_thread" class="form-checkbox"> Needle and a thread</label>
                 </div>
-
 
                 <h2 class="text-lg font-semibold text-ngo-blueblack mt-4 mb-3">Required Documents</h2>
                 <div>
@@ -116,7 +158,7 @@
                 </div>
                 
                 <div class="flex items-start mt-4 mb-4">
-                    <input type="checkbox" id="termsAgreement" class="form-checkbox h-5 w-5 text-ngo-orange mr-2 mt-1 border-ngo-border-gray focus-ring-ngo-orange" required>
+                    <input type="checkbox" id="termsAgreement" class="form-checkbox h-5 w-5 mr-2 mt-1" required>
                     <label for="termsAgreement" class="text-sm text-ngo-dark-gray">
                         I agree to the <a href="terms.html" class="link" target="_blank">Terms of Service</a> and <a href="privacy.html" class="link" target="_blank">Privacy Policy</a> of Flog Ride.
                     </label>
@@ -130,22 +172,37 @@
         </div>
     </div>
     <script>
-        document.getElementById('driverRegistrationForm').addEventListener('submit', function(event) {
-            event.preventDefault(); 
-            if (!document.getElementById('termsAgreement').checked) {
-                alert('You must agree to the Terms of Service and Privacy Policy.');
-                return;
-            }
-            // Basic check for at least one accessory (optional, based on "Required" in heading)
-            const accessories = document.querySelectorAll('input[name="vehicleAccessory"]:checked');
-            if (accessories.length === 0) {
-                // alert('Please select at least one vehicle accessory.'); // Or make this optional
-                // return;
-            }
-            console.log('Driver registration submitted for:', document.getElementById('driverFullName').value);
-            alert('Registration submitted! Your application will be reviewed. You will be notified once approved. (Mock submission)');
-            window.location.href = 'driver_login.html'; 
+        document.addEventListener('DOMContentLoaded', function() {
+            const myForm = document.getElementById('driverRegistrationForm');
+            const vehicleMakeSelect = document.getElementById('vehicleMake');
+            const otherMakeContainer = document.getElementById('otherMakeContainer');
+            const otherMakeInput = document.getElementById('otherMakeInput');
+
+            // Logic to show/hide the 'Other Vehicle Make' input field
+            vehicleMakeSelect.addEventListener('change', function() {
+                if (this.value === 'other') {
+                    otherMakeContainer.style.display = 'block';
+                    otherMakeInput.required = true;
+                } else {
+                    otherMakeContainer.style.display = 'none';
+                    otherMakeInput.required = false;
+                    otherMakeInput.value = ''; // Clear the input if another option is chosen
+                }
+            });
+
+            myForm.addEventListener('submit', function(event) {
+                event.preventDefault(); 
+                if (!document.getElementById('termsAgreement').checked) {
+                    alert('You must agree to the Terms of Service and Privacy Policy.');
+                    return;
+                }
+                
+                console.log('Driver registration submitted for:', document.getElementById('driverFullName').value);
+                alert('Registration submitted! Your application will be reviewed and you will be notified once approved. (Mock submission)');
+                window.location.href = 'driver_login.html'; 
+            });
         });
     </script>
 </body>
 </html>
+
