@@ -40,6 +40,12 @@
         .status-approved { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb;}
         .status-pending { background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba;}
         .status-rejected { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb;}
+        /* --- NEW: Style for expiring date text --- */
+        .expiring-soon {
+            color: #ef4444; /* Red color */
+            font-weight: 600;
+        }
+        /* --- END: Style for expiring date text --- */
     </style>
 </head>
 <body>
@@ -57,8 +63,9 @@
             <div class="document-status status-approved">
                 <p class="font-semibold">Status: Approved</p>
                 <!-- Added License Issue Year -->
-                <p class="text-xs">Issued: 2022 (Sample)</p>
-                <p class="text-xs">Expires: 2026-12-31 (Sample)</p>
+                <p class="text-xs">Issued: 2022-12 (Sample)</p>
+                <!-- EDITED: Added an ID and data-expiry attribute for the script to use -->
+                <p class="text-xs" id="expiryDateText" data-expiry="2025-09-30">Expires: 2025-09-30 (Sample)</p>
             </div>
             <div class="document-image-placeholder">
                 <!-- In a real app, an <img> tag would display the uploaded document -->
@@ -69,5 +76,25 @@
             <a href="driver_edit_profile.html#updateDriversLicense" ><button class="btn btn-secondary w-full">Upload New License</button></a>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const expiryDateElement = document.getElementById('expiryDateText');
+            
+            // Check if the expiry date element exists and has a date
+            if (expiryDateElement && expiryDateElement.dataset.expiry) {
+                const expiryDate = new Date(expiryDateElement.dataset.expiry);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0); // Normalize to the start of the day for accurate comparison
+
+                const thirtyDaysFromNow = new Date();
+                thirtyDaysFromNow.setDate(today.getDate() + 30);
+
+                // If the license expires between today and 30 days from now, add the red highlight class
+                if (expiryDate <= thirtyDaysFromNow && expiryDate >= today) {
+                    expiryDateElement.classList.add('expiring-soon');
+                }
+            }
+        });
+    </script>
 </body>
 </html>

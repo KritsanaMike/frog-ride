@@ -8,16 +8,38 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Basic styling for the checkmark icon */
         .vin-check-icon {
             display: none; /* Hidden by default */
-            margin-left: 8px; /* Space between text and icon */
+            margin-left: 8px;
             vertical-align: middle;
         }
         .vin-check-icon svg {
-            width: 18px;
-            height: 18px;
-            color: #28a745; /* Green color for checkmark */
+            width: 18px; height: 18px; color: #28a745;
+        }
+        /* Styles for Notification Dot on Nav Bar */
+        .notification-dot {
+            display: none; /* Hidden by default */
+            position: absolute;
+            top: 2px;
+            right: 24px; /* Adjust position to be over the icon */
+            width: 10px;
+            height: 10px;
+            background-color: #ef4444; /* Red */
+            border-radius: 50%;
+            border: 2px solid white;
+            animation: pulse-dot 1.5s infinite;
+        }
+        @keyframes pulse-dot {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        /* --- NEW: Style for expiry text indicator --- */
+        .expiry-text-indicator {
+            display: none; /* Hidden by default */
+            margin-left: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #ef4444; /* Red */
         }
     </style>
 </head>
@@ -25,7 +47,9 @@
 <body>
     <div class="app-container">
         <div class="page-content page-content-with-bottom-nav">
-            <h1 class="page-header-title">My Driver Profile</h1>
+            <h1 class="page-header-title">
+                My Driver Profile
+            </h1>
 
             <div class="profile-picture-container mb-4">
                 <span class="initials">JD</span>
@@ -37,7 +61,7 @@
                     <p class="profile-info-label">Full Name</p>
                     <p class="profile-info-value">John Doe (Sample)</p>
                 </div>
-                <div class="profile-info-item">
+                 <div class="profile-info-item">
                     <p class="profile-info-label">Phone Number</p>
                     <p class="profile-info-value">+234 801 234 5678</p>
                 </div>
@@ -45,60 +69,21 @@
                     <p class="profile-info-label">Email Address</p>
                     <p class="profile-info-value">john.doe@example.com</p>
                 </div>
-                <div class="profile-info-item">
-                    <p class="profile-info-label">State of Origin</p>
-                    <p class="profile-info-value">Lagos</p>
-                </div>
-                <div class="profile-info-item">
-                    <p class="profile-info-label">State of Residence</p>
-                    <p class="profile-info-value">Abuja</p>
-                </div>
-                <div class="profile-info-item">
-                    <p class="profile-info-label">Residential Address</p>
-                    <p class="profile-info-value">123 Sample Street, Wuse 2. Landmark: Near Grand Mosque</p>
-                </div>
-                <div class="profile-info-item">
-                    <p class="profile-info-label">Office Address (Optional)</p>
-                    <p class="profile-info-value">456 Business Road, Central Area</p>
-                </div>
-                <div class="profile-info-item">
-                    <p class="profile-info-label">Service Area(s)</p>
-                    <p class="profile-info-value">(North East, North West, North Central, South West, South East, and
-                        South South) </p>
-                </div>
-                <div class="profile-info-item">
+                 <div class="profile-info-item">
                     <p class="profile-info-label">Overall Rating</p>
-                    <p class="profile-info-value hotel-rating-stars">&#9733;&#9733;&#9733;&#9733;&#9734; (4.5 from 120
-                        trips)</p>
+                    <p class="profile-info-value hotel-rating-stars">&#9733;&#9733;&#9733;&#9733;&#9734; (4.5 from 120 trips)</p>
                 </div>
             </div>
 
             <div class="mb-6">
                 <h3 class="text-md font-semibold text-ngo-blueblack mb-2">Vehicle Information</h3>
-                <div class="profile-info-item">
+                 <div class="profile-info-item">
                     <p class="profile-info-label">Vehicle Type</p>
                     <p class="profile-info-value">Toyota Camry (Sedan)</p>
                 </div>
                 <div class="profile-info-item">
-                    <p class="profile-info-label">Vehicle Make</p>
-                    <p class="profile-info-value">Toyota</p>
-                </div>
-                <div class="profile-info-item">
-                    <p class="profile-info-label">Year of Production</p>
-                    <p class="profile-info-value">2018</p>
-                </div>
-                <div class="profile-info-item">
-                    <p class="profile-info-label">Vehicle Color</p>
-                    <p class="profile-info-value">Silver</p>
-                </div>
-                <div class="profile-info-item">
-                    <p class="profile-info-label">Vehicle Plate Number</p>
-                    <p class="profile-info-value">ABJ 123 XY</p>
-                </div>
-                <div class="profile-info-item">
                     <p class="profile-info-label">Vehicle Identification Number (VIN)</p>
                     <p class="profile-info-value" id="vinValue">JT123XYZ789ABC456
-                        <!-- Checkmark icon, hidden by default -->
                         <span class="vin-check-icon" id="vinCheckIcon">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -106,65 +91,41 @@
                         </span>
                     </p>
                 </div>
-                <div class="profile-info-item">
-                    <p class="profile-info-label">Vehicle Accessories</p>
-                    <ul class="profile-info-value">
-                        <li>Jack: Yes</li>
-                        <li>Spare Tyre: Yes</li>
-                        <li>Fire Extinguisher: Yes</li>
-                        <li>Triangle: Yes</li>
-                        <li>Needle and Thread: No (Sample)</li>
-                    </ul>
-                </div>
-
             </div>
 
             <div class="mb-6">
                 <h3 class="text-md font-semibold text-ngo-blueblack mb-2">My Documents</h3>
-                <a href="driver_view_license.html" class="document-link">View Driver's License</a>
+                <!-- EDITED: Added a span for the text notification -->
+                <a href="driver_view_license.html" class="document-link" id="licenseLink" data-expiry="2025-09-30">
+                    View Driver's License
+                    <span id="licenseExpiryText" class="expiry-text-indicator">(Expiring soon)</span>
+                </a>
                 <a href="driver_view_vehicle_docs.html" class="document-link">View Vehicle Documents</a>
-                <a href="driver_view_national_id.html" class="document-link">View National ID (Optional)</a>
+                <a href="driver_view_national_id.html" class="document-link">View National ID</a>
                 <a href="driver_view_vehicle_photo.html" class="document-link">View Vehicle Photo</a>
             </div>
-
 
             <a href="driver_edit_profile.html"><button class="btn btn-primary w-full mb-3">Edit Profile</button></a>
             <a href="driver_settings.html"><button class="btn btn-secondary w-full mb-3">Settings & Support</button></a>
             <a href="driver_login.html"><button class="btn btn-outline-danger w-full">Logout</button></a>
-
         </div> 
 
         <nav class="bottom-nav">
-            <a href="driver_home.html" class="flex flex-col items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                    stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                </svg>
+             <a href="driver_home.html" class="flex flex-col items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
                 <span class="text-xs">Home</span>
             </a>
             <a href="driver_earnings.html" class="flex flex-col items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
                 <span class="text-xs">Earnings</span>
             </a>
             <a href="driver_history.html" class="flex flex-col items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6">
-                    <path fill-rule="evenodd"
-                        d="M10 2a1 1 0 00-1 1v1H5a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V6a2 2 0 00-2-2h-4V3a1 1 0 00-1-1zm0 4H5V5h5v1zm0 2H5V7h5v1zm5 2H5v-1h10v1z"
-                        clip-rule="evenodd" />
-                </svg>
+                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6"><path fill-rule="evenodd" d="M10 2a1 1 0 00-1 1v1H5a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V6a2 2 0 00-2-2h-4V3a1 1 0 00-1-1zm0 4H5V5h5v1zm0 2H5V7h5v1zm5 2H5v-1h10v1z" clip-rule="evenodd" /></svg>
                 <span class="text-xs">History</span>
             </a>
-            <a href="driver_profile.html" class="flex flex-col items-center active"> <svg
-                    xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
+            <a href="driver_profile.html" class="flex flex-col items-center active" style="position: relative;">
+                 <span id="profileNotificationDot" class="notification-dot"></span>
+                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
                 <span class="text-xs">Profile</span>
             </a>
         </nav>
@@ -172,22 +133,38 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // VIN Check logic
             const vinValueElement = document.getElementById('vinValue');
             const vinCheckIcon = document.getElementById('vinCheckIcon');
-
             if (vinValueElement && vinCheckIcon) {
-                // Extract only the VIN string, removing the "(17-digit)" part
-                const vinText = vinValueElement.textContent.split(' ')[0].trim();
-                
-                // Check if the VIN is exactly 17 characters long
+                const vinText = vinValueElement.textContent.trim();
                 if (vinText.length === 17) {
-                    vinCheckIcon.style.display = 'inline-block'; // Show the icon
-                } else {
-                    vinCheckIcon.style.display = 'none'; // Ensure it's hidden if not 17
+                    vinCheckIcon.style.display = 'inline-block';
+                }
+            }
+            
+            // --- Expiry Notification Logic ---
+            const notificationDot = document.getElementById('profileNotificationDot');
+            const licenseLink = document.getElementById('licenseLink');
+            const licenseExpiryText = document.getElementById('licenseExpiryText'); // Get the new text span
+            
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            const thirtyDaysFromNow = new Date();
+            thirtyDaysFromNow.setDate(today.getDate() + 30);
+            
+            // Check ONLY the Driver's License Expiry
+            if (licenseLink && licenseLink.dataset.expiry) {
+                const licenseExpiryDate = new Date(licenseLink.dataset.expiry);
+                if (licenseExpiryDate <= thirtyDaysFromNow && licenseExpiryDate >= today) {
+                    // Show both the dot on the profile icon AND the text next to the link
+                    notificationDot.style.display = 'block';
+                    licenseExpiryText.style.display = 'inline';
                 }
             }
         });
     </script>
 </body>
-
 </html>
+
