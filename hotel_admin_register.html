@@ -4,112 +4,196 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hotel Admin Registration - Flog Ride</title>
-    <link rel="stylesheet" href="style.css"> <!-- Links to your existing style.css -->
+    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* .app-container { max-width: 420px; margin: auto; background-color: #fff; min-height: 100vh; box-shadow: 0 0 10px rgba(0,0,0,0.1); } */
-        /* .page-content { padding:20px; padding-bottom: 20px; max-height: 100vh; overflow-y: auto; } */
-        .portal-title { /* Re-scoped for this page if needed, or use .page-header-title */
-            font-size: 1.5rem; 
-            font-weight: 700; 
-            color: #1C2833; 
-            text-align: center;
-            margin-top: 1rem; /* Added margin top */
-            margin-bottom: 1.5rem; 
+        .portal-title {
+            font-size: 1.5rem; font-weight: 700; color: #1C2833; 
+            text-align: center; margin-top: 1rem; margin-bottom: 1.5rem; 
         }
-        .checkbox-group label {
-            margin-right: 1rem;
-            font-size: 0.875rem; /* text-sm */
+        /* --- MultiSelect Component Styles --- */
+        .multiselect-container { position: relative; }
+        #roomTypeSelectBtn {
+            text-align: left; padding-right: 2.5rem;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.75rem center;
+            background-repeat: no-repeat;
+            background-size: 1.25em;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
-        .grid-cols-sm-2 label { /* For smaller screens on checkbox group */
-             flex-basis: calc(50% - 0.5rem); /* Two columns with gap */
+        .multiselect-dropdown {
+            display: none; position: absolute; top: 100%; left: 0; right: 0;
+            background-color: white; border: 1px solid #d1d5db; border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); z-index: 100; margin-top: 0.25rem;
+            max-height: 250px; overflow-y: auto;
+        }
+        .multiselect-dropdown.show { display: block; }
+        .multiselect-option { display: block; padding: 0.75rem 1rem; cursor: pointer; }
+        .multiselect-option:hover { background-color: #f3f4f6; }
+        .multiselect-option input { margin-right: 0.75rem; }
+        
+        /* --- Room Rate Input Styles --- */
+        #roomRateContainer { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.75rem; }
+        .room-rate-item {
+            display: grid; grid-template-columns: 2fr 1fr; gap: 1rem;
+            align-items: center; background-color: #f9fafb;
+            padding: 0.5rem 0.75rem; border-radius: 0.5rem;
         }
     </style>
 </head>
 <body>
     <div class="app-container">
-        <div class="page-content" style="padding-bottom: 20px;"> <!-- Standard page content padding -->
+        <div class="page-content" style="padding-bottom: 20px;">
             <h1 class="portal-title">Register Your Hotel</h1>
             <form id="hotelRegistrationForm" class="w-full" style="max-height: calc(100vh - 100px); overflow-y: auto;">
                 
                 <h2 class="text-lg font-semibold text-ngo-blueblack mt-2 mb-3">Hotel Information</h2>
-                <div>
-                    <label for="hotelFullName" class="form-label">Hotel Full Name</label>
-                    <input type="text" id="hotelFullName" class="input-field" placeholder="e.g., The Grand Plaza Hotel" required>
-                </div>
-                <div>
-                    <label for="hotelContactEmail" class="form-label">Hotel Contact Email</label>
-                    <input type="email" id="hotelContactEmail" class="input-field" placeholder="contact@grandplazahotel.com" required>
-                </div>
-                 <div>
-                    <label for="hotelPassword" class="form-label">Create Account Password</label>
-                    <input type="password" id="hotelPassword" class="input-field" placeholder="Create a strong password" required>
-                </div>
-                <div>
-                    <label for="hotelAddress" class="form-label">Hotel Address</label>
-                    <textarea id="hotelAddress" class="input-field" rows="2" placeholder="Full address of your hotel" required></textarea>
-                </div>
-                 <div>
-                    <label for="hotelCity" class="form-label">City / Town</label>
-                    <input type="text" id="hotelCity" class="input-field" placeholder="e.g., Abuja" required>
-                </div>
-                 <div>
-                    <label for="hotelState" class="form-label">State</label>
-                    <input type="text" id="hotelState" class="input-field" placeholder="e.g., FCT" required>
-                </div>
+                <div><label for="hotelFullName" class="form-label">Hotel Full Name</label><input type="text" id="hotelFullName" class="input-field" placeholder="e.g., The Grand Plaza Hotel" required></div>
+                <div><label for="hotelContactEmail" class="form-label">Hotel Contact Email</label><input type="email" id="hotelContactEmail" class="input-field" placeholder="contact@grandplazahotel.com" required></div>
+                <div><label for="hotelPassword" class="form-label">Create Account Password</label><input type="password" id="hotelPassword" class="input-field" placeholder="Create a strong password" required></div>
+                <div><label for="hotelAddress" class="form-label">Hotel Address</label><textarea id="hotelAddress" class="input-field" rows="2" placeholder="Full address of your hotel" required></textarea></div>
+                <div><label for="hotelCity" class="form-label">City / Town</label><input type="text" id="hotelCity" class="input-field" placeholder="e.g., Abuja" required></div>
+                <div><label for="hotelState" class="form-label">State</label><input type="text" id="hotelState" class="input-field" placeholder="e.g., FCT" required></div>
+                
+                <!-- NEW: Manager Info -->
+                <h2 class="text-lg font-semibold text-ngo-blueblack mt-4 mb-3">Manager's Contact</h2>
+                <div><label for="managerName" class="form-label">Hotel Manager Name</label><input type="text" id="managerName" class="input-field" placeholder="e.g., Ada Okoro" required></div>
+                <div><label for="managerPhone" class="form-label">Hotel Manager Phone</label><input type="tel" id="managerPhone" class="input-field" placeholder="+234 XXX XXX XXXX" required></div>
 
+                <!-- NEW: Room & Rate Management -->
+                <h2 class="text-lg font-semibold text-ngo-blueblack mt-4 mb-3">Room & Rate Management</h2>
+                 <div>
+                    <label class="form-label">Select the room types available in your hotel</label>
+                    <div class="multiselect-container">
+                        <button type="button" id="roomTypeSelectBtn" class="select-field">Select room types...</button>
+                        <div id="roomTypeDropdown" class="multiselect-dropdown">
+                            <div id="roomTypeOptionsContainer"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="roomRateContainer"></div>
 
                 <h2 class="text-lg font-semibold text-ngo-blueblack mt-4 mb-3">Offered Services</h2>
-                <p class="text-sm text-ngo-dark-gray mb-2">Select all services your establishment offers:</p>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-2 gap-y-2 mb-4 checkbox-group"> <!-- Adjusted grid for mobile -->
-                    <label class="flex items-center"><input type="checkbox" name="hotelService" value="accommodation" class="form-checkbox h-5 w-5 text-ngo-orange mr-2" checked> Accommodation</label>
-                    <label class="flex items-center"><input type="checkbox" name="hotelService" value="restaurant" class="form-checkbox h-5 w-5 text-ngo-orange mr-2"> Restaurant / Bar</label>
-                    <label class="flex items-center"><input type="checkbox" name="hotelService" value="gym" class="form-checkbox h-5 w-5 text-ngo-orange mr-2"> Gym</label>
-                    <label class="flex items-center"><input type="checkbox" name="hotelService" value="pool" class="form-checkbox h-5 w-5 text-ngo-orange mr-2"> Swimming Pool</label>
-                    <label class="flex items-center"><input type="checkbox" name="hotelService" value="spa_massage" class="form-checkbox h-5 w-5 text-ngo-orange mr-2"> Spa / Massage</label>
-                    <label class="flex items-center"><input type="checkbox" name="hotelService" value="conference" class="form-checkbox h-5 w-5 text-ngo-orange mr-2"> Conference Hall</label>
-                    <label class="flex items-center"><input type="checkbox" name="hotelService" value="laundry" class="form-checkbox h-5 w-5 text-ngo-orange mr-2"> Laundry Service</label>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-2 gap-y-2 mb-4">
+                    <label class="flex items-center"><input type="checkbox" name="hotelService" value="accommodation" class="form-checkbox" checked> Accommodation</label>
+                    <label class="flex items-center"><input type="checkbox" name="hotelService" value="restaurant" class="form-checkbox"> Restaurant / Bar</label>
+                    <label class="flex items-center"><input type="checkbox" name="hotelService" value="gym" class="form-checkbox"> Gym</label>
+                    <label class="flex items-center"><input type="checkbox" name="hotelService" value="pool" class="form-checkbox"> Swimming Pool</label>
                 </div>
-                 <div>
-                    <label for="otherServices" class="form-label">Other Services (Specify)</label>
-                    <input type="text" id="otherServices" class="input-field" placeholder="e.g., Airport Shuttle">
-                </div>
-
 
                 <h2 class="text-lg font-semibold text-ngo-blueblack mt-4 mb-3">Required Documents</h2>
-                <div>
-                    <label for="govRegCert" class="form-label">Government Registration Certificate (CAC)</label>
-                    <input type="file" id="govRegCert" class="file-input-field" accept=".pdf,image/*" required>
-                </div>
-                <div>
-                    <label for="opLicense" class="form-label">License of Operation</label>
-                    <input type="file" id="opLicense" class="file-input-field" accept=".pdf,image/*" required>
-                </div>
+                <div><label for="govRegCert" class="form-label">Government Registration Certificate (CAC)</label><input type="file" id="govRegCert" class="file-input-field" accept=".pdf,image/*" required></div>
+                <div><label for="opLicense" class="form-label">License of Operation</label><input type="file" id="opLicense" class="file-input-field" accept=".pdf,image/*" required></div>
                 
                 <div class="flex items-start mt-6 mb-4">
                     <input type="checkbox" id="hotelTermsAgreement" class="form-checkbox h-5 w-5 text-ngo-orange mr-2 mt-1" required>
-                    <label for="hotelTermsAgreement" class="text-sm text-ngo-dark-gray">
-                        I confirm authorization and agree to Flog Ride's <a href="terms.html" class="link" target="_blank">Partner Terms</a> & <a href="privacy.html" class="link" target="_blank">Privacy Policy</a>.
-                    </label>
+                    <label for="hotelTermsAgreement" class="text-sm text-ngo-dark-gray">I confirm authorization and agree to Flog Ride's <a href="terms.html" class="link" target="_blank">Partner Terms</a> & <a href="privacy.html" class="link" target="_blank">Privacy Policy</a>.</label>
                 </div>
 
                 <button type="submit" class="btn btn-primary w-full mt-4 mb-2">Submit Registration</button>
-                <p class="text-center text-ngo-dark-gray">
-                    Already a partner? <a href="hotel_admin_login.html" class="link">Login</a>
-                </p>
             </form>
         </div>
     </div>
     <script>
-        document.getElementById('hotelRegistrationForm').addEventListener('submit', function(event) {
-            event.preventDefault(); 
-            if (!document.getElementById('hotelTermsAgreement').checked) {
-                alert('You must agree to the Partner Terms and Privacy Policy.');
-                return;
+        document.addEventListener('DOMContentLoaded', function() {
+            // Room Type MultiSelect Elements & Data
+            const roomTypeSelectBtn = document.getElementById('roomTypeSelectBtn');
+            const roomTypeDropdown = document.getElementById('roomTypeDropdown');
+            const roomTypeOptionsContainer = document.getElementById('roomTypeOptionsContainer');
+            const roomRateContainer = document.getElementById('roomRateContainer');
+            const roomTypeData = [
+                { value: 'standard', text: 'Standard' },
+                { value: 'deluxe', text: 'Deluxe' },
+                { value: 'executive', text: 'Executive Room' },
+                { value: 'family', text: 'Family Room' },
+                { value: 'suite', text: 'Suite' },
+                { value: 'penthouse', text: 'Penthouse' },
+                { value: 'accessible', text: 'Accessible' },
+            ];
+            let selectedRoomTypes = new Map();
+
+            // --- Room Type & Rate Logic ---
+            function populateRoomTypeOptions() {
+                roomTypeOptionsContainer.innerHTML = '';
+                roomTypeData.forEach(room => {
+                    const optionLabel = document.createElement('label');
+                    optionLabel.className = 'multiselect-option';
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.value = room.value;
+                    checkbox.checked = selectedRoomTypes.has(room.value);
+                    
+                    checkbox.addEventListener('change', () => {
+                        if (checkbox.checked) {
+                            selectedRoomTypes.set(room.value, { text: room.text, rate: '' });
+                        } else {
+                            selectedRoomTypes.delete(room.value);
+                        }
+                        updateRoomTypeButtonText();
+                        renderRateInputs();
+                    });
+                    
+                    optionLabel.appendChild(checkbox);
+                    optionLabel.appendChild(document.createTextNode(room.text));
+                    roomTypeOptionsContainer.appendChild(optionLabel);
+                });
             }
-            console.log('Hotel registration submitted for:', document.getElementById('hotelFullName').value);
-            alert('Registration application submitted! Your hotel details will be reviewed. You will be notified once approved. (Mock submission)');
-            window.location.href = 'hotel_admin_login.html'; 
+
+            function renderRateInputs() {
+                roomRateContainer.innerHTML = '';
+                if (selectedRoomTypes.size > 0) {
+                    selectedRoomTypes.forEach((room, value) => {
+                        const itemDiv = document.createElement('div');
+                        itemDiv.className = 'room-rate-item';
+
+                        const itemLabel = document.createElement('label');
+                        itemLabel.className = 'form-label mb-0';
+                        itemLabel.textContent = `${room.text} Rate (NGN)`;
+                        
+                        const rateInput = document.createElement('input');
+                        rateInput.type = 'number';
+                        rateInput.className = 'input-field mb-0';
+                        rateInput.placeholder = 'e.g., 25000';
+                        rateInput.value = room.rate;
+                        rateInput.min = 0;
+                        rateInput.required = true;
+
+                        rateInput.addEventListener('change', (e) => {
+                           selectedRoomTypes.get(value).rate = e.target.value;
+                        });
+
+                        itemDiv.appendChild(itemLabel);
+                        itemDiv.appendChild(rateInput);
+                        roomRateContainer.appendChild(itemDiv);
+                    });
+                }
+            }
+
+            function updateRoomTypeButtonText() {
+                if (selectedRoomTypes.size === 0) {
+                    roomTypeSelectBtn.textContent = 'Select room types...';
+                } else {
+                    roomTypeSelectBtn.textContent = `${selectedRoomTypes.size} room type(s) selected`;
+                }
+            }
+            
+            roomTypeSelectBtn.addEventListener('click', () => roomTypeDropdown.classList.toggle('show'));
+            document.addEventListener('click', (e) => {
+                if (!roomTypeSelectBtn.contains(e.target) && !roomTypeDropdown.contains(e.target)) {
+                    roomTypeDropdown.classList.remove('show');
+                }
+            });
+            populateRoomTypeOptions();
+
+            // Form Submission
+            document.getElementById('hotelRegistrationForm').addEventListener('submit', function(event) {
+                event.preventDefault(); 
+                // In a real app, you would collect all data, including the `selectedRoomTypes` map.
+                console.log('Hotel registration submitted for:', document.getElementById('hotelFullName').value);
+                console.log('Selected Rooms and Rates:', Object.fromEntries(selectedRoomTypes));
+                alert('Registration application submitted! (Mock submission)');
+                window.location.href = 'hotel_admin_login.html'; 
+            });
         });
     </script>
 </body>

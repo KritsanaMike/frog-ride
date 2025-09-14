@@ -469,9 +469,23 @@
 
 <body class="portal-dashboard-body">
     <aside class="sidebar p-6">
-        <div class="sidebar-header mb-6 pb-4">
-            <div class="sidebar-logo mx-auto mb-2">FR</div>
-            <h2 class="sidebar-title text-white">Flog Ride Admin</h2>
+        <div class="text-center mb-6 pb-4 border-b border-gray-700">
+            <!-- EDITED: Added a relative container and the hover overlay -->
+            <label for="logoUpload" class="cursor-pointer group relative inline-block">
+                <img id="logoPreview" src="https://placehold.co/80x80/ff6b0b/white?text=FR" alt="Company Logo"
+                    class="w-20 h-20 rounded-full mx-auto object-cover border-2 border-gray-600 group-hover:border-ngo-orange transition-all">
+                <!-- NEW: Hover overlay with pen icon -->
+                <div
+                    class="absolute inset-0 bg-black bg-opacity-50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.5L14.732 3.732z" />
+                    </svg>
+                </div>
+            </label>
+            <input type="file" id="logoUpload" class="hidden" accept="image/*">
+            <h2 class="text-xl font-semibold text-white mt-4">Flog Ride Admin</h2>
         </div>
         <nav class="sidebar-nav flex-grow">
             <ul>
@@ -491,7 +505,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.241-.013a9.098 9.098 0 01-2.287 2.45M16.5 7.5V5.25A2.25 2.25 0 0014.25 3H7.5A2.25 2.25 0 005.25 5.25v13.5A2.25 2.25 0 007.5 21h6.75a2.25 2.25 0 002.25-2.25V16.5m-13.5-9M13.5 6H9m4.5 0v-2.25m0 2.25c1.5 0 3 .672 3 1.5s-1.5 1.5-3 1.5S10.5 8.172 10.5 7.5 12 6 13.5 6zm-9 9a9.095 9.095 0 002.25 5.537m14.25-5.537a9.095 9.095 0 01-2.25 5.537M3 18.75V7.5A2.25 2.25 0 015.25 5.25h13.5A2.25 2.25 0 0121 7.5v3.75m-16.5 7.5a9.094 9.094 0 01-2.25-5.537M3 14.25V7.5m18 6.75v-3.75M3 14.25L3 12m18 2.25l0-2.25m-18 2.25L3 12m18-1.5l0-2.25" />
                         </svg>
-                        NGO Staff
+                        Client
                     </a></li>
                 <li><a href="admin_driver_management.html">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -529,14 +543,17 @@
                         </svg>
                         All Rides Log
                     </a></li>
-                <li><a href="admin_bookings_log.html">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor">
+                <li><a href="admin_bookings_log.html"><svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-3.75h.008v.008H12v-.008z" />
-                        </svg>
-                        All Bookings Log
-                    </a></li>
+                        </svg>All Hotels Logs</a></li>
+                <li><a href="admin_payments.html" class="active"><svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
+                        </svg>Payments</a></li>
+
 
                 <li class="nav-section-title">Configuration</li>
                 <li><a href="admin_rates_config.html">
@@ -607,7 +624,7 @@
         </nav>
     </aside>
 
-     <main class="main-content-portal">
+    <main class="main-content-portal">
         <div class="flex justify-between items-center">
             <h1 class="portal-page-title">Vehicle Type Management</h1>
             <button class="btn btn-primary" onclick="openVehicleModal()">Add New Vehicle Type</button>
@@ -625,34 +642,139 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="divide-y">
                         <tr>
-                            <td><svg class="vehicle-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M14.25 21v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75v4.5m12-9a.75.75 0 00-.75-.75H3.75a.75.75 0 000 1.5h16.5a.75.75 0 00.75-.75zm-1.5-6a3 3 0 10-6 0 3 3 0 006 0zm-3 18.75a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5z" /></svg></td>
-                            <td>Motorcycle</td>
-                            <td>1</td>
-                            <td class="status-enabled">Enabled</td>
-                            <td><button class="btn btn-secondary btn-sm" onclick="openVehicleModal('Motorcycle', 1, 'Enabled')">Edit</button></td>
+                            <td class="p-4"><svg class="vehicle-icon" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106A48.554 48.554 0 0012 5.25c-2.773 0-5.491.235-8.135.667-.565.058-.987.538-.987 1.106v7.635M16.5 18.75a1.5 1.5 0 01-3 0m3 0V6.75" />
+                                </svg></td>
+                            <td class="px-4 py-3 font-medium">Car (Sedan/Saloon)</td>
+                            <td class="px-4 py-3">4</td>
+                            <td class="status-enabled px-4 py-3">Enabled</td>
+                            <td class="px-4 py-3"><button
+                                    class="bg-gray-200 text-gray-700 py-1 px-3 rounded text-xs hover:bg-gray-300"
+                                    onclick="openVehicleModal('Car (Sedan/Saloon)', 4, 'Enabled')">Edit</button></td>
                         </tr>
                         <tr>
-                            <td><svg class="vehicle-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106A48.554 48.554 0 0012 5.25c-2.773 0-5.491.235-8.135.667-.565.058-.987.538-.987 1.106v7.635M16.5 18.75a1.5 1.5 0 01-3 0m3 0V6.75" /></svg></td>
-                            <td>Car (Sedan)</td>
-                            <td>4</td>
-                            <td class="status-enabled">Enabled</td>
-                            <td><button class="btn btn-secondary btn-sm" onclick="openVehicleModal('Car (Sedan)', 4, 'Enabled')">Edit</button></td>
+                            <td class="p-4"><svg class="vehicle-icon" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106A48.554 48.554 0 0012 5.25c-2.773 0-5.491.235-8.135.667-.565.058-.987.538-.987 1.106v7.635M16.5 18.75a1.5 1.5 0 01-3 0m3 0V6.75" />
+                                </svg></td>
+                            <td class="px-4 py-3 font-medium">SUV</td>
+                            <td class="px-4 py-3">7</td>
+                            <td class="status-enabled px-4 py-3">Enabled</td>
+                            <td class="px-4 py-3"><button
+                                    class="bg-gray-200 text-gray-700 py-1 px-3 rounded text-xs hover:bg-gray-300"
+                                    onclick="openVehicleModal('SUV', 7, 'Enabled')">Edit</button></td>
                         </tr>
                         <tr>
-                             <td><svg class="vehicle-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a.75.75 0 01-.75-.75V6.75a.75.75 0 011.5 0v11.25a.75.75 0 01-.75.75zM12 6.75h.008v.008H12V6.75zm0 11.25h.008v.008H12v-.008zM12 3.75a.75.75 0 00-.75.75v.008h1.5V4.5a.75.75 0 00-.75-.75z" /><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h12A2.25 2.25 0 0120.25 6v12A2.25 2.25 0 0118 20.25H6A2.25 2.25 0 013.75 18V6z" /></svg></td>
-                            <td>Minivan (Bus)</td>
-                            <td>16</td>
-                            <td class="status-enabled">Enabled</td>
-                            <td><button class="btn btn-secondary btn-sm" onclick="openVehicleModal('Minivan (Bus)', 16, 'Enabled')">Edit</button></td>
+                            <td class="p-4"><svg class="vehicle-icon" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 18.75a.75.75 0 01-.75-.75V6.75a.75.75 0 011.5 0v11.25a.75.75 0 01-.75.75zM12 6.75h.008v.008H12V6.75zm0 11.25h.008v.008H12v-.008zM12 3.75a.75.75 0 00-.75.75v.008h1.5V4.5a.75.75 0 00-.75-.75z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M3.75 6A2.25 2.25 0 016 3.75h12A2.25 2.25 0 0120.25 6v12A2.25 2.25 0 0118 20.25H6A2.25 2.25 0 013.75 18V6z" />
+                                </svg></td>
+                            <td class="px-4 py-3 font-medium">Sienna</td>
+                            <td class="px-4 py-3">8</td>
+                            <td class="status-enabled px-4 py-3">Enabled</td>
+                            <td class="px-4 py-3"><button
+                                    class="bg-gray-200 text-gray-700 py-1 px-3 rounded text-xs hover:bg-gray-300"
+                                    onclick="openVehicleModal('Sienna', 8, 'Enabled')">Edit</button></td>
                         </tr>
-                         <tr>
-                            <td><svg class="vehicle-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10l2.5-1.5L8 17l2.5-1.5L13 16z" /><path stroke-linecap="round" stroke-linejoin="round" d="M17 16h2l1.375-4.125-2.438-2.437c-.375-.375-.625-.875-.625-1.438V6a1 1 0 00-1-1h-2" /></svg></td>
-                            <td>Pick-up Truck</td>
-                            <td>2</td>
-                            <td class="status-disabled">Disabled</td>
-                             <td><button class="btn btn-secondary btn-sm" onclick="openVehicleModal('Pick-up Truck', 2, 'Disabled')">Edit</button></td>
+                        <tr>
+                            <td class="p-4"><svg class="vehicle-icon" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 18.75a.75.75 0 01-.75-.75V6.75a.75.75 0 011.5 0v11.25a.75.75 0 01-.75.75zM12 6.75h.008v.008H12V6.75zm0 11.25h.008v.008H12v-.008zM12 3.75a.75.75 0 00-.75.75v.008h1.5V4.5a.75.75 0 00-.75-.75z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M3.75 6A2.25 2.25 0 016 3.75h12A2.25 2.25 0 0120.25 6v12A2.25 2.25 0 0118 20.25H6A2.25 2.25 0 013.75 18V6z" />
+                                </svg></td>
+                            <td class="px-4 py-3 font-medium">Sharon</td>
+                            <td class="px-4 py-3">7</td>
+                            <td class="status-enabled px-4 py-3">Enabled</td>
+                            <td class="px-4 py-3"><button
+                                    class="bg-gray-200 text-gray-700 py-1 px-3 rounded text-xs hover:bg-gray-300"
+                                    onclick="openVehicleModal('Sharon', 7, 'Enabled')">Edit</button></td>
+                        </tr>
+                        <tr>
+                            <td class="p-4"><svg class="vehicle-icon" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 18.75a.75.75 0 01-.75-.75V6.75a.75.75 0 011.5 0v11.25a.75.75 0 01-.75.75zM12 6.75h.008v.008H12V6.75zm0 11.25h.008v.008H12v-.008zM12 3.75a.75.75 0 00-.75.75v.008h1.5V4.5a.75.75 0 00-.75-.75z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M3.75 6A2.25 2.25 0 016 3.75h12A2.25 2.25 0 0120.25 6v12A2.25 2.25 0 0118 20.25H6A2.25 2.25 0 013.75 18V6z" />
+                                </svg></td>
+                            <td class="px-4 py-3 font-medium">Bus</td>
+                            <td class="px-4 py-3">16</td>
+                            <td class="status-enabled px-4 py-3">Enabled</td>
+                            <td class="px-4 py-3"><button
+                                    class="bg-gray-200 text-gray-700 py-1 px-3 rounded text-xs hover:bg-gray-300"
+                                    onclick="openVehicleModal('Bus', 16, 'Enabled')">Edit</button></td>
+                        </tr>
+                        <tr>
+                            <td class="p-4"><svg class="vehicle-icon" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10l2.5-1.5L8 17l2.5-1.5L13 16z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M17 16h2l1.375-4.125-2.438-2.437c-.375-.375-.625-.875-.625-1.438V6a1 1 0 00-1-1h-2" />
+                                </svg></td>
+                            <td class="px-4 py-3 font-medium">Pickup</td>
+                            <td class="px-4 py-3">3</td>
+                            <td class="status-enabled px-4 py-3">Enabled</td>
+                            <td class="px-4 py-3"><button
+                                    class="bg-gray-200 text-gray-700 py-1 px-3 rounded text-xs hover:bg-gray-300"
+                                    onclick="openVehicleModal('Pickup', 3, 'Enabled')">Edit</button></td>
+                        </tr>
+                        <tr>
+                            <td class="p-4"><svg class="vehicle-icon" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10l2.5-1.5L8 17l2.5-1.5L13 16z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M17 16h2l1.375-4.125-2.438-2.437c-.375-.375-.625-.875-.625-1.438V6a1 1 0 00-1-1h-2" />
+                                </svg></td>
+                            <td class="px-4 py-3 font-medium">Hilux</td>
+                            <td class="px-4 py-3">4</td>
+                            <td class="status-enabled px-4 py-3">Enabled</td>
+                            <td class="px-4 py-3"><button
+                                    class="bg-gray-200 text-gray-700 py-1 px-3 rounded text-xs hover:bg-gray-300"
+                                    onclick="openVehicleModal('Hilux', 4, 'Enabled')">Edit</button></td>
+                        </tr>
+                        <tr>
+                            <td class="p-4"><svg class="vehicle-icon" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10l2.5-1.5L8 17l2.5-1.5L13 16z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M17 16h2l1.375-4.125-2.438-2.437c-.375-.375-.625-.875-.625-1.438V6a1 1 0 00-1-1h-2" />
+                                </svg></td>
+                            <td class="px-4 py-3 font-medium">Truck</td>
+                            <td class="px-4 py-3">3</td>
+                            <td class="status-disabled px-4 py-3">Disabled</td>
+                            <td class="px-4 py-3"><button
+                                    class="bg-gray-200 text-gray-700 py-1 px-3 rounded text-xs hover:bg-gray-300"
+                                    onclick="openVehicleModal('Truck', 3, 'Disabled')">Edit</button></td>
+                        </tr>
+                        <!-- EDITED: Added the missing icon for VIP -->
+                        <tr>
+                            <td class="p-4"><svg class="vehicle-icon" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106A48.554 48.554 0 0012 5.25c-2.773 0-5.491.235-8.135.667-.565.058-.987.538-.987 1.106v7.635M16.5 18.75a1.5 1.5 0 01-3 0m3 0V6.75" />
+                                </svg></td>
+                            <td class="px-4 py-3 font-medium">VIP (Saloon/Sedan)</td>
+                            <td class="px-4 py-3">4</td>
+                            <td class="status-enabled px-4 py-3">Enabled</td>
+                            <td class="px-4 py-3"><button
+                                    class="bg-gray-200 text-gray-700 py-1 px-3 rounded text-xs hover:bg-gray-300"
+                                    onclick="openVehicleModal('VIP (Saloon/Sedan)', 4, 'Enabled')">Edit</button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -673,9 +795,10 @@
                     <label for="vehiclePassengers" class="form-label">Max. Passengers</label>
                     <input type="number" id="vehiclePassengers" class="input-field" placeholder="e.g., 4">
                 </div>
-                 <div class="mb-4">
+                <div class="mb-4">
                     <label for="vehicleIcon" class="form-label">Icon (SVG Code or URL)</label>
-                    <input type="text" id="vehicleIcon" class="input-field" placeholder="<svg>...</svg> or /icons/suv.png">
+                    <input type="text" id="vehicleIcon" class="input-field"
+                        placeholder="<svg>...</svg> or /icons/suv.png">
                 </div>
                 <div class="mb-4">
                     <label for="vehicleStatus" class="form-label">Status</label>
@@ -702,6 +825,19 @@
                     link.classList.remove('active');
                 }
             });
+            const logoUploadInput = document.getElementById('logoUpload');
+            const logoPreview = document.getElementById('logoPreview');
+
+            logoUploadInput.addEventListener('change', function (event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        logoPreview.src = e.target.result;
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
         });
         function openVehicleModal(name, passengers, status) {
             const modal = document.getElementById('vehicleModal');
@@ -724,7 +860,7 @@
             document.getElementById(modalId).style.display = 'none';
         }
 
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             if (event.target.classList.contains('modal')) {
                 event.target.style.display = 'none';
             }

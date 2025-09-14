@@ -5,162 +5,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Rooms - Flog Ride Hotel Admin</title>
-    <link rel="stylesheet" href="style.css"> <!-- Links to your existing style.css -->
-    <link
-        href="[https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap)"
-        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Ensure .room-card, .modal styles are in your main style.css or defined here */
         .room-card {
-            background-color: #fff;
-            border: 1px solid #D3D3D3;
-            border-radius: 0.5rem;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            background-color: #fff; border: 1px solid #D3D3D3; border-radius: 0.5rem;
+            padding: 1rem; margin-bottom: 1rem; box-shadow: 0 1px 2px rgba(0,0,0,0.05);
         }
-
-        .room-card h3 {
-            font-size: 1.125rem;
-            font-weight: 600;
-            color: #1C2833;
-            margin-bottom: 0.5rem;
-        }
-
-        .room-card p {
-            font-size: 0.875rem;
-            color: #6c757d;
-            margin-bottom: 0.25rem;
-        }
-
-        .room-card .price {
-            font-weight: bold;
-            color: #ff6b0b;
-        }
-
-        .room-actions button {
-            margin-right: 0.5rem;
-        }
-
+        .room-card h3 { font-size: 1.125rem; font-weight: 600; color: #1C2833; margin-bottom: 0.5rem; }
+        .room-card p { font-size: 0.875rem; color: #6c757d; margin-bottom: 0.25rem; }
+        .room-card .price { font-weight: bold; color: #ff6b0b; }
         .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            /* Ensure modal is on top */
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.5);
+            display: none; position: fixed; z-index: 1000; left: 0; top: 0;
+            width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5);
         }
-
         .modal-content {
-            background-color: #fefefe;
-            margin: 10% auto;
-            /* Adjusted for slightly less top margin */
-            padding: 20px;
-            border: 1px solid #888;
-            border-radius: 0.5rem;
-            width: 90%;
-            max-width: 550px;
-            /* Slightly wider for image upload */
+            background-color: #fefefe; margin: 10% auto; padding: 20px; border: 1px solid #888;
+            border-radius: 0.5rem; width: 90%; max-width: 550px;
         }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #e9ecef;
-            padding-bottom: 0.75rem;
-            margin-bottom: 1rem;
-        }
-
-        .modal-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-        }
-
-        .close-button {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-
-        .close-button:hover,
-        .close-button:focus {
-            color: black;
-            text-decoration: none;
-        }
-
-        /* Styles for image preview in modal - similar to hotel_admin_profile_manage.html */
-        .room-image-upload-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-            /* Smaller previews */
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-            margin-top: 0.5rem;
-        }
-
-        .room-image-preview-item {
-            position: relative;
-            border: 1px solid #D3D3D3;
-            border-radius: 0.25rem;
-            /* Smaller radius */
-            overflow: hidden;
-            aspect-ratio: 1 / 1;
-            /* Square previews */
-        }
-
-        .room-image-preview-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .room-image-preview-item .remove-image-btn {
-            position: absolute;
-            top: 2px;
-            right: 2px;
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            font-size: 10px;
-            line-height: 18px;
-            text-align: center;
-            cursor: pointer;
-        }
-
-        .room-upload-new-image-btn {
-            border: 2px dashed #D3D3D3;
-            border-radius: 0.25rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #6c757d;
-            cursor: pointer;
-            padding: 0.5rem;
-            min-height: 80px;
-            aspect-ratio: 1 / 1;
-        }
-
-        .room-upload-new-image-btn svg {
-            width: 1.5rem;
-            height: 1.5rem;
-            margin-bottom: 0.1rem;
-        }
-        .hidden {
-            display: none;
-        }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e9ecef; padding-bottom: 0.75rem; margin-bottom: 1rem; }
+        .modal-title { font-size: 1.25rem; font-weight: 600; }
+        .close-button { color: #aaa; float: right; font-size: 28px; font-weight: bold; background: none; border: none; cursor: pointer; }
+        .hidden { display: none; }
     </style>
 </head>
 
@@ -168,40 +34,33 @@
     <div class="app-container">
         <div class="top-bar">
             <a href="hotel_admin_dashboard.html" class="top-bar-icon leading">
-                <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" fill="none" viewBox="0 0 24 24"
-                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
                 </svg>
             </a>
             <h1 class="top-bar-title">Room Management</h1>
-            <div class="w-6"></div> <!-- Spacer -->
+            <div class="w-6"></div>
         </div>
 
         <div class="page-content page-content-with-top-bar page-content-with-bottom-nav">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl font-semibold text-ngo-blueblack">Your Room Types</h2>
                 <button class="btn btn-primary btn-sm" onclick="openAddRoomModal()">
-                    <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)"
-                        class="h-4 w-4 inline-block mr-1 -ml-1" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd"
-                            d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                            clip-rule="evenodd" />
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-1 -ml-1" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
                     </svg>
                     Add Room
                 </button>
             </div>
 
-            <!-- Room List -->
             <div id="roomListContainer">
                 <div class="room-card">
                     <h3>Standard King Room</h3>
                     <p>Rate: <span class="price">NGN 75,000</span> / night</p>
                     <p>Total: 10 | Available: <span class="font-semibold text-green-600">8</span></p>
                     <div class="mt-3 room-actions">
-                        <button class="btn btn-secondary btn-sm"
-                            onclick="openEditRoomModal('standardKing', 'Standard King Room', 'Comfortable room...', '75000', '10', '8')">Edit</button>
-                        <button class="btn btn-outline-danger btn-sm"
-                            onclick="deleteRoom('standardKing')">Delete</button>
+                        <button class="btn btn-secondary btn-sm" onclick="openEditRoomModal('standardKing', 'Standard', 'Standard King Room', 'Comfortable room...', '75000', '10', '8')">Edit</button>
+                        <button class="btn btn-outline-danger btn-sm" onclick="deleteRoom('standardKing')">Delete</button>
                     </div>
                 </div>
                 <div class="room-card">
@@ -209,8 +68,7 @@
                     <p>Rate: <span class="price">NGN 85,000</span> / night</p>
                     <p>Total: 5 | Available: <span class="font-semibold text-green-600">3</span></p>
                     <div class="mt-3 room-actions">
-                        <button class="btn btn-secondary btn-sm"
-                            onclick="openEditRoomModal('deluxeTwin', 'Deluxe Twin Room', 'Spacious room...', '85000', '5', '3')">Edit</button>
+                        <button class="btn btn-secondary btn-sm" onclick="openEditRoomModal('deluxeTwin', 'Deluxe', 'Deluxe Twin Room', 'Spacious room...', '85000', '5', '3')">Edit</button>
                         <button class="btn btn-outline-danger btn-sm" onclick="deleteRoom('deluxeTwin')">Delete</button>
                     </div>
                 </div>
@@ -219,36 +77,19 @@
                     <p>Rate: <span class="price">NGN 150,000</span> / night</p>
                     <p>Total: 3 | Available: <span class="font-semibold text-red-600">0</span></p>
                     <div class="mt-3 room-actions">
-                        <button class="btn btn-secondary btn-sm"
-                            onclick="openEditRoomModal('executiveSuite', 'Executive Suite', 'Luxurious suite...', '150000', '3', '0')">Edit</button>
-                        <button class="btn btn-outline-danger btn-sm"
-                            onclick="deleteRoom('executiveSuite')">Delete</button>
+                        <button class="btn btn-secondary btn-sm" onclick="openEditRoomModal('executiveSuite', 'Suite', 'Executive Suite', 'Luxurious suite...', '150000', '3', '0')">Edit</button>
+                        <button class="btn btn-outline-danger btn-sm" onclick="deleteRoom('executiveSuite')">Delete</button>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Bottom Navigation Bar for Hotel Admin (User Provided Structure) -->
+        
         <nav class="bottom-nav">
-            <a href="hotel_admin_dashboard.html" class="flex flex-col items-center active">
-                <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h7.5" /></svg>
-                <span class="text-xs">Dashboard</span>
-            </a>
-            <a href="hotel_admin_bookings_all.html" class="flex flex-col items-center">
-                <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-3.75h.008v.008H12v-.008z" /></svg>
-                <span class="text-xs">Bookings</span>
-            </a>
-            <a href="hotel_admin_room_management.html" class="flex flex-col items-center">
-                <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                <span class="text-xs">Rooms</span>
-            </a>
-            <a href="hotel_admin_profile_manage.html" class="flex flex-col items-center">
-                 <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z" /></svg>
-                <span class="text-xs">My Hotel</span>
-            </a>
-             <a href="hotel_admin_account_settings.html" class="flex flex-col items-center">
-                <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.646.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.438.992a6.759 6.759 0 010 1.255c0 .379.145.752.438.992l1.003.827c.446.368.539.995.26 1.431l-1.296 2.247a1.125 1.125 0 01-1.37.49l-1.217-.456c-.355-.133-.75-.072-1.075.124a6.57 6.57 0 01-.22.127c-.333.184-.583.496-.646.87l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.646-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.37-.49l-1.296-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.437-.992a6.758 6.758 0 010-1.255c0-.379-.145-.752-.438-.992l-1.004-.827a1.125 1.125 0 01-.26-1.431l1.296-2.247a1.125 1.125 0 011.37-.49l1.217.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.184.582-.496.646-.87l.213-1.28z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-                <span class="text-xs">Settings</span>
-            </a>
+            <a href="hotel_admin_dashboard.html" class="flex flex-col items-center active"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h7.5" /></svg><span class="text-xs">Dashboard</span></a>
+            <a href="hotel_admin_bookings_all.html" class="flex flex-col items-center"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-3.75h.008v.008H12v-.008z" /></svg><span class="text-xs">Bookings</span></a>
+            <a href="hotel_admin_room_management.html" class="flex flex-col items-center"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg><span class="text-xs">Rooms</span></a>
+            <a href="hotel_admin_profile_manage.html" class="flex flex-col items-center"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z" /></svg><span class="text-xs">My Hotel</span></a>
+            <a href="hotel_admin_account_settings.html" class="flex flex-col items-center"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.646.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.438.992a6.759 6.759 0 010 1.255c0 .379.145.752.438.992l1.003.827c.446.368.539.995.26 1.431l-1.296 2.247a1.125 1.125 0 01-1.37.49l-1.217-.456c-.355-.133-.75-.072-1.075.124a6.57 6.57 0 01-.22.127c-.333.184-.583.496-.646.87l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.646-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.37-.49l-1.296-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.437-.992a6.758 6.758 0 010-1.255c0-.379-.145-.752-.438-.992l-1.004-.827a1.125 1.125 0 01-.26-1.431l1.296-2.247a1.125 1.125 0 011.37-.49l1.217.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.184.582-.496.646-.87l.213-1.28z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg><span class="text-xs">Settings</span></a>
         </nav>
     </div>
 
@@ -260,49 +101,44 @@
                 <button class="close-button" onclick="closeRoomModal()">&times;</button>
             </div>
             <form id="roomForm" class="mt-4">
-                <input type="hidden" id="roomId"> <!-- For editing -->
+                <input type="hidden" id="roomId">
+                
+                <!-- EDITED: Room Category Dropdown -->
                 <div>
-                    <label for="roomTypeName" class="form-label">Room Type Name</label>
-                    <input type="text" id="roomTypeName" class="input-field" placeholder="e.g., Standard Double"
-                        required>
+                    <label for="roomCategory" class="form-label">Room Category</label>
+                    <select id="roomCategory" class="select-field" required>
+                        <option value="" disabled selected>Select a base category</option>
+                        <option value="Standard">Standard</option>
+                        <option value="Deluxe">Deluxe</option>
+                        <option value="Executive Room">Executive Room</option>
+                        <option value="Family Room">Family Room</option>
+                        <option value="Suite">Suite</option>
+                        <option value="Penthouse">Penthouse</option>
+                        <option value="Accessible">Accessible</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="roomTypeName" class="form-label">Room Name</label>
+                    <input type="text" id="roomTypeName" class="input-field" placeholder="e.g., Standard King with Balcony" required>
                 </div>
                 <div>
                     <label for="roomDescription" class="form-label">Description</label>
-                    <textarea id="roomDescription" class="input-field" rows="3"
-                        placeholder="Describe the room..."></textarea>
+                    <textarea id="roomDescription" class="input-field" rows="3" placeholder="Describe the room..."></textarea>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label for="roomRate" class="form-label">Rate per Night (NGN)</label>
-                        <input type="number" id="roomRate" class="input-field" placeholder="e.g., 50000" min="0"
-                            required>
+                        <input type="number" id="roomRate" class="input-field" placeholder="e.g., 50000" min="0" required>
                     </div>
                     <div>
                         <label for="totalRooms" class="form-label">Total Rooms of this Type</label>
-                        <input type="number" id="totalRooms" class="input-field" placeholder="e.g., 10" min="0"
-                            required>
+                        <input type="number" id="totalRooms" class="input-field" placeholder="e.g., 10" min="0" required>
                     </div>
                 </div>
-                <div>
+                 <div>
                     <label for="availableRooms" class="form-label">Currently Available Rooms</label>
                     <input type="number" id="availableRooms" class="input-field" placeholder="e.g., 8" min="0" required>
-                </div>
-
-                <!-- Image Upload Section for Room -->
-                <div class="mt-4">
-                    <label class="form-label">Room Photos (Optional, max 3)</label>
-                    <div class="room-image-upload-grid" id="roomImagePreviewContainer_modal">
-                        <!-- Upload new image button -->
-                        <label for="roomImageUpload_modal" class="room-upload-new-image-btn">
-                            <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" fill="none"
-                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                            </svg>
-                            Add
-                        </label>
-                        <input type="file" id="roomImageUpload_modal" class="hidden" accept="image/jpeg, image/png"
-                            multiple onchange="previewRoomImages(event, 'roomImagePreviewContainer_modal')" >
-                    </div>
                 </div>
 
                 <div class="mt-6 flex justify-end gap-3">
@@ -318,67 +154,30 @@
         const roomForm = document.getElementById('roomForm');
         const modalTitle = document.getElementById('modalTitle');
         const roomIdInput = document.getElementById('roomId');
+        const roomCategorySelect = document.getElementById('roomCategory'); // New element
         const roomTypeNameInput = document.getElementById('roomTypeName');
-        const roomDescriptionInput = document.getElementById('roomDescription');
         const roomRateInput = document.getElementById('roomRate');
         const totalRoomsInput = document.getElementById('totalRooms');
         const availableRoomsInput = document.getElementById('availableRooms');
 
         function openAddRoomModal() {
             roomForm.reset();
-            document.getElementById('roomImagePreviewContainer_modal').innerHTML = `
-                <label for="roomImageUpload_modal" class="room-upload-new-image-btn">
-                    <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
-                    Add
-                </label>
-                <input type="file" id="roomImageUpload_modal" class="hidden" accept="image/jpeg, image/png" multiple onchange="previewRoomImages(event, 'roomImagePreviewContainer_modal')">`;
             roomIdInput.value = '';
             modalTitle.textContent = 'Add New Room Type';
             roomModal.style.display = 'block';
         }
 
-        function openEditRoomModal(id, name, description, rate, total, available) {
+        function openEditRoomModal(id, category, name, description, rate, total, available) {
             roomForm.reset();
-            document.getElementById('roomImagePreviewContainer_modal').innerHTML = `
-                <label for="roomImageUpload_modal" class="room-upload-new-image-btn">
-                    <svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
-                    Add
-                </label>
-                <input type="file" id="roomImageUpload_modal" class="hidden" accept="image/jpeg, image/png" multiple onchange="previewRoomImages(event, 'roomImagePreviewContainer_modal')" >`;
-            // Mock: Add existing images if any
-            // For example, if room 'standardKing' has images:
-            if (id === 'standardKing') {
-                addMockImageToPreview('[https://placehold.co/100x100/ff6b0b/fff?text=Room1](https://placehold.co/100x100/ff6b0b/fff?text=Room1)', 'roomImagePreviewContainer_modal');
-                addMockImageToPreview('[https://placehold.co/100x100/1c2833/fff?text=View](https://placehold.co/100x100/1c2833/fff?text=View)', 'roomImagePreviewContainer_modal');
-            }
-
             roomIdInput.value = id;
+            roomCategorySelect.value = category; // Set the category dropdown
             roomTypeNameInput.value = name;
-            roomDescriptionInput.value = description;
             roomRateInput.value = rate;
             totalRoomsInput.value = total;
             availableRoomsInput.value = available;
             modalTitle.textContent = 'Edit Room Type';
             roomModal.style.display = 'block';
         }
-
-        function addMockImageToPreview(src, containerId) {
-            const previewContainer = document.getElementById(containerId);
-            const imgItem = document.createElement('div');
-            imgItem.classList.add('room-image-preview-item');
-            const img = document.createElement('img');
-            img.src = src;
-            img.alt = "Room Image";
-            const removeBtn = document.createElement('button');
-            removeBtn.type = 'button';
-            removeBtn.classList.add('remove-image-btn');
-            removeBtn.innerHTML = '&times;';
-            removeBtn.onclick = function () { removeRoomImagePreview(this); };
-            imgItem.appendChild(img);
-            imgItem.appendChild(removeBtn);
-            previewContainer.insertBefore(imgItem, previewContainer.querySelector('label[for="roomImageUpload_modal"]'));
-        }
-
 
         function closeRoomModal() {
             roomModal.style.display = 'none';
@@ -388,23 +187,19 @@
             event.preventDefault();
             const roomId = roomIdInput.value;
             const roomData = {
+                category: roomCategorySelect.value,
                 name: roomTypeNameInput.value,
-                description: roomDescriptionInput.value,
                 rate: roomRateInput.value,
                 total: totalRoomsInput.value,
                 available: availableRoomsInput.value,
-                images: [] // Collect image data here in a real app
             };
-
-            const imagePreviews = document.querySelectorAll('#roomImagePreviewContainer_modal .room-image-preview-item img');
-            imagePreviews.forEach(img => roomData.images.push(img.alt)); // Storing alt as mock data
 
             if (roomId) {
                 alert(`Room type "${roomData.name}" updated successfully! (Mock)`);
             } else {
                 alert(`New room type "${roomData.name}" added successfully! (Mock)`);
             }
-            console.log('Room Data:', roomData, 'ID:', roomId || 'New');
+            console.log('Room Data:', roomData);
             closeRoomModal();
         });
 
@@ -413,77 +208,18 @@
                 alert(`Room type ${roomId} deleted. (Mock)`);
             }
         }
-
-        window.onclick = function (event) {
-            if (event.target == roomModal) {
-                closeRoomModal();
-            }
-        }
-
-        function previewRoomImages(event, containerId) {
-            const previewContainer = document.getElementById(containerId);
-            const files = event.target.files;
-            const maxImages = 3; // Limit number of images
-            let existingImages = previewContainer.querySelectorAll('.room-image-preview-item').length;
-
-            if (files) {
-                for (let i = 0; i < files.length; i++) {
-                    if (existingImages >= maxImages) {
-                        alert(`You can upload a maximum of ${maxImages} images per room type.`);
-                        break;
-                    }
-                    const file = files[i];
-                    if (!file.type.startsWith('image/')) { continue }
-
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        const imgItem = document.createElement('div');
-                        imgItem.classList.add('room-image-preview-item');
-
-                        const img = document.createElement('img');
-                        img.src = e.target.result;
-                        img.alt = file.name; // Store filename for mock data
-
-                        const removeBtn = document.createElement('button');
-                        removeBtn.type = 'button';
-                        removeBtn.classList.add('remove-image-btn');
-                        removeBtn.innerHTML = '&times;';
-                        removeBtn.onclick = function () { removeRoomImagePreview(this); };
-
-                        imgItem.appendChild(img);
-                        imgItem.appendChild(removeBtn);
-
-                        previewContainer.insertBefore(imgItem, previewContainer.querySelector('label[for="roomImageUpload_modal"]'));
-                        existingImages++;
-                        if (existingImages >= maxImages) {
-                            previewContainer.querySelector('label[for="roomImageUpload_modal"]').style.display = 'none';
-                        }
-                    }
-                    reader.readAsDataURL(file);
-                }
-            }
-            event.target.value = null; // Clear file input
-        }
-
-        function removeRoomImagePreview(buttonElement) {
-            buttonElement.parentElement.remove();
-            const previewContainer = document.getElementById('roomImagePreviewContainer_modal');
-            let existingImages = previewContainer.querySelectorAll('.room-image-preview-item').length;
-            const maxImages = 3;
-            if (existingImages < maxImages) {
-                previewContainer.querySelector('label[for="roomImageUpload_modal"]').style.display = 'flex'; // Or 'block'
-            }
-        }
-
+        
+        window.onclick = (event) => {
+            if (event.target == roomModal) closeRoomModal();
+        };
 
         document.addEventListener('DOMContentLoaded', function () {
-            const currentPath = window.location.pathname.split("/").pop();
-            const navLinks = document.querySelectorAll('.bottom-nav a');
-            navLinks.forEach(link => {
+            // Active link logic for bottom nav
+            const currentPath = window.location.pathname.split("/").pop() || "hotel_admin_room_management.html";
+            document.querySelectorAll('.bottom-nav a').forEach(link => {
+                link.classList.remove('active');
                 if (link.getAttribute('href') === currentPath) {
                     link.classList.add('active');
-                } else {
-                    link.classList.remove('active');
                 }
             });
         });

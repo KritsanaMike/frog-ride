@@ -406,9 +406,23 @@
 
 <body class="portal-dashboard-body">
     <aside class="sidebar p-6">
-        <div class="sidebar-header mb-6 pb-4">
-            <div class="sidebar-logo mx-auto mb-2">FR</div>
-            <h2 class="sidebar-title text-white">Flog Ride Admin</h2>
+         <div class="text-center mb-6 pb-4 border-b border-gray-700">
+            <!-- EDITED: Added a relative container and the hover overlay -->
+            <label for="logoUpload" class="cursor-pointer group relative inline-block">
+                <img id="logoPreview" src="https://placehold.co/80x80/ff6b0b/white?text=FR" alt="Company Logo"
+                    class="w-20 h-20 rounded-full mx-auto object-cover border-2 border-gray-600 group-hover:border-ngo-orange transition-all">
+                <!-- NEW: Hover overlay with pen icon -->
+                <div
+                    class="absolute inset-0 bg-black bg-opacity-50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.5L14.732 3.732z" />
+                    </svg>
+                </div>
+            </label>
+            <input type="file" id="logoUpload" class="hidden" accept="image/*">
+            <h2 class="text-xl font-semibold text-white mt-4">Flog Ride Admin</h2>
         </div>
         <nav class="sidebar-nav flex-grow">
             <ul>
@@ -428,7 +442,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.241-.013a9.098 9.098 0 01-2.287 2.45M16.5 7.5V5.25A2.25 2.25 0 0014.25 3H7.5A2.25 2.25 0 005.25 5.25v13.5A2.25 2.25 0 007.5 21h6.75a2.25 2.25 0 002.25-2.25V16.5m-13.5-9M13.5 6H9m4.5 0v-2.25m0 2.25c1.5 0 3 .672 3 1.5s-1.5 1.5-3 1.5S10.5 8.172 10.5 7.5 12 6 13.5 6zm-9 9a9.095 9.095 0 002.25 5.537m14.25-5.537a9.095 9.095 0 01-2.25 5.537M3 18.75V7.5A2.25 2.25 0 015.25 5.25h13.5A2.25 2.25 0 0121 7.5v3.75m-16.5 7.5a9.094 9.094 0 01-2.25-5.537M3 14.25V7.5m18 6.75v-3.75M3 14.25L3 12m18 2.25l0-2.25m-18 2.25L3 12m18-1.5l0-2.25" />
                         </svg>
-                        NGO Staff
+                        Client
                     </a></li>
                 <li><a href="admin_driver_management.html">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -466,14 +480,9 @@
                         </svg>
                         All Rides Log
                     </a></li>
-                <li><a href="admin_bookings_log.html">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-3.75h.008v.008H12v-.008z" />
-                        </svg>
-                        All Bookings Log
-                    </a></li>
+               <li><a href="admin_bookings_log.html"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-3.75h.008v.008H12v-.008z" /></svg>All Hotels Logs</a></li>
+                <li><a href="admin_payments.html" class="active"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" /></svg>Payments</a></li>
+                
 
                 <li class="nav-section-title">Configuration</li>
                 <li><a href="admin_rates_config.html">
@@ -699,6 +708,19 @@
                     link.classList.add('active');
                 } else {
                     link.classList.remove('active');
+                }
+            });
+            const logoUploadInput = document.getElementById('logoUpload');
+            const logoPreview = document.getElementById('logoPreview');
+
+            logoUploadInput.addEventListener('change', function (event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        logoPreview.src = e.target.result;
+                    }
+                    reader.readAsDataURL(file);
                 }
             });
         });

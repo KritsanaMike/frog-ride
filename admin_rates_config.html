@@ -449,6 +449,27 @@
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
         }
+        .tab-button {
+            padding: 0.75rem 1.5rem;
+            border: 1px solid transparent;
+            border-bottom: 2px solid transparent;
+            background: none;
+            font-weight: 500;
+            color: #6b7280;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab-button.active {
+            color: #ff6b0b;
+            border-bottom-color: #ff6b0b;
+        }
+        .rate-table input {
+            width: 100px;
+            padding: 0.3rem 0.5rem;
+            border: 1px solid #D1D5DB;
+            border-radius: 0.375rem;
+            text-align: right;
+        }
     </style>
     <script>
         tailwind.config = {
@@ -469,9 +490,23 @@
 
 <body class="portal-dashboard-body">
     <aside class="sidebar p-6">
-        <div class="sidebar-header mb-6 pb-4">
-            <div class="sidebar-logo mx-auto mb-2">FR</div>
-            <h2 class="sidebar-title text-white">Flog Ride Admin</h2>
+         <div class="text-center mb-6 pb-4 border-b border-gray-700">
+            <!-- EDITED: Added a relative container and the hover overlay -->
+            <label for="logoUpload" class="cursor-pointer group relative inline-block">
+                <img id="logoPreview" src="https://placehold.co/80x80/ff6b0b/white?text=FR" alt="Company Logo"
+                    class="w-20 h-20 rounded-full mx-auto object-cover border-2 border-gray-600 group-hover:border-ngo-orange transition-all">
+                <!-- NEW: Hover overlay with pen icon -->
+                <div
+                    class="absolute inset-0 bg-black bg-opacity-50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.5L14.732 3.732z" />
+                    </svg>
+                </div>
+            </label>
+            <input type="file" id="logoUpload" class="hidden" accept="image/*">
+            <h2 class="text-xl font-semibold text-white mt-4">Flog Ride Admin</h2>
         </div>
         <nav class="sidebar-nav flex-grow">
             <ul>
@@ -491,7 +526,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.241-.013a9.098 9.098 0 01-2.287 2.45M16.5 7.5V5.25A2.25 2.25 0 0014.25 3H7.5A2.25 2.25 0 005.25 5.25v13.5A2.25 2.25 0 007.5 21h6.75a2.25 2.25 0 002.25-2.25V16.5m-13.5-9M13.5 6H9m4.5 0v-2.25m0 2.25c1.5 0 3 .672 3 1.5s-1.5 1.5-3 1.5S10.5 8.172 10.5 7.5 12 6 13.5 6zm-9 9a9.095 9.095 0 002.25 5.537m14.25-5.537a9.095 9.095 0 01-2.25 5.537M3 18.75V7.5A2.25 2.25 0 015.25 5.25h13.5A2.25 2.25 0 0121 7.5v3.75m-16.5 7.5a9.094 9.094 0 01-2.25-5.537M3 14.25V7.5m18 6.75v-3.75M3 14.25L3 12m18 2.25l0-2.25m-18 2.25L3 12m18-1.5l0-2.25" />
                         </svg>
-                        NGO Staff
+                        Client
                     </a></li>
                 <li><a href="admin_driver_management.html">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -529,14 +564,9 @@
                         </svg>
                         All Rides Log
                     </a></li>
-                <li><a href="admin_bookings_log.html">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-3.75h.008v.008H12v-.008z" />
-                        </svg>
-                        All Bookings Log
-                    </a></li>
+               <li><a href="admin_bookings_log.html"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-3.75h.008v.008H12v-.008z" /></svg>All Hotels Logs</a></li>
+                <li><a href="admin_payments.html" class="active"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" /></svg>Payments</a></li>
+                
 
                 <li class="nav-section-title">Configuration</li>
                 <li><a href="admin_rates_config.html">
@@ -610,150 +640,106 @@
         <h1 class="portal-page-title">Rate Configuration</h1>
 
         <div class="content-section">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="content-section-title mb-0 border-b-0">Manage Rates</h2>
-                <button class="btn btn-primary" onclick="openModal('rateModal')">Add New Rate Rule</button>
+            <div class="border-b border-gray-200">
+                <nav class="-mb-px flex gap-6" id="rateTabs">
+                    <button class="tab-button active" data-target="interState">Inter-State (Per KM)</button>
+                    <button class="tab-button" data-target="intraState">Intra-State (Local Running)</button>
+                    <button class="tab-button" data-target="interLga">Inter-LGA (Per KM)</button>
+                </nav>
             </div>
 
-            <div class="filter-bar">
-                <div>
-                    <label for="filterTripType" class="form-label text-sm">Filter by Trip Type</label>
-                    <select id="filterTripType" class="select-field p-2 text-sm">
-                        <option value="all">All Trip Types</option>
-                        <option value="Intra-State">Intra-State (All)</option>
-                        <option value="Inter-State">Inter-State Drop Off</option>
-                    </select>
+            <!-- Inter-State Rates Panel -->
+            <div id="interState" class="py-6">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left rate-table">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-3">Vehicle Type</th>
+                                <th class="px-4 py-3 text-center">North East</th>
+                                <th class="px-4 py-3 text-center">North West</th>
+                                <th class="px-4 py-3 text-center">North Central</th>
+                                <th class="px-4 py-3 text-center">South East</th>
+                                <th class="px-4 py-3 text-center">South West</th>
+                                <th class="px-4 py-3 text-center">South South</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b"><td class="px-4 py-2 font-medium">Car (Sedan/Saloon)</td><td class="p-2 text-center"><input type="number" value="500"></td><td class="p-2 text-center"><input type="number" value="500"></td><td class="p-2 text-center"><input type="number" value="500"></td><td class="p-2 text-center"><input type="number" value="500"></td><td class="p-2 text-center"><input type="number" value="500"></td><td class="p-2 text-center"><input type="number" value="500"></td></tr>
+                            <tr class="border-b bg-gray-50"><td class="px-4 py-2 font-medium">Bus</td><td class="p-2 text-center"><input type="number" value="650"></td><td class="p-2 text-center"><input type="number" value="650"></td><td class="p-2 text-center"><input type="number" value="650"></td><td class="p-2 text-center"><input type="number" value="650"></td><td class="p-2 text-center"><input type="number" value="650"></td><td class="p-2 text-center"><input type="number" value="650"></td></tr>
+                            <tr class="border-b"><td class="px-4 py-2 font-medium">Sharon</td><td class="p-2 text-center"><input type="number" value="600"></td><td class="p-2 text-center"><input type="number" value="600"></td><td class="p-2 text-center"><input type="number" value="600"></td><td class="p-2 text-center"><input type="number" value="600"></td><td class="p-2 text-center"><input type="number" value="600"></td><td class="p-2 text-center"><input type="number" value="600"></td></tr>
+                            <tr class="border-b bg-gray-50"><td class="px-4 py-2 font-medium">Sienna</td><td class="p-2 text-center"><input type="number" value="650"></td><td class="p-2 text-center"><input type="number" value="650"></td><td class="p-2 text-center"><input type="number" value="650"></td><td class="p-2 text-center"><input type="number" value="650"></td><td class="p-2 text-center"><input type="number" value="650"></td><td class="p-2 text-center"><input type="number" value="650"></td></tr>
+                            <tr class="border-b"><td class="px-4 py-2 font-medium">Pickup</td><td class="p-2 text-center"><input type="number" value="600"></td><td class="p-2 text-center"><input type="number" value="600"></td><td class="p-2 text-center"><input type="number" value="600"></td><td class="p-2 text-center"><input type="number" value="600"></td><td class="p-2 text-center"><input type="number" value="600"></td><td class="p-2 text-center"><input type="number" value="600"></td></tr>
+                            <tr class="border-b bg-gray-50"><td class="px-4 py-2 font-medium">Truck</td><td class="p-2 text-center"><input type="number" value="700"></td><td class="p-2 text-center"><input type="number" value="700"></td><td class="p-2 text-center"><input type="number" value="700"></td><td class="p-2 text-center"><input type="number" value="700"></td><td class="p-2 text-center"><input type="number" value="700"></td><td class="p-2 text-center"><input type="number" value="700"></td></tr>
+                            <tr class="border-b"><td class="px-4 py-2 font-medium">Hilux</td><td class="p-2 text-center"><input type="number" value="700"></td><td class="p-2 text-center"><input type="number" value="700"></td><td class="p-2 text-center"><input type="number" value="700"></td><td class="p-2 text-center"><input type="number" value="700"></td><td class="p-2 text-center"><input type="number" value="700"></td><td class="p-2 text-center"><input type="number" value="700"></td></tr>
+                            <tr class="border-b bg-gray-50"><td class="px-4 py-2 font-medium">SUV</td><td class="p-2 text-center"><input type="number" value="800"></td><td class="p-2 text-center"><input type="number" value="800"></td><td class="p-2 text-center"><input type="number" value="800"></td><td class="p-2 text-center"><input type="number" value="800"></td><td class="p-2 text-center"><input type="number" value="800"></td><td class="p-2 text-center"><input type="number" value="800"></td></tr>
+                            <tr class="border-b"><td class="px-4 py-2 font-medium">VIP (Saloon/Sedan)</td><td class="p-2 text-center"><input type="number" value="600"></td><td class="p-2 text-center"><input type="number" value="600"></td><td class="p-2 text-center"><input type="number" value="600"></td><td class="p-2 text-center"><input type="number" value="600"></td><td class="p-2 text-center"><input type="number" value="600"></td><td class="p-2 text-center"><input type="number" value="600"></td></tr>
+                        </tbody>
+                    </table>
                 </div>
-                <div>
-                    <label for="filterZone" class="form-label text-sm">Filter by Geopolitical Zone</label>
-                    <select id="filterZone" class="select-field p-2 text-sm">
-                        <option value="all">All Zones</option>
-                        <option value="North Central">North Central</option>
-                        <option value="Northeast">Northeast</option>
-                        <option value="Northwest">Northwest</option>
-                        <option value="Southeast">Southeast</option>
-                        <option value="South-south">South-south</option>
-                        <option value="Southwest">Southwest</option>
-                    </select>
+                <p class="text-sm text-gray-600 mt-4"><strong>Note:</strong> 10% increase due to hazards applies to trips to or from insecure states and/or states with dilapidated road conditions.</p>
+            </div>
+            
+            <!-- Intra-State Rates Panel -->
+            <div id="intraState" class="py-6" style="display: none;">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left rate-table">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-3">Vehicle Type</th>
+                                <th class="px-4 py-3 text-center">Drop off & Pick up</th>
+                                <th class="px-4 py-3 text-center">Half day (&lt; 4Hrs)</th>
+                                <th class="px-4 py-3 text-center">Full day (4-8 hours)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b"><td class="px-4 py-2 font-medium">Car (Sedan/Saloon)</td><td class="p-2 text-center"><input type="number" value="30000"></td><td class="p-2 text-center"><input type="number" value="40000"></td><td class="p-2 text-center"><input type="number" value="70000"></td></tr>
+                            <tr class="border-b bg-gray-50"><td class="px-4 py-2 font-medium">Bus</td><td class="p-2 text-center"><input type="number" value="39000"></td><td class="p-2 text-center"><input type="number" value="52000"></td><td class="p-2 text-center"><input type="number" value="91000"></td></tr>
+                            <tr class="border-b"><td class="px-4 py-2 font-medium">Sharon</td><td class="p-2 text-center"><input type="number" value="36000"></td><td class="p-2 text-center"><input type="number" value="48000"></td><td class="p-2 text-center"><input type="number" value="84000"></td></tr>
+                            <tr class="border-b bg-gray-50"><td class="px-4 py-2 font-medium">Sienna</td><td class="p-2 text-center"><input type="number" value="39000"></td><td class="p-2 text-center"><input type="number" value="52000"></td><td class="p-2 text-center"><input type="number" value="91000"></td></tr>
+                            <tr class="border-b"><td class="px-4 py-2 font-medium">Pickup</td><td class="p-2 text-center"><input type="number" value="36000"></td><td class="p-2 text-center"><input type="number" value="48000"></td><td class="p-2 text-center"><input type="number" value="84000"></td></tr>
+                            <tr class="border-b bg-gray-50"><td class="px-4 py-2 font-medium">Truck</td><td class="p-2 text-center"><input type="number" value="42000"></td><td class="p-2 text-center"><input type="number" value="56000"></td><td class="p-2 text-center"><input type="number" value="98000"></td></tr>
+                            <tr class="border-b"><td class="px-4 py-2 font-medium">Hilux</td><td class="p-2 text-center"><input type="number" value="42000"></td><td class="p-2 text-center"><input type="number" value="56000"></td><td class="p-2 text-center"><input type="number" value="98000"></td></tr>
+                            <tr class="border-b bg-gray-50"><td class="px-4 py-2 font-medium">SUV</td><td class="p-2 text-center"><input type="number" value="48000"></td><td class="p-2 text-center"><input type="number" value="64000"></td><td class="p-2 text-center"><input type="number" value="112000"></td></tr>
+                            <tr class="border-b"><td class="px-4 py-2 font-medium">VIP (Saloon/Sedan)</td><td class="p-2 text-center"><input type="number" value="36000"></td><td class="p-2 text-center"><input type="number" value="48000"></td><td class="p-2 text-center"><input type="number" value="84000"></td></tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
-            <div class="overflow-x-auto">
-                <table class="table-auto">
-                    <thead>
-                        <tr>
-                            <th>Vehicle Type</th>
-                            <th>Trip Type</th>
-                            <th>Geopolitical Zone</th>
-                            <th>Rate per KM</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Motorcycle</td>
-                            <td>Intra-State</td>
-                            <td>Southwest</td>
-                            <td>₦500</td>
-                            <td><button class="btn btn-secondary btn-sm"
-                                    onclick="openModal('rateModal', 'Motorcycle', 'Intra-State', 'Southwest', '500')">Edit</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Car (Sedan)</td>
-                            <td>Intra-State</td>
-                            <td>Southwest</td>
-                            <td>₦1,000</td>
-                            <td><button class="btn btn-secondary btn-sm"
-                                    onclick="openModal('rateModal', 'Car (Sedan)', 'Intra-State', 'Southwest', '1000')">Edit</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Minivan (Bus)</td>
-                            <td>Intra-State</td>
-                            <td>Southwest</td>
-                            <td>₦3,000</td>
-                            <td><button class="btn btn-secondary btn-sm"
-                                    onclick="openModal('rateModal', 'Minivan (Bus)', 'Intra-State', 'Southwest', '3000')">Edit</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>4x4 Runner</td>
-                            <td>Intra-State</td>
-                            <td>Southwest</td>
-                            <td>₦4,000</td>
-                            <td><button class="btn btn-secondary btn-sm"
-                                    onclick="openModal('rateModal', '4x4 Runner', 'Intra-State', 'Southwest', '4000')">Edit</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Car (Sedan)</td>
-                            <td>Inter-State Drop Off</td>
-                            <td>Nationwide</td>
-                            <td>₦1,000</td>
-                            <td><button class="btn btn-secondary btn-sm"
-                                    onclick="openModal('rateModal', 'Car (Sedan)', 'Inter-State Drop Off', 'Nationwide', '1000')">Edit</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>4x4 Runner</td>
-                            <td>Intra-State</td>
-                            <td>Northeast</td>
-                            <td>₦4,500</td>
-                            <td><button class="btn btn-secondary btn-sm"
-                                    onclick="openModal('rateModal', '4x4 Runner', 'Intra-State', 'Northeast', '4500')">Edit</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <!-- Inter-LGA Rates Panel -->
+            <div id="interLga" class="py-6" style="display: none;">
+                 <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left rate-table">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-3">Vehicle Type</th>
+                                <th class="px-4 py-3 text-center">&lt; 150KM from capital</th>
+                                <th class="px-4 py-3 text-center">150KM and above from capital*</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b"><td class="px-4 py-2 font-medium">Car (Sedan/Saloon)</td><td class="p-2 text-center"><input type="number" value="400"></td><td class="p-2 text-center"><input type="number" value="500"></td></tr>
+                            <tr class="border-b bg-gray-50"><td class="px-4 py-2 font-medium">Bus</td><td class="p-2 text-center"><input type="number" value="520"></td><td class="p-2 text-center"><input type="number" value="650"></td></tr>
+                            <tr class="border-b"><td class="px-4 py-2 font-medium">Sharon</td><td class="p-2 text-center"><input type="number" value="480"></td><td class="p-2 text-center"><input type="number" value="600"></td></tr>
+                            <tr class="border-b bg-gray-50"><td class="px-4 py-2 font-medium">Sienna</td><td class="p-2 text-center"><input type="number" value="520"></td><td class="p-2 text-center"><input type="number" value="650"></td></tr>
+                            <tr class="border-b"><td class="px-4 py-2 font-medium">Pickup</td><td class="p-2 text-center"><input type="number" value="480"></td><td class="p-2 text-center"><input type="number" value="600"></td></tr>
+                            <tr class="border-b bg-gray-50"><td class="px-4 py-2 font-medium">Truck</td><td class="p-2 text-center"><input type="number" value="560"></td><td class="p-2 text-center"><input type="number" value="700"></td></tr>
+                            <tr class="border-b"><td class="px-4 py-2 font-medium">Hilux</td><td class="p-2 text-center"><input type="number" value="560"></td><td class="p-2 text-center"><input type="number" value="700"></td></tr>
+                            <tr class="border-b bg-gray-50"><td class="px-4 py-2 font-medium">SUV</td><td class="p-2 text-center"><input type="number" value="640"></td><td class="p-2 text-center"><input type="number" value="800"></td></tr>
+                            <tr class="border-b"><td class="px-4 py-2 font-medium">VIP (Saloon/Sedan)</td><td class="p-2 text-center"><input type="number" value="480"></td><td class="p-2 text-center"><input type="number" value="600"></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                 <p class="text-sm text-gray-600 mt-4"><strong>* Night out LGAs.</strong><br><strong>Note:</strong> 10% increase due to hazards applies to trips to or from insecure states and/or states with dilapidated road conditions.</p>
+            </div>
+            
+            <div class="border-t pt-4 mt-6 text-right">
+                <button class="bg-ngo-orange text-white font-bold py-2 px-4 rounded hover:bg-opacity-90">Save All Rate Changes</button>
             </div>
         </div>
     </main>
 
-    <div id="rateModal" class="modal">
-        <div class="modal-content">
-            <span class="close-button" onclick="closeModal('rateModal')">&times;</span>
-            <h2 id="modalTitle" class="content-section-title">Add New Rate Rule</h2>
-            <form>
-                <div class="mb-4">
-                    <label for="vehicleType" class="form-label">Vehicle Type</label>
-                    <select id="vehicleType" class="select-field">
-                        <option>Motorcycle</option>
-                        <option>Car (Sedan)</option>
-                        <option>Minivan (Bus)</option>
-                        <option>4x4 Runner</option>
-                    </select>
-                </div>
-                <div class="mb-4">
-                    <label for="tripType" class="form-label">Trip Type</label>
-                    <select id="tripType" class="select-field">
-                        <option>Intra-State</option>
-                        <option>Inter-State Drop Off</option>
-                    </select>
-                </div>
-                <div class="mb-4">
-                    <label for="zone" class="form-label">Geopolitical Zone</label>
-                    <select id="zone" class="select-field">
-                        <option>Nationwide</option>
-                        <option>North Central</option>
-                        <option>Northeast</option>
-                        <option>Northwest</option>
-                        <option>Southeast</option>
-                        <option>South-south</option>
-                        <option>Southwest</option>
-                    </select>
-                </div>
-                <div class="mb-4">
-                    <label for="rate" class="form-label">Rate per KM (in NGN)</label>
-                    <input type="number" id="rate" class="input-field" placeholder="e.g., 1000">
-                </div>
-                <div class="flex justify-end gap-4">
-                    <button type="button" class="btn btn-secondary" onclick="closeModal('rateModal')">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Save Rate</button>
-                </div>
-            </form>
-        </div>
-    </div>
+   
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -765,6 +751,38 @@
                 } else {
                     link.classList.remove('active');
                 }
+            });
+            const logoUploadInput = document.getElementById('logoUpload');
+            const logoPreview = document.getElementById('logoPreview');
+
+            logoUploadInput.addEventListener('change', function (event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        logoPreview.src = e.target.result;
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+            // Script for tab functionality
+            const tabs = document.querySelectorAll('.tab-button');
+            const panels = document.querySelectorAll('.py-6'); // More generic selector for panels
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(item => item.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    const targetPanelId = tab.getAttribute('data-target');
+                    panels.forEach(panel => {
+                        if (panel.id === targetPanelId) {
+                            panel.style.display = 'block';
+                        } else {
+                            panel.style.display = 'none';
+                        }
+                    });
+                });
             });
         });
         function openModal(modalId, vehicle, trip, zone, rate) {

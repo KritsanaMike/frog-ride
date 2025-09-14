@@ -117,29 +117,6 @@
             border-color: #ff6b0b;
             color: #ff6b0b;
         }
-        .room-photo-section {
-            margin-bottom: 2rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        .photo-upload-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 1rem;
-        }
-        .photo-upload-slot {
-            aspect-ratio: 4 / 3; border: 2px dashed #d1d5db; border-radius: 0.5rem;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            text-align: center; cursor: pointer; position: relative; overflow: hidden;
-            background-color: #f9fafb; color: #6b7280; transition: border-color 0.2s;
-        }
-        .photo-upload-slot:hover { border-color: #ff6b0b; }
-        .photo-upload-slot img {
-            position: absolute; width: 100%; height: 100%; object-fit: cover;
-        }
-        .photo-upload-slot .label-text {
-            position: absolute; bottom: 0; left: 0; right: 0;
-            font-size: 0.75rem; font-weight: 500; z-index: 1;
-            background-color: rgba(0,0,0,0.5); color: white; padding: 4px;
-        }
     </style>
 </head>
 
@@ -235,85 +212,45 @@
                 </form>
             </div>
 
-           <!-- Photos Tab Content -->
+            <!-- Photos Tab Content -->
             <div id="photosTab" class="tab-content">
                 <form id="hotelPhotosForm" class="mt-4">
-                    <h3 class="text-lg font-semibold text-ngo-blueblack mb-1">Manage Room Photos</h3>
-                    <p class="text-sm text-ngo-dark-gray mb-6">Upload specific photos for each of your room types.</p>
-                    
-                    <!-- Section for Standard Room -->
-                    <div class="room-photo-section">
-                        <h4 class="text-md font-semibold text-gray-800 mb-3">Standard Room</h4>
-                        <div class="photo-upload-grid">
-                            <label class="photo-upload-slot"><input type="file" class="hidden" accept="image/*" onchange="previewPhoto(this, 'std-exterior')"><img id="std-exterior" src="https://placehold.co/400x300/EFEFEF/333333?text=Exterior"><span class="label-text">Exterior</span></label>
-                            <label class="photo-upload-slot"><input type="file" class="hidden" accept="image/*" onchange="previewPhoto(this, 'std-interior')"><img id="std-interior" src="https://placehold.co/400x300/EFEFEF/333333?text=Interior"><span class="label-text">Interior</span></label>
-                            <label class="photo-upload-slot"><input type="file" class="hidden" accept="image/*" onchange="previewPhoto(this, 'std-toilet')"><img id="std-toilet" src="https://placehold.co/400x300/EFEFEF/333333?text=Toilet"><span class="label-text">Toilet</span></label>
-                            <label class="photo-upload-slot"><input type="file" class="hidden" accept="image/*" onchange="previewPhoto(this, 'std-lobby')"><img id="std-lobby" src="https://placehold.co/400x300/EFEFEF/333333?text=Lobby"><span class="label-text">Lobby</span></label>
-                            <label class="photo-upload-slot"><input type="file" class="hidden" accept="image/*" onchange="previewPhoto(this, 'std-balcony')"><img id="std-balcony" src="https://placehold.co/400x300/EFEFEF/333333?text=Balcony"><span class="label-text">Balcony</span></label>
-                        </div>
-                    </div>
-                    
-                    <!-- Section for Deluxe Room -->
-                    <div class="room-photo-section">
-                        <h4 class="text-md font-semibold text-gray-800 mb-3">Deluxe Room</h4>
-                        <div class="photo-upload-grid">
-                            <label class="photo-upload-slot"><input type="file" class="hidden" accept="image/*" onchange="previewPhoto(this, 'dlx-exterior')"><img id="dlx-exterior" src="https://placehold.co/400x300/EFEFEF/333333?text=Exterior"><span class="label-text">Exterior</span></label>
-                            <label class="photo-upload-slot"><input type="file" class="hidden" accept="image/*" onchange="previewPhoto(this, 'dlx-interior')"><img id="dlx-interior" src="https://placehold.co/400x300/EFEFEF/333333?text=Interior"><span class="label-text">Interior</span></label>
-                            <label class="photo-upload-slot"><input type="file" class="hidden" accept="image/*" onchange="previewPhoto(this, 'dlx-toilet')"><img id="dlx-toilet" src="https://placehold.co/400x300/EFEFEF/333333?text=Toilet"><span class="label-text">Toilet</span></label>
-                            <label class="photo-upload-slot"><input type="file" class="hidden" accept="image/*" onchange="previewPhoto(this, 'dlx-lobby')"><img id="dlx-lobby" src="https://placehold.co/400x300/EFEFEF/333333?text=Lobby"><span class="label-text">Lobby</span></label>
-                            <label class="photo-upload-slot"><input type="file" class="hidden" accept="image/*" onchange="previewPhoto(this, 'dlx-balcony')"><img id="dlx-balcony" src="https://placehold.co/400x300/EFEFEF/333333?text=Balcony"><span class="label-text">Balcony</span></label>
-                        </div>
-                    </div>
+                    <h3 class="text-lg font-semibold text-ngo-blueblack mb-3">Manage Hotel Photos</h3>
+                    <p class="text-sm text-ngo-dark-gray mb-4">Upload high-quality images.</p>
 
-                     <!-- Section for Executive Room -->
-                    <div class="room-photo-section">
-                        <h4 class="text-md font-semibold text-gray-800 mb-3">Executive Room</h4>
-                        <div class="photo-upload-grid">
-                           <label class="photo-upload-slot"><input type="file" class="hidden" accept="image/*" onchange="previewPhoto(this, 'exec-exterior')"><img id="exec-exterior" src="https://placehold.co/400x300/EFEFEF/333333?text=Exterior"><span class="label-text">Exterior</span></label>
-                            <label class="photo-upload-slot"><input type="file" class="hidden" accept="image/*" onchange="previewPhoto(this, 'exec-interior')"><img id="exec-interior" src="https://placehold.co/400x300/EFEFEF/333333?text=Interior"><span class="label-text">Interior</span></label>
-                            <label class="photo-upload-slot"><input type="file" class="hidden" accept="image/*" onchange="previewPhoto(this, 'exec-toilet')"><img id="exec-toilet" src="https://placehold.co/400x300/EFEFEF/333333?text=Toilet"><span class="label-text">Toilet</span></label>
-                            <label class="photo-upload-slot"><input type="file" class="hidden" accept="image/*" onchange="previewPhoto(this, 'exec-lobby')"><img id="exec-lobby" src="https://placehold.co/400x300/EFEFEF/333333?text=Lobby"><span class="label-text">Lobby</span></label>
-                            <label class="photo-upload-slot"><input type="file" class="hidden" accept="image/*" onchange="previewPhoto(this, 'exec-balcony')"><img id="exec-balcony" src="https://placehold.co/400x300/EFEFEF/333333?text=Balcony"><span class="label-text">Balcony</span></label>
+                    <h3 class="text-lg font-semibold text-ngo-blueblack mb-3">Standard Room</h3>
+                    <div class="image-upload-grid" id="imagePreviewContainer">
+                        <div class="image-preview-item"><img
+                                src="https://placehold.co/400x300/cccccc/6c757d?text=Exterior View"
+                                alt="Hotel Exterior"><button type="button" class="remove-image-btn"
+                                onclick="removeImage(this)">&times;</button></div>
+                        <div class="image-preview-item"><img
+                                src="https://placehold.co/400x300/cccccc/6c757d?text=interior View"
+                                alt="Hotel Exterior"><button type="button" class="remove-image-btn"
+                                onclick="removeImage(this)">&times;</button></div>
+                        <div class="image-preview-item"><img
+                                src="https://placehold.co/400x300/cccccc/6c757d?text=toilet " alt="Lobby"><button
+                                type="button" class="remove-image-btn" onclick="removeImage(this)">&times;</button>
                         </div>
-                    </div>
-
-                    <!-- NEW: Section for Suite -->
-                    <div class="room-photo-section">
-                        <h4 class="text-md font-semibold text-gray-800 mb-3">Suite</h4>
-                        <div class="photo-upload-grid">
-                           <label class="photo-upload-slot"><input type="file" class="hidden" accept="image/*" onchange="previewPhoto(this, 'suite-exterior')"><img id="suite-exterior" src="https://placehold.co/400x300/EFEFEF/333333?text=Exterior"><span class="label-text">Exterior</span></label>
-                            <label class="photo-upload-slot"><input type="file" class="hidden" accept="image/*" onchange="previewPhoto(this, 'suite-interior')"><img id="suite-interior" src="https://placehold.co/400x300/EFEFEF/333333?text=Interior"><span class="label-text">Interior</span></label>
-                            <label class="photo-upload-slot"><input type="file" class="hidden" accept="image/*" onchange="previewPhoto(this, 'suite-toilet')"><img id="suite-toilet" src="https://placehold.co/400x300/EFEFEF/333333?text=Toilet"><span class="label-text">Toilet</span></label>
-                            <label class="photo-upload-slot"><input type="file" class="hidden" accept="image/*" onchange="previewPhoto(this, 'suite-lobby')"><img id="suite-lobby" src="https://placehold.co/400x300/EFEFEF/333333?text=Lobby"><span class="label-text">Lobby</span></label>
-                            <label class="photo-upload-slot"><input type="file" class="hidden" accept="image/*" onchange="previewPhoto(this, 'suite-balcony')"><img id="suite-balcony" src="https://placehold.co/400x300/EFEFEF/333333?text=Balcony"><span class="label-text">Balcony</span></label>
+                        <div class="image-preview-item"><img src="https://placehold.co/400x300/cccccc/6c757d?text=Lobby"
+                                alt="Lobby"><button type="button" class="remove-image-btn"
+                                onclick="removeImage(this)">&times;</button></div>
+                        <div class="image-preview-item"><img
+                                src="https://placehold.co/400x300/cccccc/6c757d?text=balcony view" alt="Lobby"><button
+                                type="button" class="remove-image-btn" onclick="removeImage(this)">&times;</button>
                         </div>
-                    </div>
+                        <label for="imageUpload" class="upload-new-image-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                            </svg>
+                            Add
+                        </label>
 
-                    <!-- NEW: Section for Penthouse -->
-                    <div class="room-photo-section">
-                        <h4 class="text-md font-semibold text-gray-800 mb-3">Penthouse</h4>
-                        <div class="photo-upload-grid">
-                           <label class="photo-upload-slot"><input type="file" class="hidden" accept="image/*" onchange="previewPhoto(this, 'pent-exterior')"><img id="pent-exterior" src="https://placehold.co/400x300/EFEFEF/333333?text=Exterior"><span class="label-text">Exterior</span></label>
-                            <label class="photo-upload-slot"><input type="file" class="hidden" accept="image/*" onchange="previewPhoto(this, 'pent-interior')"><img id="pent-interior" src="https://placehold.co/400x300/EFEFEF/333333?text=Interior"><span class="label-text">Interior</span></label>
-                            <label class="photo-upload-slot"><input type="file" class="hidden" accept="image/*" onchange="previewPhoto(this, 'pent-toilet')"><img id="pent-toilet" src="https://placehold.co/400x300/EFEFEF/333333?text=Toilet"><span class="label-text">Toilet</span></label>
-                            <label class="photo-upload-slot"><input type="file" class="hidden" accept="image/*" onchange="previewPhoto(this, 'pent-lobby')"><img id="pent-lobby" src="https://placehold.co/400x300/EFEFEF/333333?text=Lobby"><span class="label-text">Lobby</span></label>
-                            <label class="photo-upload-slot"><input type="file" class="hidden" accept="image/*" onchange="previewPhoto(this, 'pent-balcony')"><img id="pent-balcony" src="https://placehold.co/400x300/EFEFEF/333333?text=Balcony"><span class="label-text">Balcony</span></label>
-                        </div>
+                        <input type="file" id="imageUpload" class="hidden" accept="image/jpeg, image/png" multiple
+                            onchange="previewImages(event)">
                     </div>
-
-                    <!-- NEW: Section for Accessible -->
-                    <div class="room-photo-section">
-                        <h4 class="text-md font-semibold text-gray-800 mb-3">Accessible Room</h4>
-                        <div class="photo-upload-grid">
-                           <label class="photo-upload-slot"><input type="file" class="hidden" accept="image/*" onchange="previewPhoto(this, 'acc-exterior')"><img id="acc-exterior" src="https://placehold.co/400x300/EFEFEF/333333?text=Exterior"><span class="label-text">Exterior</span></label>
-                            <label class="photo-upload-slot"><input type="file" class="hidden" accept="image/*" onchange="previewPhoto(this, 'acc-interior')"><img id="acc-interior" src="https://placehold.co/400x300/EFEFEF/333333?text=Interior"><span class="label-text">Interior</span></label>
-                            <label class="photo-upload-slot"><input type="file" class="hidden" accept="image/*" onchange="previewPhoto(this, 'acc-toilet')"><img id="acc-toilet" src="https://placehold.co/400x300/EFEFEF/333333?text=Toilet"><span class="label-text">Toilet</span></label>
-                            <label class="photo-upload-slot"><input type="file" class="hidden" accept="image/*" onchange="previewPhoto(this, 'acc-lobby')"><img id="acc-lobby" src="https://placehold.co/400x300/EFEFEF/333333?text=Lobby"><span class="label-text">Lobby</span></label>
-                            <label class="photo-upload-slot"><input type="file" class="hidden" accept="image/*" onchange="previewPhoto(this, 'acc-balcony')"><img id="acc-balcony" src="https://placehold.co/400x300/EFEFEF/333333?text=Balcony"><span class="label-text">Balcony</span></label>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary w-full mt-6">Save All Photos</button>
+                    <button type="submit" class="btn btn-primary w-full mt-6">Save Photos</button>
                 </form>
             </div>
         </div>
@@ -427,20 +364,6 @@
                 document.querySelector('.tab-button').click();
             }
         });
-
-         // Photo preview function
-        function previewPhoto(inputElement, previewId) {
-            const file = inputElement.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const previewImage = document.getElementById(previewId);
-                    previewImage.src = e.target.result;
-                }
-                reader.readAsDataURL(file);
-            }
-        }
-
     </script>
 </body>
 

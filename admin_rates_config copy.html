@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Booking - Admin Portal</title>
+    <title>Rate Configuration - Admin Portal</title>
     <!-- <link rel="stylesheet" href="style.css"> Ensure this links to your main styles if not using CDN only -->
     <script src="https://cdn.tailwindcss.com"></script> <!-- Added Tailwind CDN -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -615,63 +615,155 @@
             </div>
         </nav>
     </aside>
-
     <main class="main-content-portal">
-        <h1 class="portal-page-title text-2xl font-bold text-ngo-blueblack mb-6">Manage Booking (ID: <span
-                id="manageBookingId">NGO1001</span>)</h1>
+        <h1 class="portal-page-title">Rate Configuration</h1>
 
         <div class="content-section">
-            <h2 class="content-section-title text-lg">Booking & Guest Information</h2>
-            <div class="booking-detail-grid">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="content-section-title mb-0 border-b-0">Manage Rates</h2>
+                <button class="btn btn-primary" onclick="openModal('rateModal')">Add New Rate Rule</button>
+            </div>
+
+            <div class="filter-bar">
                 <div>
-                    <p><strong class="text-ngo-dark-gray">Guest:</strong> <span id="detailGuestName">Aisha Bello</span>
-                    </p>
-                    <p><strong class="text-ngo-dark-gray">NGO:</strong> <span id="detailNgoName">Hope Foundation</span>
-                    </p>
-                    <p><strong class="text-ngo-dark-gray">Contact:</strong> <span id="detailNgoContact">+234 801 234
-                            5678</span></p>
+                    <label for="filterTripType" class="form-label text-sm">Filter by Trip Type</label>
+                    <select id="filterTripType" class="select-field p-2 text-sm">
+                        <option value="all">All Trip Types</option>
+                        <option value="Intra-State">Intra-State (All)</option>
+                        <option value="Inter-State">Inter-State Drop Off</option>
+                    </select>
                 </div>
                 <div>
-                    <p><strong class="text-ngo-dark-gray">Hotel:</strong> <span id="detailHotelName">The Grand
-                            Plaza</span></p>
-                    <p><strong class="text-ngo-dark-gray">Room Type:</strong> <span id="detailRoomType">Standard
-                            King</span></p>
-                    <p><strong class="text-ngo-dark-gray">Dates:</strong> <span id="detailDates">Jun 10 - Jun 12, 2025
-                            (2 nights)</span></p>
-                </div>
-                <div>
-                    <p><strong class="text-ngo-dark-gray">Total Price:</strong> <span class="font-bold text-ngo-orange"
-                            id="detailTotalPrice">NGN 150,000</span></p>
-                    <p><strong class="text-ngo-dark-gray">Current Status:</strong> <span
-                            class="status-pending font-semibold" id="detailBookingStatus">Pending Hotel
-                            Confirmation</span></p>
+                    <label for="filterZone" class="form-label text-sm">Filter by Geopolitical Zone</label>
+                    <select id="filterZone" class="select-field p-2 text-sm">
+                        <option value="all">All Zones</option>
+                        <option value="North Central">North Central</option>
+                        <option value="Northeast">Northeast</option>
+                        <option value="Northwest">Northwest</option>
+                        <option value="Southeast">Southeast</option>
+                        <option value="South-south">South-south</option>
+                        <option value="Southwest">Southwest</option>
+                    </select>
                 </div>
             </div>
-        </div>
 
-        <div class="content-section">
-            <h2 class="content-section-title text-lg">Admin Actions</h2>
-            <div class="flex flex-wrap gap-4">
-                <button class="btn btn-primary" style="background-color: #28a745;"
-                    onclick="adminConfirmBooking()">Confirm Booking (Override)</button>
-                <button class="btn btn-outline-danger" onclick="adminCancelBooking()">Cancel Booking (Notify
-                    Parties)</button>
-                <button class="btn btn-secondary" onclick="adminContactHotel()">Contact Hotel (Mock)</button>
-                <button class="btn btn-secondary" onclick="adminContactNgo()">Contact NGO (Mock)</button>
+            <div class="overflow-x-auto">
+                <table class="table-auto">
+                    <thead>
+                        <tr>
+                            <th>Vehicle Type</th>
+                            <th>Trip Type</th>
+                            <th>Geopolitical Zone</th>
+                            <th>Rate per KM</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Motorcycle</td>
+                            <td>Intra-State</td>
+                            <td>Southwest</td>
+                            <td>₦500</td>
+                            <td><button class="btn btn-secondary btn-sm"
+                                    onclick="openModal('rateModal', 'Motorcycle', 'Intra-State', 'Southwest', '500')">Edit</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Car (Sedan)</td>
+                            <td>Intra-State</td>
+                            <td>Southwest</td>
+                            <td>₦1,000</td>
+                            <td><button class="btn btn-secondary btn-sm"
+                                    onclick="openModal('rateModal', 'Car (Sedan)', 'Intra-State', 'Southwest', '1000')">Edit</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Minivan (Bus)</td>
+                            <td>Intra-State</td>
+                            <td>Southwest</td>
+                            <td>₦3,000</td>
+                            <td><button class="btn btn-secondary btn-sm"
+                                    onclick="openModal('rateModal', 'Minivan (Bus)', 'Intra-State', 'Southwest', '3000')">Edit</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4x4 Runner</td>
+                            <td>Intra-State</td>
+                            <td>Southwest</td>
+                            <td>₦4,000</td>
+                            <td><button class="btn btn-secondary btn-sm"
+                                    onclick="openModal('rateModal', '4x4 Runner', 'Intra-State', 'Southwest', '4000')">Edit</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Car (Sedan)</td>
+                            <td>Inter-State Drop Off</td>
+                            <td>Nationwide</td>
+                            <td>₦1,000</td>
+                            <td><button class="btn btn-secondary btn-sm"
+                                    onclick="openModal('rateModal', 'Car (Sedan)', 'Inter-State Drop Off', 'Nationwide', '1000')">Edit</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4x4 Runner</td>
+                            <td>Intra-State</td>
+                            <td>Northeast</td>
+                            <td>₦4,500</td>
+                            <td><button class="btn btn-secondary btn-sm"
+                                    onclick="openModal('rateModal', '4x4 Runner', 'Intra-State', 'Northeast', '4500')">Edit</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="mt-4">
-                <label for="adminNotes" class="form-label">Internal Admin Notes for this Booking:</label>
-                <textarea id="adminNotes" class="input-field" rows="3"
-                    placeholder="Add notes about intervention, communication, etc."></textarea>
-                <button class="btn btn-primary btn-sm mt-2">Save Notes</button>
-            </div>
         </div>
-
-        <div class="mt-6">
-            <a href="admin_bookings_log.html" class="link">&larr; Back to All Bookings Log</a>
-        </div>
-
     </main>
+
+    <div id="rateModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('rateModal')">&times;</span>
+            <h2 id="modalTitle" class="content-section-title">Add New Rate Rule</h2>
+            <form>
+                <div class="mb-4">
+                    <label for="vehicleType" class="form-label">Vehicle Type</label>
+                    <select id="vehicleType" class="select-field">
+                        <option>Motorcycle</option>
+                        <option>Car (Sedan)</option>
+                        <option>Minivan (Bus)</option>
+                        <option>4x4 Runner</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="tripType" class="form-label">Trip Type</label>
+                    <select id="tripType" class="select-field">
+                        <option>Intra-State</option>
+                        <option>Inter-State Drop Off</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="zone" class="form-label">Geopolitical Zone</label>
+                    <select id="zone" class="select-field">
+                        <option>Nationwide</option>
+                        <option>North Central</option>
+                        <option>Northeast</option>
+                        <option>Northwest</option>
+                        <option>Southeast</option>
+                        <option>South-south</option>
+                        <option>Southwest</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="rate" class="form-label">Rate per KM (in NGN)</label>
+                    <input type="number" id="rate" class="input-field" placeholder="e.g., 1000">
+                </div>
+                <div class="flex justify-end gap-4">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('rateModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Rate</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const currentPath = window.location.pathname.split("/").pop();
@@ -683,42 +775,51 @@
                     link.classList.remove('active');
                 }
             });
+            const logoUploadInput = document.getElementById('logoUpload');
+            const logoPreview = document.getElementById('logoPreview');
 
-            // Mock: Get booking ID from URL and populate details
-            const params = new URLSearchParams(window.location.search);
-            const bookingId = params.get('bookingId');
-            if (bookingId) {
-                document.getElementById('manageBookingId').textContent = bookingId;
-                // In a real app, fetch specific booking details using this ID
-                if (bookingId === "NGO124") { // Example of different data for another ID
-                    document.getElementById('detailGuestName').textContent = "Musa Ibrahim";
-                    document.getElementById('detailNgoName').textContent = "Green Earth Org";
-                    document.getElementById('detailHotelName').textContent = "Sheraton Abuja";
-                    document.getElementById('detailRoomType').textContent = "Standard Single";
-                    document.getElementById('detailDates').textContent = "Jun 05 - Jun 07, 2025 (2 nights)";
-                    document.getElementById('detailTotalPrice').textContent = "NGN 120,000";
-                    document.getElementById('detailBookingStatus').textContent = "Confirmed";
-                    document.getElementById('detailBookingStatus').className = "status-confirmed font-semibold";
+            logoUploadInput.addEventListener('change', function (event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        logoPreview.src = e.target.result;
+                    }
+                    reader.readAsDataURL(file);
                 }
-            }
+            });
         });
+        function openModal(modalId, vehicle, trip, zone, rate) {
+            const modal = document.getElementById(modalId);
+            modal.style.display = "block";
 
-        function adminConfirmBooking() {
-            alert("Booking administratively confirmed. Hotel and NGO will be notified. (Mock)");
-            document.getElementById('detailBookingStatus').textContent = "Confirmed (Admin Override)";
-            document.getElementById('detailBookingStatus').className = "status-confirmed font-semibold";
-        }
-        function adminCancelBooking() {
-            if (confirm("Are you sure you want to cancel this booking? This will notify all parties.")) {
-                alert("Booking administratively cancelled. (Mock)");
-                document.getElementById('detailBookingStatus').textContent = "Cancelled (by Admin)";
-                document.getElementById('detailBookingStatus').className = "status-cancelled font-semibold";
+            const modalTitle = modal.querySelector('#modalTitle');
+            if (rate) { // If rate exists, it's an edit
+                modalTitle.textContent = 'Edit Rate Rule';
+                document.getElementById('vehicleType').value = vehicle;
+                document.getElementById('tripType').value = trip;
+                document.getElementById('zone').value = zone;
+                document.getElementById('rate').value = rate;
+            } else { // It's a new entry
+                modalTitle.textContent = 'Add New Rate Rule';
+                document.getElementById('vehicleType').value = 'Car (Sedan)';
+                document.getElementById('tripType').value = 'Intra-State';
+                document.getElementById('zone').value = 'Nationwide';
+                document.getElementById('rate').value = '';
             }
         }
-        function adminContactHotel() { alert("Simulating contacting hotel... (Mock)"); }
-        function adminContactNgo() { alert("Simulating contacting NGO... (Mock)"); }
-    </script>
 
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+        }
+
+        window.onclick = function (event) {
+            const modal = document.getElementById('rateModal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 
 </body>
 
